@@ -17,7 +17,7 @@ function encrypt(text) {
 }
 
 // Register API
-router.post('/register', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { Name, student_id, mail, Password } = req.body;
     if (!Name || !student_id || !mail || !Password) {
