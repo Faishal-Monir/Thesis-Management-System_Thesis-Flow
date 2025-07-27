@@ -46,3 +46,19 @@ git checkout Faishal
 Note: For individual testing and merging to the test branch only ! 
 
 Repo name: Thesis-Management-System
+
+Merging two branches: 
+
+git checkout Test
+
+git pull origin Test
+
+git merge Faishal
+
+git add .    #only if there are conflicts
+git commit  # Only if a merge commit is required
+
+git push origin Test
+
+
+
