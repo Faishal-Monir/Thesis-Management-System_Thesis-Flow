@@ -2,16 +2,18 @@ const express = require('express');
 const router = express.Router();
 const { Userdata } = require('../models/schemas');
 
-
-// GET /usr - fetch all students
+// GET /usr - fetch all users 
 router.get('/', async (req, res) => {
   try {
-    const users = await Userdata.find({ usr_type: 'Student' });
+    const users = await Userdata.find({});
     return res.status(200).json(users);
   } catch (err) {
     res.status(500).json({ error: err.message || 'Server error.' });
   }
 });
+
+
+
 
 // GET /usr/:student_id - fetch user by student_id
 router.get('/:student_id', async (req, res) => {
@@ -30,6 +32,7 @@ router.get('/:student_id', async (req, res) => {
 
 
 
+
 // Decrypt function (same as used for encryption, but for decryption)
 const crypto = require('crypto');
 const ENCRYPTION_KEY = process.env.SECRET_KEY || '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'; // 64 hex chars
@@ -44,14 +47,6 @@ function decrypt(text) {
   decrypted += decipher.final('utf8');
   return decrypted;
 }
-
-
-
-
-
-
-
-
 
 // GET /usr/gopon/:student_id - decrypt and show password
 router.get('/password/:student_id', async (req, res) => {
@@ -72,21 +67,5 @@ router.get('/password/:student_id', async (req, res) => {
     res.status(500).json({ error: err.message || 'Server error.' });
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = router;

@@ -40,6 +40,9 @@ app.use('/register', domainSelectRoute);
 const domainUpdateRoute = require('./routes/domain_update');
 app.use('/update', domainUpdateRoute);
 
+// Email service route
+const emailServiceRoute = require('./routes/emailservice');
+app.use('/email', emailServiceRoute);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
