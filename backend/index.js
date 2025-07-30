@@ -28,6 +28,9 @@ app.use('/usr', viewUserRoute);
 const synopsisRoute = require('./routes/synopsis');
 app.use('/', synopsisRoute);
 
+// Password reset route
+const passResetRoute = require('./routes/pass_reset');
+app.use('/reset', passResetRoute);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
