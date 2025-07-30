@@ -24,6 +24,10 @@ app.use('/register', registerRoute);
 const viewUserRoute = require('./routes/view_user');
 app.use('/usr', viewUserRoute);
 
+//synopsis route
+const synopsisRoute = require('./routes/synopsis');
+app.use('/', synopsisRoute);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
