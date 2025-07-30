@@ -59,11 +59,18 @@ const domainSchema = new mongoose.Schema({
   Field: { type: String, required: true }
 }, { collection: 'domain' });
 
+
+// Approval Schema
 const approvalSchema = new mongoose.Schema({
   sup_id: { type: String, required: true },
   type: { type: String, required: true },
   status: { type: Number, enum: [0, 1], default: 0 }
 }, { collection: 'approval' });
+
+
+
+
+
 
 module.exports = {
   Userdata: mongoose.model('Userdata', userdataSchema),
