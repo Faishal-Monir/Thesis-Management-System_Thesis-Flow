@@ -32,5 +32,14 @@ app.use('/', synopsisRoute);
 const passResetRoute = require('./routes/pass_reset');
 app.use('/reset', passResetRoute);
 
+// Domain routes
+const domainSelectRoute = require('./routes/domain_select');
+app.use('/register', domainSelectRoute);
+
+// Domain update
+const domainUpdateRoute = require('./routes/domain_update');
+app.use('/update', domainUpdateRoute);
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

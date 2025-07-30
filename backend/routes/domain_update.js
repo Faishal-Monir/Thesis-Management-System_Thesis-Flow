@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Domain } = require('../models/schemas');
 
-
+// Update domain API
 router.post('/domain', async (req, res) => {
   try {
     const { sup_id, domain, Field } = req.body;
@@ -10,16 +10,16 @@ router.post('/domain', async (req, res) => {
       return res.status(400).json({ error: 'sup_id, domain, and Field are required.' });
     }
 
-    // Check if sup_id already exists
     const existing = await Domain.findOne({ sup_id });
-    if (existing) {
-      return res.status(409).json({ error: `sup_id ${sup_id} already exists. Registration aborted.` });
+    if (!existing) {
+      return res.status(404).json({ error: 'Domain entry not found for the given sup_id.' });
     }
 
-    const newDomain = new Domain({ sup_id, domain, Field });
-    await newDomain.save();
+    existing.domain = domain;
+    existing.Field = Field;
+    await existing.save();
 
-    res.status(201).json({ message: 'Domain registered successfully.', domain: newDomain });
+    res.status(200).json({ message: 'Domain updated successfully.', domain: existing });
   } catch (err) {
     res.status(500).json({ error: err.message || 'Server error.' });
   }
