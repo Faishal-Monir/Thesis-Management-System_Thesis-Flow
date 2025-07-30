@@ -1,6 +1,6 @@
 # Environment variables
 backend/.env_copy
-backend/.env
+# backend/.env
 
 # Logs
 logs
