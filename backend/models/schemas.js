@@ -38,11 +38,30 @@ const synopsisSchema = new mongoose.Schema({
   status: { type: Number, enum: [0, 1], required: true }
 }, { collection: 'synopsis' });
 
-// Resources Schema
+// // Resources Schema
+// const resourcesSchema = new mongoose.Schema({
+//   type: { type: Number, enum: [1, 2, 3], required: true },
+//   links: { type: [String], required: true } // array of strings
+// }, { collection: 'resources' });
+
+
+//Resources Schema
 const resourcesSchema = new mongoose.Schema({
-  type: { type: Number, enum: [1, 2, 3], required: true },
-  links: { type: [String], required: true } // array of strings
+  links: {
+    type: [String],
+    required: true,
+    validate: {
+      validator: function (arr) {
+        return arr.every(url =>
+          /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(url)
+        );
+      },
+      message: 'All links must be valid URLs.'
+    }
+  }
 }, { collection: 'resources' });
+
+
 
 // Consultation Schema
 const consultationSchema = new mongoose.Schema({
@@ -66,9 +85,6 @@ const approvalSchema = new mongoose.Schema({
   type: { type: String, required: true },
   status: { type: Number, enum: [0, 1], default: 0 }
 }, { collection: 'approval' });
-
-
-
 
 
 

@@ -44,5 +44,12 @@ app.use('/update', domainUpdateRoute);
 const emailServiceRoute = require('./routes/emailservice');
 app.use('/email', emailServiceRoute);
 
-const PORT = process.env.PORT || 5000;
+
+// Resources route
+const resourcesRoute = require('./routes/resources');
+app.use('/resources', resourcesRoute);
+
+
+
+const PORT = process.env.PORT || 1045;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
