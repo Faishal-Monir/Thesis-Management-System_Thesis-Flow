@@ -1,0 +1,127 @@
+/* Resources.css */
+.resources-container {
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.resources-title {
+  text-align: center;
+  color: #2c3e50;
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.resources-error {
+  color: red;
+  text-align: center;
+}
+
+.resources-list {
+  list-style: none;
+  padding: 0;
+}
+
+.resources-empty {
+  text-align: center;
+  color: #666;
+}
+
+.resource-item {
+  background-color: #f9f9f9;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.resource-links {
+  padding-left: 15px;
+}
+
+.resource-link {
+  margin-bottom: 8px;
+  color: #2980b9;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.resource-link:hover {
+  text-decoration: underline;
+}
+
+.resources-form {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.resources-input {
+  width: 70%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-right: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.resources-input:focus {
+  outline: none;
+  border-color: #2980b9;
+}
+
+.resources-button {
+  padding: 9px 15px;
+  border-radius: 4px;
+  border: none;
+  background-color: #2980b9;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.resources-button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.resources-button:hover:not(:disabled) {
+  background-color: #1c5980;
+}
+
+.success-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #27ae60;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+  animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.error-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #e74c3c; /* red */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+  animation: fadeOut 3s forwards;
+}
