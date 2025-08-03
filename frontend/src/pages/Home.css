@@ -1,0 +1,63 @@
+/* Home.css */
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.home-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.home-subtitle {
+  font-size: 1.5rem;
+  color: #222;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  font-family: 'Roboto Slab', serif;
+}
+
+.home-btn-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.home-btn {
+  font-size: 1.25rem;
+  padding: 0.75rem 2.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.home-btn.login {
+  background: #2563eb;
+  color: #fff;
+}
+.home-btn.login:hover {
+  background: #1d4ed8;
+}
+
+.home-btn.register {
+  background: #fff;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+}
+.home-btn.register:hover {
+  background: #2563eb;
+  color: #fff;
+}

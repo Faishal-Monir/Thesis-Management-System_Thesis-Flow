@@ -1,0 +1,97 @@
+.navbar-container {
+  width: 100vw;
+  background-color: #0a1624;
+  border-bottom: 2px solid #e5e7eb;
+  height: 72px; /* static height, change as needed */
+  min-height: 60px;
+  max-height: 60px;
+  padding: 0.5rem 0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.navbar-content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.navbar-logo {
+
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  /* No absolute positioning here */
+}
+
+.navbar-logo-image {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  /* No border-radius, so not round */
+  background: #fff;
+  border: 2px solid #fff;
+  display: block;
+}
+
+/* Push the logo text over so it's not on top of the image */
+.navbar-logo-text {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-left: 56px; /* space for logo image + a little gap */
+  white-space: nowrap;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-link {
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.navbar-link:hover {
+  color: #60a5fa;
+}
+
+.navbar-link.login {
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .navbar-content {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  .navbar-logo {
+    justify-content: flex-start;
+  }
+  .navbar-logo-image {
+    position: static;
+    transform: none;
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+  .navbar-logo-text {
+    margin-left: 0.5rem;
+  }
+  .navbar-links {
+    gap: 1rem;
+  }
+}
