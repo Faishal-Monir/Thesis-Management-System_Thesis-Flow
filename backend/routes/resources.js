@@ -16,24 +16,6 @@ router.get('/', async (req, res) => {
 
 
 // // POST /api/resources - Add a new set of links
-// router.post('/', async (req, res) => {
-//   try {
-//     const { links } = req.body;
-
-//     if (!Array.isArray(links) || links.length === 0) {
-//       return res.status(400).json({ message: 'links must be a non-empty array of URLs.' });
-//     }
-
-//     const newResource = new Resource({ links });
-//     const saved = await newResource.save();
-//     res.json({message: 'Resource added successfully'});
-
-//     res.status(201).json(saved);
-//   } catch (err) {
-//     res.status(500).json({ error: 'Server error', details: err.message });
-//   }
-// });
-
 router.post('/', async (req, res) => {
   try {
     const { links } = req.body;
