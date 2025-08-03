@@ -17,4 +17,32 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Frontend build artifacts
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.cache/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Test coverage
+frontend/coverage/
+
+# Temporary folders
+frontend/tmp/
+frontend/temp/
+
+# IDE and editor files
+frontend/.vscode/
+frontend/.idea/
+
 #test of git ignores
+
+# Utility scripts
+git-push.bat
