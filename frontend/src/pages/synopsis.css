@@ -1,0 +1,119 @@
+/* synopsis.css */
+.synopsis-page {
+  min-height: 100vh;
+  background: #eeefef;
+  padding: 2rem 1rem;
+}
+
+.synopsis-title {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-family: 'Ubuntu', serif;
+  color: #222;
+  letter-spacing: 1px;
+}
+
+.synopsis-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  max-height: calc(100vh - 6rem); /* Show all cards, adjust as needed */
+  padding-bottom: 2rem; /* Ensure last row is visible */
+}
+
+.synopsis-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
+  min-width: 320px;
+  max-width: 350px;
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+  transition: box-shadow 0.2s;
+}
+.synopsis-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+  z-index: 2;
+}
+
+.synopsis-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.synopsis-avatar {
+  width: 40px;
+  height: 40px;
+  background: #f3f4f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.synopsis-card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.synopsis-card-name {
+  font-weight: 600;
+  color: #222;
+  font-size: 1.1rem;
+}
+
+.synopsis-card-mail {
+  color: #888;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.synopsis-card-topic {
+  margin: 1rem 0 1.5rem 0;
+  color: #333;
+  font-size: 1.05rem;
+  font-family: 'Georgia', serif;
+}
+
+.synopsis-card-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  margin-top: auto;
+  color: #444;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.status-dot.taken {
+  background: #ef4444;
+}
+.status-dot.available {
+  background: #22c55e;
+}
+
+.synopsis-loading, .synopsis-error {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #888;
+  margin-top: 3rem;
+}
