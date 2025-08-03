@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Replace with your actual backend URL
+
 const API_BASE_URL = 'http://localhost:5000'; 
 
 const api = axios.create({
@@ -10,7 +10,7 @@ const api = axios.create({
   },
 });
 
-// Add this function:
+
 export const fetchAllSynopsis = () => api.get('/synopsis');
 
 export default api;
