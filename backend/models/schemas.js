@@ -38,12 +38,6 @@ const synopsisSchema = new mongoose.Schema({
   status: { type: Number, enum: [0, 1], required: true }
 }, { collection: 'synopsis' });
 
-// // Resources Schema
-// const resourcesSchema = new mongoose.Schema({
-//   type: { type: Number, enum: [1, 2, 3], required: true },
-//   links: { type: [String], required: true } // array of strings
-// }, { collection: 'resources' });
-
 
 //Resources Schema
 const resourcesSchema = new mongoose.Schema({
