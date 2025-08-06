@@ -39,22 +39,26 @@ const synopsisSchema = new mongoose.Schema({
 }, { collection: 'synopsis' });
 
 
-//Resources Schema
+// //Resources Schema
 const resourcesSchema = new mongoose.Schema({
-  links: {
-    type: [String],
+  title: {
+    type: String,
     required: true,
+    trim: true,
+    minlength: 1,
+  },
+  link: {
+    type: String,
+    required: true,
+    trim: true,
     validate: {
-      validator: function (arr) {
-        return arr.every(url =>
-          /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(url)
-        );
+      validator: function (url) {
+        return /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(url);
       },
-      message: 'All links must be valid URLs.'
+      message: 'Link must be a valid URL.'
     }
   }
 }, { collection: 'resources' });
-
 
 
 // Consultation Schema
@@ -82,6 +86,7 @@ const approvalSchema = new mongoose.Schema({
 
 
 
+
 module.exports = {
   Userdata: mongoose.model('Userdata', userdataSchema),
   Groups: mongoose.model('Groups', groupsSchema),
@@ -90,5 +95,5 @@ module.exports = {
   Resources: mongoose.model('Resources', resourcesSchema),
   Consultation: mongoose.model('Consultation', consultationSchema),
   Domain: mongoose.model('Domain', domainSchema),
-  Approval: mongoose.model('Approval', approvalSchema)
+  Approval: mongoose.model('Approval', approvalSchema),
 };

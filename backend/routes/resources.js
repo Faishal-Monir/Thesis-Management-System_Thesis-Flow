@@ -3,8 +3,7 @@ const Resource = require('../models/schemas').Resources;
 const router = express.Router();
 
 
-
-// GET /api/resources - Retrieve all saved link sets
+// GET /api/resources - Retrieve all resources
 router.get('/', async (req, res) => {
   try {
     const resources = await Resource.find().sort({ _id: -1 });
@@ -14,77 +13,80 @@ router.get('/', async (req, res) => {
   }
 });
 
-
-// // POST /api/resources - Add a new set of links
+// POST /api/resources - Add a new resource with title and link
 router.post('/', async (req, res) => {
   try {
-    const { links } = req.body;
+    const { title, link } = req.body;
 
-    if (!Array.isArray(links) || links.length === 0) {
-      return res.status(400).json({ message: 'links must be a non-empty array of URLs.' });
+    if (!title || !link) {
+      return res.status(400).json({ message: 'Title and link are required.' });
     }
 
-    const newResource = new Resource({ links });
-    const saved = await newResource.save();
+    const urlRegex = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
+    if (!urlRegex.test(link)) {
+      return res.status(400).json({ message: 'Invalid URL format.' });
+    }
 
-    // Send back the saved resource document
-    res.status(201).json(saved);
+    const newResource = new Resource({ title: title.trim(), link: link.trim() });
+    const savedResource = await newResource.save();
+
+    res.status(201).json(savedResource);
 
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
 
-
-// PUT /resources/:resourceId - Update links for a specific resource
-router.put('/:resourceId', async (req, res) => {
+// PUT /api/resources/:id - Update title and/or link of a resource
+router.put('/:id', async (req, res) => {
   try {
-    const { resourceId } = req.params;
-    const { links } = req.body;
+    const { id } = req.params;
+    const { title, link } = req.body;
 
-    if (!Array.isArray(links) || links.length === 0) {
-      return res.status(400).json({ message: 'links must be a non-empty array' });
+    if (!title && !link) {
+      return res.status(400).json({ message: 'At least one of title or link must be provided.' });
     }
 
-    const valid = links.every(link => /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(link));
-    if (!valid) {
-      return res.status(400).json({ message: 'One or more links are invalid URLs.' });
+    const updateData = {};
+    if (title) updateData.title = title.trim();
+    if (link) {
+      const urlRegex = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
+      if (!urlRegex.test(link)) {
+        return res.status(400).json({ message: 'Invalid URL format.' });
+      }
+      updateData.link = link.trim();
     }
 
-    const updated = await Resource.findByIdAndUpdate(
-      resourceId,
-      { links },
-      { new: true, runValidators: true }
-    );
+    const updatedResource = await Resource.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
 
-    if (!updated) {
+    if (!updatedResource) {
       return res.status(404).json({ message: 'Resource not found' });
     }
 
-    res.status(200).json({ message: 'Links updated successfully', resource: updated });
+    res.status(200).json(updatedResource);
+
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
 
-
-// DELETE /resources/:resourceId - Delete a specific resource by ID
-router.delete('/:resourceId', async (req, res) => {
+// DELETE /api/resources/:id - Delete a resource by ID
+router.delete('/:id', async (req, res) => {
   try {
-    const { resourceId } = req.params;
+    const { id } = req.params;
 
-    const deleted = await Resource.findByIdAndDelete(resourceId);
+    const deletedResource = await Resource.findByIdAndDelete(id);
 
-    if (!deleted) {
+    if (!deletedResource) {
       return res.status(404).json({ message: 'Resource not found' });
     }
 
     res.status(200).json({ message: 'Resource deleted successfully' });
+
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
-
 
 
 module.exports = router;
