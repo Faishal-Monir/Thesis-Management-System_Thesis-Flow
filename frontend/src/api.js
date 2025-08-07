@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Replace with your actual backend URL
-const API_BASE_URL = 'http://localhost:5000'; // Default port from your backend
+
+const API_BASE_URL = 'http://localhost:5000'; 
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -9,5 +9,12 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+
+
+export const fetchAllSynopsis = () => api.get('/synopsis');
+
+export const fetchUserByEmail = (email) => api.get(`/usr/${email}`);
+export const fetchPasswordByEmail = (email) => api.get(`/usr/password/${email}`);
 
 export default api;
