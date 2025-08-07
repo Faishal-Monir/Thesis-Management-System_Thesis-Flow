@@ -2,35 +2,15 @@ const express = require('express');
 const router = express.Router();
 const { StudentProposal } = require('../models/schemas');
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1176cd763819611254a411dcac85807a37854c00
 // POST /students/propose — Student submits proposal
 router.post('/propose', async (req, res) => {
   const { student_id, domain, idea } = req.body;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1176cd763819611254a411dcac85807a37854c00
   if (!student_id || !domain || !idea) {
     return res.status(400).json({ error: 'student_id, domain, and idea are required.' });
   }
 
-<<<<<<< HEAD
-
   try {
-    // Check if the same proposal already exists
-    const existing = await StudentProposal.findOne({ student_id});
-    if (existing) {
-      return res.status(409).json({ error: 'Proposal already exists with the same student_id, domain, and idea.' });
-    }
-
-
-=======
-  try {
->>>>>>> 1176cd763819611254a411dcac85807a37854c00
     const newProposal = new StudentProposal({ student_id, domain, idea });
     await newProposal.save();
     return res.status(201).json({ message: 'Proposal submitted successfully.', proposal: newProposal });
@@ -40,12 +20,6 @@ router.post('/propose', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 1176cd763819611254a411dcac85807a37854c00
 // GET /students/propose — Get all proposals
 router.get('/propose', async (req, res) => {
   try {
@@ -57,10 +31,6 @@ router.get('/propose', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1176cd763819611254a411dcac85807a37854c00
 // GET /students/propose/:id — Get single proposal by ID
 router.get('/propose/:id', async (req, res) => {
   try {
@@ -73,25 +43,9 @@ router.get('/propose/:id', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-
-
-
 // PUT /students/propose/:id — Update a proposal
 router.put('/propose/:id', async (req, res) => {
   const { domain, idea } = req.body;
-
-
-  if (!domain || !idea) {
-    return res.status(400).json({ error: 'Domain and Idea are required.' });
-  }
-
-
-=======
-// PUT /students/propose/:id — Update a proposal
-router.put('/propose/:id', async (req, res) => {
-  const { domain, idea } = req.body;
->>>>>>> 1176cd763819611254a411dcac85807a37854c00
   try {
     const updated = await StudentProposal.findByIdAndUpdate(
       req.params.id,
@@ -99,11 +53,6 @@ router.put('/propose/:id', async (req, res) => {
       { new: true }
     );
     if (!updated) return res.status(404).json({ error: 'Proposal not found.' });
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 1176cd763819611254a411dcac85807a37854c00
     return res.status(200).json({ message: 'Proposal updated successfully.', proposal: updated });
   } catch (err) {
     console.error('🔥 Error updating proposal:', err);
@@ -111,10 +60,6 @@ router.put('/propose/:id', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-
-module.exports = router;
-=======
 // DELETE /students/propose/:id — Delete a proposal
 router.delete('/propose/:id', async (req, res) => {
   try {
@@ -128,5 +73,3 @@ router.delete('/propose/:id', async (req, res) => {
 });
 
 module.exports = router;
-
->>>>>>> 1176cd763819611254a411dcac85807a37854c00
