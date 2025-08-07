@@ -38,11 +38,28 @@ const synopsisSchema = new mongoose.Schema({
   status: { type: Number, enum: [0, 1], required: true }
 }, { collection: 'synopsis' });
 
-// Resources Schema
+
+// //Resources Schema
 const resourcesSchema = new mongoose.Schema({
-  type: { type: Number, enum: [1, 2, 3], required: true },
-  links: { type: [String], required: true } // array of strings
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 1,
+  },
+  link: {
+    type: String,
+    required: true,
+    trim: true,
+    validate: {
+      validator: function (url) {
+        return /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(url);
+      },
+      message: 'Link must be a valid URL.'
+    }
+  }
 }, { collection: 'resources' });
+
 
 // Consultation Schema
 const consultationSchema = new mongoose.Schema({
