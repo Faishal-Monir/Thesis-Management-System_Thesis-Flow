@@ -5,6 +5,8 @@ import Synopsis from './pages/Synopsis';
 import Login from './pages/login';      
 import Register from './pages/register'; 
 import { Routes, Route } from 'react-router-dom';
+import StudentDashboard from './pages/studentDashboard';
+import StudentProposal from './pages/studentProposal';
 
 
 function App() {
@@ -12,6 +14,8 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
+        <Route path="/dashboard" element={<StudentDashboard />} />
+        <Route path="/propose" element={<StudentProposal />} />
         <Route path="/" element={<Home />} />
         <Route path="/synopsis" element={<Synopsis />} />
         <Route path="/login" element={<Login />} />       

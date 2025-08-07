@@ -52,5 +52,5 @@ app.use('/users', studentDashboardRoute);
 const studentProposalRoute = require('./routes/studentProposal');
 app.use('/students', studentProposalRoute);
 
-const PORT = process.env.PORT || 1745;
+const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
