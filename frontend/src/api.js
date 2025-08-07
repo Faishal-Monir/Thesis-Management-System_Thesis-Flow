@@ -11,6 +11,10 @@ const api = axios.create({
 });
 
 
+
 export const fetchAllSynopsis = () => api.get('/synopsis');
+
+export const fetchUserByEmail = (email) => api.get(`/usr/${email}`);
+export const fetchPasswordByEmail = (email) => api.get(`/usr/password/${email}`);
 
 export default api;
