@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './register.css';
-import { registerUser, createApprovalRequest, checkUserExists } from '../api';
+import { registerUser, createApprovalRequest, checkUserExists, sendRegistrationEmail } from '../api';
 
 function Registration() {
   const [form, setForm] = useState({
@@ -50,7 +50,13 @@ function Registration() {
           status: 0
         });
       }
+
       setSuccess('Registration successful!');
+      await sendRegistrationEmail({
+        mail: form.mail,
+        subject: 'Your Registration is Complete',
+        msg: 'Thank You for registering in our Thesis Management System. You can login by simply going to the following Link: http://localhost:3000/login'
+      });
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed.');
     }
