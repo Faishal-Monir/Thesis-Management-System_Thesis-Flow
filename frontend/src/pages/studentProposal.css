@@ -1,0 +1,346 @@
+/* src/pages/StudentProposal.css */
+.proposal-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+
+.proposal-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  color: #1a237e; /* Dark indigo */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+
+.proposal-title::after {
+  content: '';
+  display: block;
+  width: 800px;
+  height: 4px;
+  background-color: #3949ab; /* Lighter indigo underline */
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+
+.error-message {
+  color: red;
+  text-align: center;
+}
+
+
+.no-proposals {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #777;
+}
+
+
+.proposal-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-left: 6px solid #0077ff;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+
+.proposal-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.status {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
+.status.pending {
+  color: #856404;
+  background-color: #fff3cd;
+}
+
+
+.status.approved {
+  color: #155724;
+  background-color: #d4edda;
+}
+
+
+.status.rejected {
+  color: #721c24;
+  background-color: #f8d7da;
+}
+
+
+.add-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 30px;
+  font-size: 1rem;
+}
+
+
+.add-btn:hover {
+  background-color: #0056b3;
+}
+
+
+.form-section {
+  margin-top: 30px;
+}
+
+
+.proposal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+
+.proposal-form input,
+.proposal-form textarea {
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+
+.proposal-form button {
+  padding: 10px 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.proposal-form button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+}
+
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+
+
+
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #ff4d4f;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+  z-index: 1000;
+  animation: slideIn 0.3s ease, fadeOut 0.5s ease 3.5s forwards;
+}
+
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+.toast.success {
+  background-color: #28a745;
+}
+
+
+.toast-popup {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #444;
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 8px;
+  z-index: 1000;
+  animation: fadeInOut 4s forwards;
+}
+
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+.toast.success {
+  background-color: #28a745;
+}
+
+
+/* Buttons */
+.btn {
+  padding: 8px 18px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+
+.update-btn {
+  background-color: #007bff;
+  color: #fff;
+  margin-right: 10px;
+}
+
+
+.update-btn:hover {
+  background-color: #0056b3;
+}
+
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+
+.cancel-btn:hover {
+  background-color: #a71d2a;
+}
+
+
+.add-btn {
+  background-color: #3994f5;
+  color: white;
+  margin: 20px auto 0 auto;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  display: block;           /* Make button a block element */
+  width: 200px;       /* Adjust width to content */
+  transition: background-color 0.3s ease;
+
+
+}
+
+
+.add-btn:hover {
+  background-color: #0166d2;
+}
+
+
+.submit-btn {
+  background-color: #28a745;
+  color: white;
+  width: 100px;  
+}
+
+
+.submit-btn:hover {
+  background-color: #1e7e34;
+}
+
+
+/* Input fields */
+.edit-input, .form-input {
+  width: 100%;
+  max-width: 450px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+
+.edit-input:focus, .form-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+
+/* Button groups for better alignment */
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+
+/* Proposal card update button positioning */
+.proposal-card > button.update-btn {
+  margin: 12px auto 0 auto;
+  display: block;
+  width: 200px; /* or desired width */
+  text-align: center;
+  background-color: #54bf6d;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  padding: 8px 0;
+  transition: background-color 0.3s ease;
+}
+
+
+.proposal-card > button.update-btn:hover {
+  background-color: #218838;
+}
+
+
+
+
+/* Proposal card styling tweaks */
+.proposal-card p {
+  margin: 6px 0;
+}
