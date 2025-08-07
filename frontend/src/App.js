@@ -1,8 +1,10 @@
 // frontend/src/App.js
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Synopsis from './pages/Synopsis'; 
+import StudentProposal from './pages/studentProposal';
+import StudentDashboard from './pages/studentDashboard';
 import { Routes, Route } from 'react-router-dom';
+
 
 function App() {
   return (
@@ -10,10 +12,12 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/synopsis" element={<Synopsis />} />
+        <Route path="/Dashboard" element={<StudentDashboard />} />    
+        <Route path="/studentProposal" element={<StudentProposal />} />
       </Routes>
     </div>
   );
 }
+
 
 export default App;
