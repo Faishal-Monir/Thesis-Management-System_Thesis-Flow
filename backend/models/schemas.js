@@ -66,7 +66,6 @@ const approvalSchema = new mongoose.Schema({
   status: { type: Number, enum: [0, 1], default: 0 }
 }, { collection: 'approval' });
 
-
 // Student Thesis Proposal Schema
 const studentProposalSchema = new mongoose.Schema({
   student_id: { type: String, required: true },
@@ -86,3 +85,4 @@ module.exports = {
   Approval: mongoose.model('Approval', approvalSchema),
   StudentProposal: mongoose.model('StudentProposal', studentProposalSchema)
 };
+
