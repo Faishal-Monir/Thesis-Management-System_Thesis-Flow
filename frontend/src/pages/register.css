@@ -1,0 +1,99 @@
+/* Registration page styles similar to login.css */
+.registration-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 0;
+  }
+  
+  .registration-form {
+    background: rgba(255,255,255,0.97);
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    max-width: 400px;
+    width: 100%;
+    margin: 4rem auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .registration-title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-family: Montserrat, Arial, sans-serif;
+  }
+  
+  .registration-label {
+    align-self: flex-start;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .registration-input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-family: Montserrat, Arial, sans-serif;
+  }
+  
+  .registration-error {
+    color: #ef4444;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  
+  .registration-success {
+    color: #22c55e;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  
+  .registration-btn-submit {
+    width: 100%;
+    background: #273992;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.15rem;
+    border-radius: 8px;
+    border: none;
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  
+  .registration-btn-submit:hover {
+    background: #1e2a6f;
+  }
+  
+  .registration-password-wrapper {
+    width: 100%;
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  
+  .registration-show-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .registration-eye-icon {
+    width: 24px;
+    height: 24px;
+    color: #222831;
+  }
+  
