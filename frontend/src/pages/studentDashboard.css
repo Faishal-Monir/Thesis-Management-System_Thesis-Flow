@@ -1,0 +1,81 @@
+.dashboard-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+
+.dashboard-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #0047ab;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+
+.dashboard-error {
+  color: #d32f2f;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+.section-title {
+  font-size: 1.8rem;
+  border-bottom: 3px solid #ccc;
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+
+.empty-message {
+  font-style: italic;
+  color: #666;
+  padding-left: 12px;
+}
+
+
+/* Student card styling */
+.student-card {
+  border: 1px solid #0077ff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 14px;
+  background-color: #e6f0ff;
+  box-shadow: 0 2px 6px rgba(0, 119, 255, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+
+.student-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 119, 255, 0.3);
+}
+
+
+/* Faculty card styling */
+.faculty-section {
+  margin-top: 50px;
+}
+
+
+.faculty-card {
+  border: 1px solid #ffa500;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 14px;
+  background-color: #fff7e6;
+  box-shadow: 0 2px 6px rgba(255, 165, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+
+.faculty-card:hover {
+  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
+}

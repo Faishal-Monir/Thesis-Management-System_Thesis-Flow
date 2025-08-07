@@ -6,6 +6,7 @@ import Login from './pages/login';
 import Register from './pages/register'; 
 import { Routes, Route } from 'react-router-dom';
 
+
 function App() {
   return (
     <div className="App">
@@ -19,5 +20,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
