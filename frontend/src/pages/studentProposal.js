@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 import "./studentProposal.css";
+import {
+  fetchAllProposals,
+  fetchProposalById,
+  createProposal,
+  updateProposal,
+  deleteProposal
+} from "../api";
 
 
 const StudentProposal = () => {
@@ -22,9 +29,8 @@ const StudentProposal = () => {
 
   const fetchProposals = async () => {
     try {
-      const res = await fetch("/students/propose");
-      const data = await res.json();
-      setProposals(data);
+      const res = await fetchAllProposals();
+      setProposals(res.data);
     } catch (err) {
       console.error("Error fetching proposals:", err);
     }
@@ -66,21 +72,11 @@ const StudentProposal = () => {
 
 
     try {
-      const res = await fetch("/students/propose", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          student_id: studentId,
-          domain,
-          idea,
-        }),
+      const res = await createProposal({
+        student_id: studentId,
+        domain,
+        idea,
       });
-
-
-      const data = await res.json();
-
-
-      if (!res.ok) throw new Error(data.error || "Failed to submit proposal");
 
 
       setStudentId("");
@@ -90,7 +86,7 @@ const StudentProposal = () => {
       showToastMessage("Proposal added successfully.");
       fetchProposals();
     } catch (err) {
-      showToastMessage(err.message);
+      showToastMessage(err.response?.data?.error || err.message);
     }
   };
 
@@ -107,20 +103,10 @@ const StudentProposal = () => {
 
 
     try {
-      const res = await fetch(`/students/propose/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          domain: editDomain,
-          idea: editIdea,
-        }),
+      await updateProposal(id, {
+        domain: editDomain,
+        idea: editIdea,
       });
-
-
-      const data = await res.json();
-
-
-      if (!res.ok) throw new Error(data.error || "Failed to update proposal.");
 
 
       showToastMessage("Proposal updated successfully.");
@@ -129,7 +115,7 @@ const StudentProposal = () => {
       setEditIdea("");
       fetchProposals();
     } catch (err) {
-      showToastMessage(err.message);
+      showToastMessage(err.response?.data?.error || err.message);
     }
   };
 
