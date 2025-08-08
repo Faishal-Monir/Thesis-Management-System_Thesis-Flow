@@ -13,7 +13,8 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('session');
     localStorage.setItem('isLoggedIn', 'false');
-    window.location.reload();
+    window.location.href = '/login';
+    // window.location.reload();
   };
 
   let offCanvasLinks = [];
