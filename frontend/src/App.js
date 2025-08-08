@@ -7,6 +7,8 @@ import Register from './pages/register';
 import ForgotPassSubmission from './pages/forgotpass_submission';
 import ForgotPassword from './pages/forgotpassword';
 import { Routes, Route } from 'react-router-dom';
+import StudentDashboard from './pages/studentDashboard';
+import StudentProposal from './pages/studentProposal';
 
 
 function App() {
@@ -14,6 +16,8 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
+        <Route path="/dashboard" element={<StudentDashboard />} />
+        <Route path="/propose" element={<StudentProposal />} />
         <Route path="/" element={<Home />} />
         <Route path="/synopsis" element={<Synopsis />} />
         <Route path="/login" element={<Login />} />       

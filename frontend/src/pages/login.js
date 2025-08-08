@@ -31,8 +31,7 @@ function Login() {
         };
         localStorage.setItem('session', JSON.stringify(sessionData));
         localStorage.setItem('isLoggedIn', 'true');
-        window.location.reload();
-        window.location.href = '#';
+        window.location.href = 'http://localhost:3000/dashboard';
 
 
 
