@@ -9,7 +9,9 @@ const StudentDashboard = () => {
 
 
   useEffect(() => {
-    const student_id = "22101744"; // hardcoded for demo, replace as needed
+    // Get cached student info
+    const cached = JSON.parse(localStorage.getItem('session') || '{}');
+    const student_id = cached.student_id; // fallback if not found
     fetchStudentById(student_id)
       .then((res) => {
         setStudent(res.data.user);
