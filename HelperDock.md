@@ -46,26 +46,44 @@ git checkout Faishal
 
 Note: For individual testing and merging to the test branch only ! 
 =======================
-Repo name: ``` Thesis-Management-System ```
+Repo name: 
+``` 
+Thesis-Management-System 
+```
 =======================
 Merging two branches: 
 
-``` git checkout Test ```
+``` 
+git checkout Test 
+```
+```
+git pull origin Test
+```
 
-`git pull origin Test`
-
-`git merge Faishal`
+```
+git merge Faishal
+```
 =======================
 Git push from Terminal:
 
-`git add .`    
-`git commit -m "Your custom Message here" ` 
+```
+git add .
+```   
+```
+git commit -m "Your custom Message here" 
+``` 
 
-`git push origin Test`
+```
+git push origin Test
+```
 
 =============How to run the servers=============
 
-`cd Thesis-Management-System; cd backend; node index.js `
+```
+cd Thesis-Management-System; cd backend; node index.js
+ ```
 
-`cd Thesis-Management-System; cd frontend; npm start `
+```
+cd Thesis-Management-System; cd frontend; npm start
+```
 
