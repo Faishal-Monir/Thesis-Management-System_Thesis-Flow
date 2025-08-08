@@ -50,7 +50,7 @@ Repo name: ``` Thesis-Management-System ```
 =======================
 Merging two branches: 
 
-`git checkout Test`
+``` git checkout Test ```
 
 `git pull origin Test`
 
