@@ -10,8 +10,7 @@ import Resources from './pages/resources';
 import ForgotPassSubmission from './pages/forgotpass_submission';
 import ForgotPassword from './pages/forgotpassword';
 import { Routes, Route } from 'react-router-dom';
-import StudentDashboard from './pages/studentDashboard';
-import StudentProposal from './pages/studentProposal';
+
 
 
 
