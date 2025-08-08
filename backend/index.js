@@ -53,5 +53,5 @@ app.use('/resources', resourcesRoute);
 const thesisDeferRoute = require('./routes/thesisDefer');
 app.use('/thesisDefer', thesisDeferRoute);
 
-const PORT = process.env.PORT || 1045;
+const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
