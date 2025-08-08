@@ -21,21 +21,21 @@ function Navbar() {
   if (usrType === 'Student') {
     offCanvasLinks = [
       { to: '/profile', label: 'Profile' },
-      { to: '/studentDashboard', label: 'Dashboard' },
+      { to: '/dashboard', label: 'Dashboard' },
       { to: '/resources', label: 'Resources' },
-      { to: '/studentProposal', label: 'Student Proposal' },
+      { to: '/propose', label: 'Student Proposal' },
     ];
   } else if (usrType === 'Faculty') {
     offCanvasLinks = [
       { to: '/profile', label: 'Profile' },
-      { to: '/facultyDashboard', label: 'Dashboard' },
+      { to: '/dashboard', label: 'Dashboard' },
       { to: '/resources', label: 'Resources' },
       { to: '/createSynopsis', label: 'Create Synopsis' },
     ];
   } else if (usrType === 'Admin') {
     offCanvasLinks = [
       { to: '/profile', label: 'Profile' },
-      { to: '/adminDashboard', label: 'Dashboard' },
+      { to: '/dashboard', label: 'Dashboard' },
       { to: '/resources', label: 'Resources' },
       { to: '/manageUsers', label: 'Manage Users' },
     ];
