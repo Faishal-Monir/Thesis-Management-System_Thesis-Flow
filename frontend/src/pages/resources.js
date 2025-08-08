@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./resources.css";
+import { fetchResourcesAPI, addResourceAPI, updateResourceAPI, deleteResourceAPI } from "../api"; // Import API functions
 
 const Resources = () => {
   const [resources, setResources] = useState([]);
@@ -11,6 +12,10 @@ const Resources = () => {
   const [editingResourceId, setEditingResourceId] = useState(null);
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [updatedLink, setUpdatedLink] = useState("");
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  const session = JSON.parse(localStorage.getItem("session")); // Get session from localStorage
+  const isFaculty = session?.usr_type === "Faculty"; // Check if the user is a Faculty
 
   useEffect(() => {
     fetchResources();
@@ -19,9 +24,7 @@ const Resources = () => {
   // Fetch all resources from server
   const fetchResources = async () => {
     try {
-      const response = await fetch("/resources");
-      if (!response.ok) throw new Error("Failed to fetch resources");
-      const data = await response.json();
+      const data = await fetchResourcesAPI(); // Use API function
       setResources(data);
     } catch (err) {
       setError(err.message);
@@ -48,7 +51,7 @@ const Resources = () => {
       return;
     }
     if (!window.confirm("Are you sure you want to add a resource?")) {
-      return;  // User canceled
+      return; // User canceled
     }
 
     // Check for duplicate link or title (case-insensitive)
@@ -66,25 +69,15 @@ const Resources = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("/resources", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: newTitle.trim(),
-          link: newLink.trim(),
-        }),
-      });
-
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.message || "Failed to add resource");
-      }
-
-      const newResource = await response.json();
+      const newResource = await addResourceAPI({
+        title: newTitle.trim(),
+        link: newLink.trim(),
+      }); // Use API function
       setResources((prev) => [...prev, newResource]);
       setNewTitle("");
       setNewLink("");
       setSuccessMsg("Resource added successfully");
+      setShowAddForm(false);
       setTimeout(() => setSuccessMsg(""), 3000);
     } catch (err) {
       setError(err.message);
@@ -108,25 +101,14 @@ const Resources = () => {
       return;
     }
     if (!window.confirm("Are you sure you want to update this resource?")) {
-      return;  // User canceled
+      return; // User canceled
     }
 
     try {
-      const response = await fetch(`/resources/${resourceId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: updatedTitle.trim(),
-          link: updatedLink.trim(),
-        }),
-      });
-
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.message || "Failed to update resource");
-      }
-
-      const updatedResource = await response.json();
+      const updatedResource = await updateResourceAPI(resourceId, {
+        title: updatedTitle.trim(),
+        link: updatedLink.trim(),
+      }); // Use API function
       setResources((prev) =>
         prev.map((res) => (res._id === resourceId ? updatedResource : res))
       );
@@ -142,18 +124,10 @@ const Resources = () => {
   // Handle deletion
   const handleDelete = async (resourceId) => {
     if (!window.confirm("Are you sure you want to delete the resource?")) {
-      return;  // User canceled
+      return; // User canceled
     }
     try {
-      const response = await fetch(`/resources/${resourceId}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.message || "Failed to delete resource");
-      }
-
+      await deleteResourceAPI(resourceId); // Use API function
       setResources((prev) => prev.filter((res) => res._id !== resourceId));
       setSuccessMsg("Resource deleted successfully");
       setTimeout(() => setSuccessMsg(""), 3000);
@@ -190,7 +164,7 @@ const Resources = () => {
                   </a>
                 </div>
 
-                {editingResourceId === _id ? (
+                {isFaculty && editingResourceId === _id ? (
                   <div className="update-form">
                     <input
                       type="text"
@@ -221,7 +195,7 @@ const Resources = () => {
                       Cancel
                     </button>
                   </div>
-                ) : (
+                ) : isFaculty ? (
                   <div className="button-group">
                     <button
                       onClick={() => {
@@ -240,7 +214,7 @@ const Resources = () => {
                       Delete
                     </button>
                   </div>
-                )}
+                ) : null}
               </div>
             </li>
           ))
@@ -248,33 +222,52 @@ const Resources = () => {
       </ul>
 
       {/* Add Link form */}
-      <div className="add-link-wrapper">
-        <form
-          onSubmit={handleSubmit}
-          className="resources-form"
-          style={{ marginTop: "20px" }}
-        >
-          <input
-            type="text"
-            placeholder="Enter resource title"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            className="resources-input"
-            required
-          />
-          <input
-            type="url"
-            placeholder="Enter resource link"
-            value={newLink}
-            onChange={(e) => setNewLink(e.target.value)}
-            className="resources-input"
-            required
-          />
-          <button type="submit" disabled={loading} className="resources-button">
-            {loading ? "Adding..." : "Add Resource"}
-          </button>
-        </form>
-      </div>
+      {isFaculty && (
+        <div className="add-link-wrapper" style={{ marginTop: "20px" }}>
+          {!showAddForm ? (
+            <button
+              className="resources-button"
+              onClick={() => setShowAddForm(true)}
+            >
+              Add New Resource
+            </button>
+          ) : (
+            <form onSubmit={handleSubmit} className="resources-form">
+              <input
+                type="text"
+                placeholder="Enter resource title"
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+                className="resources-input"
+                required
+              />
+              <input
+                type="url"
+                placeholder="Enter resource link"
+                value={newLink}
+                onChange={(e) => setNewLink(e.target.value)}
+                className="resources-input"
+                required
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="resources-button"
+              >
+                {loading ? "Adding..." : "Add Resource"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowAddForm(false)}
+                className="resources-button"
+                style={{ marginTop: "10px", backgroundColor: "#ccc", color: "#333" }}
+              >
+                Cancel
+              </button>
+            </form>
+          )}
+        </div>
+      )}
     </div>
   );
 };
