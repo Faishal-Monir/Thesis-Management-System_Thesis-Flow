@@ -46,7 +46,7 @@ git checkout Faishal
 
 Note: For individual testing and merging to the test branch only ! 
 =======================
-Repo name: `Thesis-Management-System`
+Repo name: ``` Thesis-Management-System ```
 =======================
 Merging two branches: 
 
