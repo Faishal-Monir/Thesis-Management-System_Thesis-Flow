@@ -48,10 +48,15 @@ app.use('/email', emailServiceRoute);
 const studentDashboardRoute = require('./routes/studentDashboard');
 app.use('/users', studentDashboardRoute);
 
+// Resources route
+const resourcesRoute = require('./routes/resources');
+app.use('/resources', resourcesRoute);
 
+// Student proposal route
 const studentProposalRoute = require('./routes/studentProposal');
 app.use('/students', studentProposalRoute);
 
+// Admin Approval route
 const adminApprovalReqRouter = require('./routes/admin_approval_req');
 app.use('/', adminApprovalReqRouter);
 
