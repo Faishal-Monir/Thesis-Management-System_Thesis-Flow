@@ -55,7 +55,7 @@ function Registration() {
       await sendRegistrationEmail({
         mail: form.mail,
         subject: 'Your Registration is Complete',
-        msg: 'Thank You for registering in our Thesis Management System. You can login by simply going to the following Link: http://localhost:3000/login'
+        msg: `Thank You for registering in our Thesis Management System.\n You can login by simply going to the following Link: \n\nhttp://localhost:3000/login`
       });
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed.');

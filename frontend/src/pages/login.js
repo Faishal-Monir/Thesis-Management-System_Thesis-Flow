@@ -91,7 +91,7 @@ function Login() {
             </button>
           </div>
           <div className="login-forgot-wrapper">
-            <a href="#" className="login-forgot">Forgot Password?</a>
+            <a href="/forgotpass_submission" className="login-forgot">Forgot Password?</a>
           </div>
           {error && <div className="login-error">{error}</div>}
           <button
