@@ -64,6 +64,7 @@ Git push from Terminal:
 `git push origin Test`
 
 =============How to run the servers=============
+
 `cd Thesis-Management-System; cd backend; node index.js `
 
 `cd Thesis-Management-System; cd frontend; npm start `
