@@ -16,5 +16,6 @@ export const fetchAllSynopsis = () => api.get('/synopsis');
 
 export const fetchUserByEmail = (email) => api.get(`/usr/${email}`);
 export const fetchPasswordByEmail = (email) => api.get(`/usr/password/${email}`);
+export const fetchStudentById = (student_id) => api.get(`/users/dashboard?student_id=${student_id}`);
 
 export default api;
