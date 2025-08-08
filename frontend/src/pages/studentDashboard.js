@@ -5,6 +5,7 @@ import { fetchStudentById } from "../api";
 
 const StudentDashboard = () => {
   const [student, setStudent] = useState(null);
+  const [role, setRole] = useState("");
   const [error, setError] = useState(null);
 
 
@@ -15,6 +16,7 @@ const StudentDashboard = () => {
     fetchStudentById(student_id)
       .then((res) => {
         setStudent(res.data.user);
+        setRole(res.data.role);
         setError(null);
       })
       .catch((err) => {
@@ -35,7 +37,7 @@ const StudentDashboard = () => {
         <div className="student-card">
           <p><strong>Name:</strong> {student.name}</p>
           <p><strong>Email:</strong> {student.email}</p>
-          <p><strong>Student ID:</strong> {student.student_id}</p>
+          <p><strong>{role === "Faculty" ? "Faculty ID" : "Student ID"}:</strong> {student.student_id}</p>
           <p><strong>Status:</strong> {student.status === 1 ? "Active" : "Inactive"}</p>
         </div>
       ) : (
