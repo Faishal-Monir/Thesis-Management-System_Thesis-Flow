@@ -44,14 +44,16 @@ app.use('/update', domainUpdateRoute);
 const emailServiceRoute = require('./routes/emailservice');
 app.use('/email', emailServiceRoute);
 
+// Dashboard route
+const studentDashboardRoute = require('./routes/studentDashboard');
+app.use('/users', studentDashboardRoute);
 
-// Resources route
-const resourcesRoute = require('./routes/resources');
-app.use('/resources', resourcesRoute);
 
-// Thesis Defer route
-const thesisDeferRoute = require('./routes/thesisDefer');
-app.use('/thesisDefer', thesisDeferRoute);
+const studentProposalRoute = require('./routes/studentProposal');
+app.use('/students', studentProposalRoute);
+
+const adminApprovalReqRouter = require('./routes/admin_approval_req');
+app.use('/', adminApprovalReqRouter);
 
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

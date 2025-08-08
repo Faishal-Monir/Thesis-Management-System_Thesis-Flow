@@ -4,7 +4,10 @@ import Home from './pages/Home';
 import Synopsis from './pages/Synopsis';
 import Login from './pages/login';      
 import Register from './pages/register'; 
+import ForgotPassSubmission from './pages/forgotpass_submission';
+import ForgotPassword from './pages/forgotpassword';
 import { Routes, Route } from 'react-router-dom';
+
 
 function App() {
   return (
@@ -15,9 +18,12 @@ function App() {
         <Route path="/synopsis" element={<Synopsis />} />
         <Route path="/login" element={<Login />} />       
         <Route path="/register" element={<Register />} />  
+        <Route path="/forgotpass_submission" element={<ForgotPassSubmission />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
       </Routes>
     </div>
   );
 }
+
 
 export default App;
