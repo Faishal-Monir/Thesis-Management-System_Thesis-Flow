@@ -70,7 +70,7 @@ function Navbar() {
           <img src="/logo.jpg" alt="Logo" className="navbar-logo-image" />
         </a>
         <div className="navbar-links">
-          <Link to="/" className="navbar-link Menu" onClick={() => setOffCanvasOpen(true)}>Options</Link>
+          <span className="navbar-link Menu" onClick={() => setOffCanvasOpen(true)} style={{ cursor: 'pointer' }}>Options</span>
           <Link to="/" className="navbar-link login">Home</Link>
           <a href="#" className="navbar-link">Thesis Supervisors</a>
           <a href="https://www.bracu.ac.bd/academic-dates" className="navbar-link" target="_blank" rel="noopener noreferrer">Academic Calendar</a>
@@ -88,7 +88,7 @@ function Navbar() {
 
 
 
-      {/* Off-canvas menu (slides from left, dark theme) */}
+  
 
       <div className={`navbar-offcanvas navbar-offcanvas-dark ${offCanvasOpen ? 'open' : ''}`}>
         <button className="navbar-offcanvas-close" onClick={() => setOffCanvasOpen(false)}>&times;</button>
