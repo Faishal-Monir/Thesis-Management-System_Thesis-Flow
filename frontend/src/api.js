@@ -21,6 +21,26 @@ export const checkUserExists = (mailOrId) => api.get(`/usr/${mailOrId}`);
 export const sendRegistrationEmail = (data) => api.post('/email/send', data);
 export const resetPassword = (data) => api.post('/reset', data);
 
+export const fetchResourcesAPI = async () => {
+  const response = await api.get('/resources');
+  return response.data;
+};
+
+export const addResourceAPI = async (data) => {
+  const response = await api.post('/resources', data);
+  return response.data;
+};
+
+export const updateResourceAPI = async (id, data) => {
+  const response = await api.put(`/resources/${id}`, data);
+  return response.data;
+};
+
+export const deleteResourceAPI = async (id) => {
+  await api.delete(`/resources/${id}`);
+};
+
+
 // Student Proposal API functions
 export const fetchAllProposals = () => api.get('/students/propose');
 export const fetchProposalById = (id) => api.get(`/students/propose/${id}`);
