@@ -31,7 +31,8 @@ function Login() {
         };
         localStorage.setItem('session', JSON.stringify(sessionData));
         localStorage.setItem('isLoggedIn', 'true');
-        window.location.href = 'https://www.youtube.com/';
+        window.location.reload();
+        window.location.href = '#';
 
 
 
