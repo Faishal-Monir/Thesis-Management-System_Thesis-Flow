@@ -49,6 +49,9 @@ app.use('/email', emailServiceRoute);
 const resourcesRoute = require('./routes/resources');
 app.use('/resources', resourcesRoute);
 
+// Thesis Defer route
+const thesisDeferRoute = require('./routes/thesisDefer');
+app.use('/thesisDefer', thesisDeferRoute);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 1045;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
