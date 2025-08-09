@@ -1,4 +1,3 @@
-/* Navbar.js (fixed: stateful dropdown toggles inside off-canvas) */
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
