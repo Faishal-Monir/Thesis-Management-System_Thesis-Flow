@@ -11,7 +11,6 @@ function LoginApprove() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-import { sendRegistrationEmail } from '../api';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
