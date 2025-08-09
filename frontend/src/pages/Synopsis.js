@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './synopsis.css';
-import axios from 'axios';
 import { fetchAllSynopsis } from '../api';
 
 
