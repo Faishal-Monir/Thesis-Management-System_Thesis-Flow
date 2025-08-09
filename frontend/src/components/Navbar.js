@@ -25,12 +25,28 @@ function Navbar() {
         {
           label: 'Profile',
           dropdown: [
-            { to: '/dashboard', label: 'Dashboard' },
-            { to: '/profile', label: 'View Own Profile' },
+            { to: '/profile', label: 'View Own Profile(TBA)' },
           ],
         },
-        { to: '/resources', label: 'Resources' },
-        { to: '/propose', label: 'Student Proposal' },
+        {
+          label: 'Thesis Management',
+          dropdown: [
+            { to: '/propose', label: 'Propose Thesis Idea' },
+            { to: '/synopsis', label: 'View Sample Synopsis' },
+            // { to: '/#', label: 'View all Supervisors' },
+            { to: '/resources', label: 'Resources' },
+
+          ],
+        },
+        {
+          label: 'Dummy Links',
+          dropdown: [
+            // { to: '/#', label: 'Dashboard' },
+            // { to: '/#', label: 'View Own Profile' },
+          ],
+        },
+        { to: '/dashboard', label: 'Student Dashboard' },
+        // { to: '/propose', label: 'Student Proposal' },
       ];
     }
 
@@ -41,13 +57,23 @@ function Navbar() {
         {
           label: 'Profile',
           dropdown: [
-            { to: '/dashboard', label: 'Dashboard' },
-            { to: '/profile', label: 'View Own Profile' },
+            // { to: '/dashboard', label: 'Dashboard' },
+            { to: '/profile', label: 'View Own Profile(TBA)' },
+          ],
+        },
+
+                {
+          label: 'Manage Synopsis',
+          dropdown: [
+            { to: '/my_synopsis', label: 'View my Synopsis' },
+            { to: '/create_synopsis', label: 'Create Synopsis' },
+            { to: '/update_synopsis', label: 'Update Synopsis' },
+            { to: '/delete_synopsis', label: 'Delete Synopsis' },
           ],
         },
          
-        { to: '/resources', label: 'Resources' },
-        { to: '/createSynopsis', label: 'Create Synopsis' },
+        { to: '/resources', label: 'Resource Management' },
+        // { to: '/createSynopsis', label: 'Create Synopsis' },
       ];
     }
 
@@ -110,12 +136,10 @@ function Navbar() {
           <img src="/logo.jpg" alt="Logo" className="navbar-logo-image" />
         </a>
         <div className="navbar-links">
+          <Link to="/dashboard" className="navbar-link login">Home</Link>
           <span className="navbar-link Menu" onClick={() => setOffCanvasOpen(true)} style={{ cursor: 'pointer' }}>Options</span>
-          <Link to="/" className="navbar-link login">Home</Link>
-          <a href="#" className="navbar-link">Thesis Supervisors</a>
           <a href="https://www.bracu.ac.bd/academic-dates" className="navbar-link" target="_blank" rel="noopener noreferrer">Academic Calendar</a>
           <a href="https://www.bracu.ac.bd/contact" className="navbar-link" target="_blank" rel="noopener noreferrer">Contact</a>
-          <Link to="/synopsis" className="navbar-link login">Synopsis</Link>
         </div>
         <div className="navbar-user-actions">
           <span className="navbar-user-name">{name}</span>

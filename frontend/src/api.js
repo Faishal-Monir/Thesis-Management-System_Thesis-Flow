@@ -48,6 +48,14 @@ export const createProposal = (data) => api.post('/students/propose', data);
 export const updateProposal = (id, data) => api.put(`/students/propose/${id}`, data);
 export const deleteProposal = (id) => api.delete(`/students/propose/${id}`);
 
+
+// Synopsis APIs
+export const getSynopsisBySupId = (sup_id) => api.get(`/synopsis/${sup_id}`);
+export const registerSynopsis = (data) => api.post('/register/synopsis', data);
+export const deleteSynopsis = (data) => api.delete('/delete/synopsis', { data });
+export const updateSynopsis = (data) => api.put('/update/synopsis', data);
+
 export default api;
+
 
 
