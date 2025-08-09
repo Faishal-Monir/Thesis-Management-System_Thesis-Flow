@@ -31,6 +31,7 @@ function Navbar() {
       { to: '/dashboard', label: 'Dashboard' },
       { to: '/resources', label: 'Resources' },
       { to: '/createSynopsis', label: 'Create Synopsis' },
+      { to: '/propose', label: 'Student Proposal' },
     ];
   } else if (usrType === 'Admin') {
     offCanvasLinks = [
@@ -38,6 +39,7 @@ function Navbar() {
       { to: '/dashboard', label: 'Dashboard' },
       { to: '/resources', label: 'Resources' },
       { to: '/manageUsers', label: 'Manage Users' },
+      { to: '/propose', label: 'Student Proposal' },
     ];
   }
 
