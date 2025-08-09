@@ -32,6 +32,7 @@ const thesisSchema = new mongoose.Schema({
 // Synopsis Schema
 const synopsisSchema = new mongoose.Schema({
   sup_id: { type: String, required: true },
+  syn_id: { type: Number, required: true },
   name: { type: String, required: true },
   mail: { type: String, required: true },
   topic: { type: String, required: true },
