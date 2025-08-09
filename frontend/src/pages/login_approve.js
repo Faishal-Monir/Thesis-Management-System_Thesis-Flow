@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './login_approve.css';
 import { approveUser } from '../api';
+import { sendRegistrationEmail } from '../api';
 
 function LoginApprove() {
   const [id, setId] = useState('');
@@ -9,6 +10,8 @@ function LoginApprove() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+import { sendRegistrationEmail } from '../api';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +30,17 @@ function LoginApprove() {
     try {
       const res = await approveUser(id, payload);
       setResult(res.data);
+      if (res.data && res.data.user && res.data.user.mail) {
+        setSuccess('Approval successful! Sending email...');
+        await sendRegistrationEmail({
+          mail: res.data.user.mail,
+          subject: 'Your account is approved',
+          msg: `Thank You for registering in our Thesis Management System your account is now approved.\nYou can login by simply going to the following Link: \n\nhttp://localhost:3000/login`
+        });
+        setSuccess('Approval successful! Email sent.');
+      } else {
+        setSuccess('Approval successful!');
+      }
     } catch (err) {
       setError('Failed to approve user.');
     }
@@ -80,6 +94,7 @@ function LoginApprove() {
           </button>
         </form>
         {error && <div className="login-approve-error">{error}</div>}
+        {success && <div className="login-approve-success">{success}</div>}
         {result && (
           <div className="login-approve-result">
             <div><strong>Message:</strong> {result.message || 'User approved successfully.'}</div>
