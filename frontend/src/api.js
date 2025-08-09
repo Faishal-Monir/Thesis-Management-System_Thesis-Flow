@@ -49,3 +49,5 @@ export const updateProposal = (id, data) => api.put(`/students/propose/${id}`, d
 export const deleteProposal = (id) => api.delete(`/students/propose/${id}`);
 
 export default api;
+
+
