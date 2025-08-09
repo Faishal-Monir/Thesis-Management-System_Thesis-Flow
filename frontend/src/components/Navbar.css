@@ -2,7 +2,7 @@
   width: 100vw;
   background-color: #0a1624;
   border-bottom: 2px solid #222831;
-  height: 72px; 
+  height: 72px;
   min-height: 60px;
   max-height: 72px;
   padding: 0.5rem 0;
@@ -26,11 +26,9 @@
 }
 
 .navbar-logo {
-
   display: flex;
   align-items: center;
   gap: 0.75rem;
-
 }
 
 .navbar-logo-image {
@@ -40,11 +38,9 @@
   transform: translateY(-50%);
   width: 48px;
   height: 48px;
-
   background: #fff;
   display: block;
 }
-
 
 .navbar-logo-text {
   color: #fff;
@@ -100,8 +96,6 @@
   border-radius: 8px;
   background: #142b45;
 }
-
-
 
 .navbar-logout-btn {
   background: none;
@@ -170,6 +164,7 @@
   background: #f3f4f6;
 }
 
+/* Off-canvas */
 .navbar-offcanvas {
   position: fixed;
   top: 0;
@@ -183,55 +178,74 @@
   display: flex;
   flex-direction: column;
   padding: 2rem 1.5rem;
+  overflow-y: auto;
 }
 
 .navbar-offcanvas.open {
   left: 0;
 }
 
-
-.navbar-offcanvas-link {
-  color: #fff;
-  font-size: 1.15rem;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 0.5rem 0;
-  border-radius: 4px;
-  transition: background 0.2s;
-}
-
-.navbar-offcanvas-link:hover {
-  background: #eeeeee;
-}
-
-.navbar-offcanvas-close {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: #fff;
-  align-self: flex-end;
-  cursor: pointer;
-  margin-bottom: 2rem;
-}
-
 .navbar-offcanvas-links {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
+/* Link styles */
 .navbar-offcanvas-link {
   color: #f9f9f9;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   text-decoration: none;
   font-weight: 600;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0.25rem;
   border-radius: 4px;
   transition: background 0.2s;
+  cursor: pointer;
 }
 
 .navbar-offcanvas-link:hover {
-  background: #969696;
+  background: #4a4a4a;
+}
+
+.navbar-offcanvas-dropdown-header:hover {
+  background: #4a4a4a; 
+  color: #fff;         
+}
+
+
+.navbar-offcanvas-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-offcanvas-dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.5rem 0.25rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.navbar-offcanvas-caret {
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.navbar-offcanvas-dropdown-content {
+  display: none;
+  flex-direction: column;
+  padding-left: 1rem;
+  margin-top: 0.25rem;
+  border-left: 2px solid #555;
+}
+
+.navbar-offcanvas-dropdown.open .navbar-offcanvas-dropdown-content {
+  display: flex;
 }
 
 .navbar-offcanvas-backdrop {
