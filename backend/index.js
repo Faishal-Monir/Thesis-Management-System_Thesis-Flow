@@ -60,5 +60,9 @@ app.use('/students', studentProposalRoute);
 const adminApprovalReqRouter = require('./routes/admin_approval_req');
 app.use('/', adminApprovalReqRouter);
 
+// Admin approval processing route
+const adminApprovalRouter = require('./routes/admin_approval');
+app.use('/', adminApprovalRouter);
+
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

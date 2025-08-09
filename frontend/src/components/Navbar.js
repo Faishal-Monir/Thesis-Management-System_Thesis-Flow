@@ -1,4 +1,3 @@
-/* Navbar.js (with GET function that fetches and stores user status) */
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
@@ -13,7 +12,8 @@ function Navbar() {
   const [offCanvasOpen, setOffCanvasOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState({});
 
-  const [status, setStatus] = useState(null);
+ 
+  const [status, setStatus] = useState(() => (isLoggedIn ? (session?.status ?? null) : null));
 
   useEffect(() => {
     let isMounted = true;
@@ -25,8 +25,14 @@ function Navbar() {
 
         const res = await checkUserExists(mailOrId);
         const userStatus = res?.data?.status;
+
         if (isMounted) {
           setStatus(userStatus);
+          const s = JSON.parse(localStorage.getItem('session') || '{}');
+          if (s) {
+            s.status = userStatus;
+            localStorage.setItem('session', JSON.stringify(s));
+          }
         }
       } catch (e) {
         if (isMounted) {
@@ -39,22 +45,35 @@ function Navbar() {
       fetchStatus();
     }
 
+
+    const onFocus = () => {
+      if (isLoggedIn && (session?.mail || session?.student_id)) {
+        fetchStatus();
+      }
+    };
+    window.addEventListener('focus', onFocus);
+    window.addEventListener('visibilitychange', onFocus);
+
     return () => {
       isMounted = false;
+      window.removeEventListener('focus', onFocus);
+      window.removeEventListener('visibilitychange', onFocus);
     };
   }, [isLoggedIn, session?.mail, session?.student_id]);
 
   const handleLogout = () => {
-    localStorage.removeItem('session');
-    localStorage.setItem('isLoggedIn', 'false');
-    window.location.href = '/login';
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = '/login';
   };
 
 
-
+  const statusLoadingForFaculty = usrType === 'Faculty' && status === null;
 
   // Off-canvas links with dropdowns
   const offCanvasLinks = useMemo(() => {
+    if (statusLoadingForFaculty) return [];
+
     if (usrType === 'Student') {
       return [
         {
@@ -79,50 +98,45 @@ function Navbar() {
       ];
     }
 
-
-
-if (usrType === 'Faculty' && status === 1) {
-  return [
-    {
-      label: 'Profile',
-      dropdown: [
-        { to: '/profile', label: 'View Own Profile(TBA)' },
-      ],
-    },
-    {
-      label: 'Manage Synopsis',
-      dropdown: [
-        { to: '/my_synopsis', label: 'View my Synopsis' },
-        { to: '/create_synopsis', label: 'Create Synopsis' },
-        { to: '/update_synopsis', label: 'Update Synopsis' },
-        { to: '/delete_synopsis', label: 'Delete Synopsis' },
-      ],
-    },
-    { to: '/resources', label: 'Resource Management' },
-  ];
-} else if (usrType === 'Faculty') {
-  return [];
-}
-
-
-
-
-
-    if (usrType === 'Admin') {
+    if (usrType === 'Faculty' && status === 1) {
       return [
         {
           label: 'Profile',
           dropdown: [
-            { to: '/dashboard', label: 'Dashboard' },
-            { to: '/profile', label: 'View Own Profile' },
+            { to: '/profile', label: 'View Own Profile(TBA)' },
           ],
         },
-        { to: '/resources', label: 'Resources' },
-        { to: '/manageUsers', label: 'Manage Users' },
+        {
+          label: 'Manage Synopsis',
+          dropdown: [
+            { to: '/my_synopsis', label: 'View my Synopsis' },
+            { to: '/create_synopsis', label: 'Create Synopsis' },
+            { to: '/update_synopsis', label: 'Update Synopsis' },
+            { to: '/delete_synopsis', label: 'Delete Synopsis' },
+          ],
+        },
+        { to: '/resources', label: 'Resource Management' },
+      ];
+    } else if (usrType === 'Faculty') {
+      return [];
+    }
+
+    if (usrType === 'Admin') {
+      return [
+        {
+          label: 'Login Approvals',
+          dropdown: [
+            { to: '/show_list', label: 'Approval List' },
+            { to: '/show_approval_details', label: 'Show Approval Details' },
+            { to: '/approve_login', label: 'Approve Login' },
+          ],
+        },
+        // { to: '/resources', label: 'Resources' },
+        // { to: '/manageUsers', label: 'Manage Users' },
       ];
     }
     return [];
-  }, [usrType]);
+  }, [usrType, status, statusLoadingForFaculty]);
 
   const toggleGroup = (label) => {
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
@@ -161,7 +175,13 @@ if (usrType === 'Faculty' && status === 1) {
         </a>
         <div className="navbar-links">
           <Link to="/dashboard" className="navbar-link login">Home</Link>
-          <span className="navbar-link Menu" onClick={() => setOffCanvasOpen(true)} style={{ cursor: 'pointer' }}>Options</span>
+
+          {!statusLoadingForFaculty && (
+            <span className="navbar-link Menu" onClick={() => setOffCanvasOpen(true)} style={{ cursor: 'pointer' }}>
+              Options
+            </span>
+          )}
+
           <a href="https://www.bracu.ac.bd/academic-dates" className="navbar-link" target="_blank" rel="noopener noreferrer">Academic Calendar</a>
           <a href="https://www.bracu.ac.bd/contact" className="navbar-link" target="_blank" rel="noopener noreferrer">Contact</a>
         </div>

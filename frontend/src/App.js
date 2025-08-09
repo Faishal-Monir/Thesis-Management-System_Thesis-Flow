@@ -13,6 +13,9 @@ import CreateSynopsis from './pages/create_synopsis';
 import DeleteSynopsis from './pages/delete_synopsis';
 import UpdateSynopsis from './pages/update_synopsis';
 import ForgotPassword from './pages/forgotpassword';
+import AdminApprovalList from './pages/admin_approval_list';
+import Viewapprovaldetails from './pages/view_approval_details';
+import Approvelogin from './pages/login_approve';
 
 
 
@@ -37,10 +40,14 @@ function App() {
         <Route path="/create_synopsis" element={<CreateSynopsis />} />
         <Route path="/delete_synopsis" element={<DeleteSynopsis />} />
         <Route path="/update_synopsis" element={<UpdateSynopsis />} />
+        <Route path="/show_list" element={<AdminApprovalList />} />
+        <Route path="/show_approval_details" element={<Viewapprovaldetails />} />
+        <Route path="/approve_login" element={<Approvelogin />} />
+
       </Routes>
     </div>
   );
-}
+} 
 
 
 export default App;

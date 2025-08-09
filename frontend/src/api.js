@@ -55,6 +55,10 @@ export const registerSynopsis = (data) => api.post('/register/synopsis', data);
 export const deleteSynopsis = (data) => api.delete('/delete/synopsis', { data });
 export const updateSynopsis = (data) => api.put('/update/synopsis', data);
 
+export const getApprovalList = () => api.get('/approve');
+export const getApprovalDetails = (id) => api.get(`/approve/${id}`);
+export const approveUser = (id, payload) => api.put(`/approve/${id}`, payload);
+
 export default api;
 
 
