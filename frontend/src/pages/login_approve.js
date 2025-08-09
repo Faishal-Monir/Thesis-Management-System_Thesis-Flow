@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './login_approve.css';
 import { approveUser } from '../api';
-import { sendRegistrationEmail } from '../api';
+import { sendRegistrationEmail, getApprovalDetails } from '../api';
 
 function LoginApprove() {
   const [id, setId] = useState('');
@@ -29,12 +29,14 @@ function LoginApprove() {
     try {
       const res = await approveUser(id, payload);
       setResult(res.data);
-      if (res.data && res.data.user && res.data.user.mail) {
+      const detailsRes = await getApprovalDetails(id);
+      const userMail = detailsRes.data && detailsRes.data.userRecord && detailsRes.data.userRecord.mail;
+      if (userMail) {
         setSuccess('Approval successful! Sending email...');
         await sendRegistrationEmail({
-          mail: res.data.user.mail,
+          mail: userMail,
           subject: 'Your account is approved',
-          msg: `Thank You for registering in our Thesis Management System your account is now approved.\nYou can login by simply going to the following Link: \n\nhttp://localhost:3000/login`
+          msg: `Thank you for registering in our Thesis Management System your account is now approved.\nYou can login by simply going to the following Link: \n\nhttp://localhost:3000/login`
         });
         setSuccess('Approval successful! Email sent.');
       } else {
