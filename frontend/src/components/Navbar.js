@@ -1,6 +1,8 @@
-import React, { useMemo, useState } from 'react';
+/* Navbar.js (with GET function that fetches and stores user status) */
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import { checkUserExists } from '../api';
 
 function Navbar() {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -11,15 +13,48 @@ function Navbar() {
   const [offCanvasOpen, setOffCanvasOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState({});
 
+  const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchStatus = async () => {
+      try {
+        const mailOrId = session?.mail || session?.student_id;
+        if (!mailOrId) return;
+
+        const res = await checkUserExists(mailOrId);
+        const userStatus = res?.data?.status;
+        if (isMounted) {
+          setStatus(userStatus);
+        }
+      } catch (e) {
+        if (isMounted) {
+          setStatus(null);
+        }
+      }
+    };
+
+    if (isLoggedIn && (session?.mail || session?.student_id)) {
+      fetchStatus();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isLoggedIn, session?.mail, session?.student_id]);
+
   const handleLogout = () => {
     localStorage.removeItem('session');
     localStorage.setItem('isLoggedIn', 'false');
     window.location.href = '/login';
   };
 
+
+
+
   // Off-canvas links with dropdowns
   const offCanvasLinks = useMemo(() => {
-
     if (usrType === 'Student') {
       return [
         {
@@ -33,49 +68,44 @@ function Navbar() {
           dropdown: [
             { to: '/propose', label: 'Propose Thesis Idea' },
             { to: '/synopsis', label: 'View Sample Synopsis' },
-            // { to: '/#', label: 'View all Supervisors' },
             { to: '/resources', label: 'Resources' },
-
           ],
         },
         {
           label: 'Dummy Links',
-          dropdown: [
-            // { to: '/#', label: 'Dashboard' },
-            // { to: '/#', label: 'View Own Profile' },
-          ],
+          dropdown: [],
         },
         { to: '/dashboard', label: 'Student Dashboard' },
-        // { to: '/propose', label: 'Student Proposal' },
       ];
     }
 
 
 
-    if (usrType === 'Faculty') {
-      return [
-        {
-          label: 'Profile',
-          dropdown: [
-            // { to: '/dashboard', label: 'Dashboard' },
-            { to: '/profile', label: 'View Own Profile(TBA)' },
-          ],
-        },
+if (usrType === 'Faculty' && status === 1) {
+  return [
+    {
+      label: 'Profile',
+      dropdown: [
+        { to: '/profile', label: 'View Own Profile(TBA)' },
+      ],
+    },
+    {
+      label: 'Manage Synopsis',
+      dropdown: [
+        { to: '/my_synopsis', label: 'View my Synopsis' },
+        { to: '/create_synopsis', label: 'Create Synopsis' },
+        { to: '/update_synopsis', label: 'Update Synopsis' },
+        { to: '/delete_synopsis', label: 'Delete Synopsis' },
+      ],
+    },
+    { to: '/resources', label: 'Resource Management' },
+  ];
+} else if (usrType === 'Faculty') {
+  return [];
+}
 
-                {
-          label: 'Manage Synopsis',
-          dropdown: [
-            { to: '/my_synopsis', label: 'View my Synopsis' },
-            { to: '/create_synopsis', label: 'Create Synopsis' },
-            { to: '/update_synopsis', label: 'Update Synopsis' },
-            { to: '/delete_synopsis', label: 'Delete Synopsis' },
-          ],
-        },
-         
-        { to: '/resources', label: 'Resource Management' },
-        // { to: '/createSynopsis', label: 'Create Synopsis' },
-      ];
-    }
+
+
 
 
     if (usrType === 'Admin') {
@@ -92,9 +122,7 @@ function Navbar() {
       ];
     }
     return [];
-  }, 
-  
-  [usrType]);
+  }, [usrType]);
 
   const toggleGroup = (label) => {
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
@@ -104,10 +132,6 @@ function Navbar() {
     setOffCanvasOpen(false);
     setOpenGroups({});
   };
-
-
-
-
 
   if (!isLoggedIn) {
     return (
@@ -142,7 +166,9 @@ function Navbar() {
           <a href="https://www.bracu.ac.bd/contact" className="navbar-link" target="_blank" rel="noopener noreferrer">Contact</a>
         </div>
         <div className="navbar-user-actions">
-          <span className="navbar-user-name">{name}</span>
+          <span className="navbar-user-name">
+            {name}{typeof status === 'number'}
+          </span>
           <button className="navbar-logout-btn" onClick={handleLogout}>
             <img src="/logout.png" alt="Logout" />
           </button>
