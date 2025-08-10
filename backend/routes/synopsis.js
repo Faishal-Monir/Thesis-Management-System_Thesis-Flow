@@ -5,7 +5,7 @@ const { Synopsis } = require('../models/schemas');
 
 
 
-// POST register synopsis
+// register synopsis
 router.post('/register/synopsis', async (req, res) => {
   try {
     const { sup_id, name, mail, topic, status } = req.body;
@@ -32,7 +32,7 @@ router.post('/register/synopsis', async (req, res) => {
 
 
 
-// GET View all synopsis entries
+//View all synopsis entries
 router.get('/synopsis', async (req, res) => {
   try {
     const allSynopsis = await Synopsis.find();
@@ -44,7 +44,7 @@ router.get('/synopsis', async (req, res) => {
 
 
 
-// GET View synopsis by supervisor id
+//View synopsis by supervisor id
 router.get('/synopsis/:sup_id', async (req, res) => {
   try {
     const { sup_id } = req.params;
@@ -79,7 +79,7 @@ router.delete('/delete/synopsis', async (req, res) => {
 });
 
 
-// PUT  Update a synopsis by syn_id
+//Update a synopsis by syn_id
 router.put('/update/synopsis', async (req, res) => {
   try {
     const { syn_id, name, mail, topic, status } = req.body;
