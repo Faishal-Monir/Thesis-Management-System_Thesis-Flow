@@ -4,7 +4,6 @@ import "./Home.css";
 function Home() {
   return (
     <div className="home-bg-container">
-      {/* Background Video */}
       <video
         className="home-bg-video"
         src="/bgvideo.mp4"
@@ -13,9 +12,7 @@ function Home() {
         muted
         playsInline
       />
-      {/* Gradient Overlay */}
       <div className="home-bg-gradient"></div>
-      {/* Main Content */}
       <div className="home-content">
         <div style={{ maxWidth: 700, width: "100%" }}>
           <h1 className="home-title">Brac University</h1>

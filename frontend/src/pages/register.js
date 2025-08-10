@@ -24,7 +24,6 @@ function Registration() {
     setSuccess('');
     setLoading(true);
     try {
-      // Check if user already exists
       let userExists = false;
       try {
         const existsRes = await checkUserExists(form.mail);
@@ -32,7 +31,7 @@ function Registration() {
           userExists = true;
         }
       } catch (err) {
-        // If error is 404 or user not found, allow registration
+
         userExists = false;
       }
       if (userExists) {
@@ -40,9 +39,8 @@ function Registration() {
         setLoading(false);
         return;
       }
-      // Proceed with registration
+
       await registerUser(form);
-      // If mail does not contain @g.bracu.ac.bd, also create approval request
       if (!form.mail.endsWith('@g.bracu.ac.bd')) {
         await createApprovalRequest({
           sup_id: form.student_id,
