@@ -8,8 +8,8 @@ app.use(cors());
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.log(err));
 
 app.get('/', (req, res) => {
   res.send('API is running');
@@ -63,6 +63,10 @@ app.use('/', adminApprovalReqRouter);
 // Admin approval processing route
 const adminApprovalRouter = require('./routes/admin_approval');
 app.use('/', adminApprovalRouter);
+
+// thesis feedback route
+const thesisFeedbackRouter = require('./routes/thesis_feedback');
+app.use('/feedback', thesisFeedbackRouter);
 
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
