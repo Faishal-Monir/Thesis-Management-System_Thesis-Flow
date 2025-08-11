@@ -115,6 +115,7 @@ function Navbar() {
             { to: '/delete_synopsis', label: 'Delete Synopsis' },
           ],
         },
+        { to: '/propose', label: 'Student Proposal' },
         { to: '/resources', label: 'Resource Management' },
       ];
     } else if (usrType === 'Faculty') {
