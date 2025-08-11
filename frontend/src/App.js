@@ -31,8 +31,7 @@ function App() {
         <Route path="/synopsis" element={<Synopsis />} />
         <Route path="/login" element={<Login />} />       
         <Route path="/register" element={<Register />} />  
-        <Route path="/studentproposal" element={<StudentProposal />} />
-        <Route path="/studentDashboard" element={<StudentDashboard />} />
+       
         <Route path="/resources" element={<Resources />} />
         <Route path="/forgotpass_submission" element={<ForgotPassSubmission />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
