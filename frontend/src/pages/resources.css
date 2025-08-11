@@ -130,7 +130,6 @@
   animation: fadeOut 3s forwards;
 }
 
-/* ✅ Added missing keyframes */
 @keyframes fadeOutDelayed {
   0% { opacity: 1; }
   80% { opacity: 1; }
