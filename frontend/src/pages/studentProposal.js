@@ -121,8 +121,6 @@ const StudentProposal = () => {
         domain: editDomain,
         idea: editIdea,
       });
-
-
       showToastMessage("Proposal updated successfully.");
       setEditIndex(null);
       setEditDomain("");

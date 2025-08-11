@@ -14,6 +14,7 @@
   letter-spacing: 0.5px;
   border-bottom: 2px solid #e0e0e0;
   padding-bottom: 12px;
+  margin-top: 90px;
 }
 
 
@@ -105,7 +106,7 @@
 
 .success-popup {
   position: fixed;
-  top: 20px;
+  top: 80px;
   right: 20px;
   background-color: #27ae60;
   color: white;
@@ -124,7 +125,7 @@
 }
 .error-popup {
   position: fixed;
-  top: 20px;
+  top: 80px;
   right: 20px;
   background-color: #e74c3c; /* red */
   color: white;
