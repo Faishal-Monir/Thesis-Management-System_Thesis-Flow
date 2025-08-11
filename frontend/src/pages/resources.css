@@ -1,6 +1,6 @@
 /* Resources.css */
 .resources-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 20px auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -14,8 +14,8 @@
   letter-spacing: 0.5px;
   border-bottom: 2px solid #e0e0e0;
   padding-bottom: 12px;
+  margin-top: 90px;
 }
-
 
 .resources-error {
   color: red;
@@ -69,7 +69,7 @@
   font-size: 1rem;
   margin-right: 10px;
   transition: border-color 0.3s ease;
-  margin-bottom: 10px; /* add margin for spacing */
+  margin-bottom: 10px;
 }
 
 .resources-input:focus {
@@ -89,9 +89,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;            /* enough height for vertical centering */
-  width: 100%;       /* minimum width for button */
-
+  height: 40px;
+  width: 100%;
 }
 
 .resources-button:disabled {
@@ -105,9 +104,23 @@
 
 .success-popup {
   position: fixed;
-  top: 20px;
+  top: 100px;
   right: 20px;
   background-color: #27ae60;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+  animation: fadeOutDelayed 3s forwards;
+}
+
+.error-popup {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background-color: #e74c3c;
   color: white;
   padding: 12px 20px;
   border-radius: 5px;
@@ -117,23 +130,17 @@
   animation: fadeOut 3s forwards;
 }
 
-@keyframes fadeOut {
+/* ✅ Added missing keyframes */
+@keyframes fadeOutDelayed {
   0% { opacity: 1; }
   80% { opacity: 1; }
   100% { opacity: 0; }
 }
-.error-popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #e74c3c; /* red */
-  color: white;
-  padding: 12px 20px;
-  border-radius: 5px;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  z-index: 1000;
-  animation: fadeOut 3s forwards;
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 .resource-item {
@@ -143,18 +150,18 @@
 
 .resource-content {
   display: flex;
-  justify-content: space-between; /* links left, buttons right */
+  justify-content: space-between;
   align-items: flex-start;
   background-color: #f9f9f9;
   padding: 12px;
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  flex-wrap: wrap; /* allow wrapping for update input */
+  flex-wrap: wrap;
 }
 
 .links-container {
-  flex: 1 1 auto; /* grow to fill space */
-  min-width: 0; /* prevent overflow */
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .resource-links {
@@ -170,11 +177,10 @@
 .button-group {
   display: flex;
   gap: 8px;
-  flex-shrink: 0; /* prevent shrinking */
+  flex-shrink: 0;
   align-items: center;
 }
 
-/* Update & Delete Buttons */
 .update-button {
   background-color: #1890ff;
   color: white;
@@ -203,14 +209,13 @@
   background-color: #e63946;
 }
 
-/* Update input form */
 .update-form {
   margin-top: 8px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   justify-content: flex-start;
-  width: 100%; /* full width below links */
+  width: 100%;
 }
 
 .update-input {
@@ -249,13 +254,13 @@
 .add-link-wrapper {
   max-width: 500px;
   height: 230px;
-  margin: 20px auto 40px; /* center horizontally with vertical spacing */
+  margin: 20px auto 100px;
   padding: 16px 20px;
   background-color: #f5f7fa;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #d9d9d9;
-  display: "flex";
-  justify-content : "center";
-  align-items: "center",
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
