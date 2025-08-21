@@ -28,7 +28,7 @@ router.get('/dashboard', async (req, res) => {
         details = {
           name: user.Name,
           email: user.mail,
-          faculty_id: user.student_id,
+          student_id: user.student_id,
           status: user.status
         };
         return res.json({ user: details, role: 'Faculty' });

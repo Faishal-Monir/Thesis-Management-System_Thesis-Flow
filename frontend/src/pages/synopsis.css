@@ -1,4 +1,3 @@
-/* synopsis.css */
 .synopsis-page {
   min-height: 100vh;
   background: #eeefef;
@@ -6,6 +5,7 @@
 }
 
 .synopsis-title {
+  padding-top: 50px;
   font-size: 3rem;
   font-weight: 700;
   text-align: center;

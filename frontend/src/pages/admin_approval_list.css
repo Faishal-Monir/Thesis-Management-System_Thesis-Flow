@@ -1,0 +1,163 @@
+.admin-approval-page {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+.admin-approval-title {
+  padding-top: 6%;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #273992;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.admin-approval-loading,
+.admin-approval-error {
+  color: #ef4444;
+  font-weight: 600;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.approval-empty {
+  width: 100%;
+  text-align: center;
+  color: #6b7280;
+  padding: 1rem 0;
+  font-weight: 500;
+}
+
+.approval-card-list {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+
+@media (min-width: 0px) {
+  .approval-card {
+    grid-column: span 12;
+  }
+}
+@media (min-width: 640px) {
+  .approval-card {
+    grid-column: span 6;
+  }
+}
+@media (min-width: 1024px) {
+  .approval-card {
+    grid-column: span 4;
+  }
+}
+
+
+.approval-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 1rem;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.approval-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+
+.approval-card-header.minimal {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.approval-card-id {
+  font-size: 0.9rem;
+  color: #6b7280;
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  white-space: nowrap;
+}
+
+.approval-card-id span {
+  font-weight: 700;
+  color: #111827;
+}
+
+
+.approval-card-body {
+  padding: 0;               
+  border: 0;                
+  background: transparent;  
+  border-radius: 0;
+  margin-top: 0.25rem;
+}
+
+.approval-field {
+  display: inline;          
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.approval-field .field-label {
+  display: inline;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #475569;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.approval-field .field-text {
+  display: inline;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #111827;
+  font-weight: 600;
+  line-height: 1.45;
+  margin-left: 0.25rem;
+}
+
+
+.approval-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+}
+
+.approval-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.status-dot.active {
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.status-dot.inactive {
+  background: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.status-text {
+  font-size: 0.95rem;
+}

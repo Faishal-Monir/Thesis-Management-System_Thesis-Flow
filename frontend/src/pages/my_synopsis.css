@@ -1,0 +1,151 @@
+.my-synopsis-page {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.my-synopsis-title {
+  padding-top: 6%;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #273992;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.my-synopsis-loading,
+.my-synopsis-error {
+  color: #ef4444;
+  font-weight: 600;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.synopsis-empty {
+  color: #6b7280;
+  font-weight: 500;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+
+.synopsis-card-list {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+
+@media (min-width: 0px) {
+  .synopsis-card {
+    grid-column: span 12;
+  }
+}
+@media (min-width: 640px) {
+  .synopsis-card {
+    grid-column: span 6;
+  }
+}
+@media (min-width: 1024px) {
+  .synopsis-card {
+    grid-column: span 4;
+  }
+}
+
+.synopsis-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 1rem;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.synopsis-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+
+.synopsis-card-header.minimal {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+
+.synopsis-card-id {
+  font-size: 0.9rem;
+  color: #6b7280;
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  white-space: nowrap;
+}
+
+.synopsis-card-id span {
+  font-weight: 700;
+  color: #111827;
+}
+
+
+.synopsis-card-topic {
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.topic-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 0.25rem;
+}
+
+.topic-text {
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+
+.synopsis-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+}
+
+.synopsis-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.status-dot.available {
+  background: #10b981; 
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.status-dot.taken {
+  background: #ef4444; 
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.status-text {
+  font-size: 0.95rem;
+}
