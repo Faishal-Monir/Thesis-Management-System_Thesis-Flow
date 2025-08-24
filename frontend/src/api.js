@@ -77,8 +77,7 @@ export const approveUser = (id, payload) => api.put(`/approve/${id}`, payload);
 export const fetchAllTheses = () => axios.get(`${API_BASE_URL}/thesis`);
 export const registerThesis = (data) => api.post("/thesis/register", data);
 // Fetch group info for a specific student
-export const fetchGroupByStudentId = (student_id) => 
-  api.get(`/groups/student/${student_id}`);
+export const fetchGroupByStudentId = (student_id) => api.get(`/groups/student/${student_id}`);
 
 
 // Fetch domain info by sup_id

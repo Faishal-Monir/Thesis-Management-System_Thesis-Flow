@@ -21,6 +21,7 @@ import ThesisRegistration from './pages/thesis_registration';
 import View_own_domain from './pages/view_domain';
 import Update_domain from './pages/update_domain';
 import Delete_domain from './pages/delete_domain';
+import Domain_enlistment from './pages/request_domain_enlistment';
 
 
 
@@ -52,6 +53,7 @@ function App() {
         <Route path="/view_own_domain" element={<View_own_domain />} />
         <Route path="/update_own_domain" element={<Update_domain />} />
         <Route path="/delete_own_domain" element={<Delete_domain />} />
+        <Route path="/enlist_domain" element={<Domain_enlistment />} />
 
       </Routes>
     </div>

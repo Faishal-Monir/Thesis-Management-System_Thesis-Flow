@@ -1,3 +1,48 @@
+
+.msg-field {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+}
+
+.msg-field .field-label {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.msg-box-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.msg-field {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+}
+
+.msg-field .field-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  width: 100%;
+}
+
+.msg-box {
+  font-weight: 600;
+  color: #111827;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 0.35rem 0.8rem;
+  word-break: break-word;
+  font-size: 0.95rem;
+  border: 1px solid #e5e7eb;
+  min-width: 120px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 .admin-approval-page {
   max-width: 1200px;
   margin: 2rem auto;
@@ -113,6 +158,13 @@
   margin: 0;
   text-transform: none;
   letter-spacing: 0;
+}
+
+/* Ensure msg label is block in msg-field, overriding inline */
+.msg-field .field-label {
+  display: block !important;
+  margin-bottom: 0.25rem;
+  width: 100%;
 }
 
 .approval-field .field-text {

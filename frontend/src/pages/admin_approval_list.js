@@ -88,6 +88,23 @@ function AdminApprovalList() {
                   <div className="field-label">Type:</div>
                   <div className="field-text">{app.type}</div>
                 </div>
+                {app.msg && (
+                  <div className="approval-field msg-field">
+                    <div className="field-label" style={{ marginBottom: '1.25rem' }}>Msg:</div>
+                    <div className="msg-box-wrapper">
+                      <div className="msg-box">{app.msg}</div>
+                      <button
+                        type="button"
+                        className="copy-btn"
+                        onClick={() => handleCopy(app.msg, cardKey + '-msg')}
+                        aria-label="Copy Msg"
+                        title={copiedId === cardKey + '-msg' ? 'Copied!' : 'Copy'}
+                      >
+                        {copiedId === cardKey + '-msg' ? 'Copied' : 'Copy'}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="approval-card-footer">

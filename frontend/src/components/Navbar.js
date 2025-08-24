@@ -136,6 +136,7 @@ function Navbar() {
             { to: '/view_own_domain', label: 'User Research and interest' },
             { to: '/update_own_domain', label: 'Update Research and Interest' },
             { to: '/delete_own_domain', label: 'Delete Research and Interest' },
+            { to: '/enlist_domain', label: 'Request For Domain Enlistment' },
           ],
         },
 
@@ -166,28 +167,30 @@ function Navbar() {
 
     if (usrType === 'Admin') {
       return [
+        { to: '/show_list', label: 'All Approval List' },
         {
           label: 'Login Approvals',
           dropdown: [
-            { to: '/show_list', label: 'Approval List' },
             { to: '/show_approval_details', label: 'Show Approval Details' },
             { to: '/approve_login', label: 'Approve Login' },
           ],
         },
         {
-          label: 'Supervisor Management',
+          label: 'Thesis And Group Management',
           dropdown: [
-            { to: '/show_list', label: 'View all Domains' },
-            { to: '/show_list', label: 'Update Domain list' },
+            { to: '/#', label: 'Update/Delete Thesis Group<TBA>' },
+            { to: '/#', label: 'Create New Thesis Domain' },
           ],
         },
 
          {
           label: 'User Management',
           dropdown: [
-            { to: '/show_list', label: 'Show User Info' },
-            { to: '/show_approval_details', label: 'Update Information' },
-            { to: '/approve_login', label: 'Reset Password' },
+            { to: '/#', label: 'Show User Info<TBA>' },
+            { to: '/#', label: 'Update Information<TBA>' },
+            { to: '/#', label: 'Reset Password' },
+            { to: '/#', label: 'Send Email to User' },
+            { to: '/#', label: 'Send Central Email'},
           ],
         },
 

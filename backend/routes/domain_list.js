@@ -1,3 +1,8 @@
+
+const express = require('express');
+const router = express.Router();
+const { DomainList } = require('../models/schemas');
+
 // Register a new domain list entry with next id_no
 router.post('/register', async (req, res) => {
   try {
@@ -16,9 +21,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-const express = require('express');
-const router = express.Router();
-const { DomainList } = require('../models/schemas');
 
 // View all domain list entries
 router.get('/view', async (req, res) => {

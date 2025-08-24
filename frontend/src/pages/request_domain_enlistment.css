@@ -1,0 +1,91 @@
+/* Request Domain Enlistment Page Styles */
+.request-domain-enlistment-page {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	padding: 0 1rem;
+	background: #f6f8fa;
+	box-sizing: border-box;
+}
+
+.request-domain-enlistment-container {
+	width: 100%;
+	max-width: 420px;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+	padding: 1.5rem;
+}
+
+.request-domain-enlistment-title {
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin: 0 0 1rem 0;
+	color: #273992;
+	text-align: center;
+}
+
+.request-domain-enlistment-form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	margin-top: 1rem;
+}
+
+.request-domain-enlistment-label {
+	font-weight: 600;
+	margin-bottom: 0.25rem;
+}
+
+.request-domain-enlistment-input {
+	padding: 0.65rem 0.75rem;
+	border-radius: 8px;
+	border: 1px solid #cbd5e1;
+	font-size: 1rem;
+	background: #f3f4f6;
+}
+
+.request-domain-enlistment-btn {
+	background: #273992;
+	color: #fff;
+	font-weight: 600;
+	font-size: 1.05rem;
+	border-radius: 8px;
+	border: none;
+	padding: 0.7rem;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+	transition: background 0.15s ease;
+}
+
+.request-domain-enlistment-btn:hover:not(:disabled) {
+	background: #1f2e78;
+}
+.request-domain-enlistment-btn:disabled {
+	cursor: not-allowed;
+	opacity: 0.7;
+}
+
+.request-domain-enlistment-error,
+.request-domain-enlistment-success {
+	font-weight: 500;
+	text-align: center;
+	padding: 0.5rem 0.25rem;
+	border-radius: 8px;
+}
+
+.request-domain-enlistment-error {
+	color: #b91c1c;
+	background: #fee2e2;
+}
+
+.request-domain-enlistment-success {
+	color: #166534;
+	background: #dcfce7;
+}
+
+@media (max-width: 640px) {
+	.request-domain-enlistment-container {
+		padding: 1.25rem;
+	}
+}
