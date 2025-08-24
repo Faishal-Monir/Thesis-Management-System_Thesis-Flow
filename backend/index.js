@@ -36,6 +36,9 @@ app.use('/reset', passResetRoute);
 const domainSelectRoute = require('./routes/domain_select');
 app.use('/register', domainSelectRoute);
 
+const domainListRouter = require('./routes/domain_list');
+app.use('/domainlist', domainListRouter);
+
 // Domain update
 const domainUpdateRoute = require('./routes/domain_update');
 app.use('/update', domainUpdateRoute);

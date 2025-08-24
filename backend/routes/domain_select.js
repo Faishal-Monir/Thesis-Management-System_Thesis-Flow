@@ -50,10 +50,12 @@ router.put('/clear', async (req, res) => {
 
 
 // API to view domain for a specific sup_id
+
+// API to view domain for a specific sup_id (including Field)
 router.get('/view/:sup_id', async (req, res) => {
   try {
     const { sup_id } = req.params;
-    const domainData = await Domain.findOne({ sup_id }, { sup_id: 1, domain: 1, _id: 0 });
+    const domainData = await Domain.findOne({ sup_id }, { sup_id: 1, domain: 1, Field: 1, _id: 0 });
     if (!domainData) {
       return res.status(404).json({ error: `sup_id ${sup_id} not found.` });
     }
@@ -64,9 +66,11 @@ router.get('/view/:sup_id', async (req, res) => {
 });
 
 
+
+// API to view all domains (including Field)
 router.get('/view', async (req, res) => {
   try {
-    const domains = await Domain.find({}, { sup_id: 1, domain: 1, _id: 0 });
+    const domains = await Domain.find({}, { sup_id: 1, domain: 1, Field: 1, _id: 0 });
     res.status(200).json({ domains });
   } catch (err) {
     res.status(500).json({ error: err.message || 'Server error.' });
