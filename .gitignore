@@ -1,6 +1,5 @@
 backend/node_modules/
 backend/.env_copy
-backend/.env
 logs
 *.log
 npm-debug.log*
