@@ -133,9 +133,9 @@ function Navbar() {
         {
           label: 'Modify Research Interests',
           dropdown: [
-            { to: '/', label: 'User Research and interest' },
-            { to: '/', label: 'Update Research and Interest' },
-            { to: '/', label: 'Delete Research and Interest' },
+            { to: '/view_own_domain', label: 'User Research and interest' },
+            { to: '/update_own_domain', label: 'Update Research and Interest' },
+            { to: '/delete_own_domain', label: 'Delete Research and Interest' },
           ],
         },
 

@@ -95,11 +95,11 @@ const groupsSchema = new mongoose.Schema({
   isRegistered: { type: Number, enum: [0, 1], default: 0 }, // 1 = registered, 0 = not registered
  },{ collection: 'groups' });
 
-// Domain Schema
+// Domain list Schema
 const domain = new mongoose.Schema({
+  id_no: { type: Number, required: true, unique: true },
   domain_subject: { type: String, required: true }
-}, { collection: 'domain_list' } 
-);
+}, { collection: 'domain_list' });
 
 
 module.exports = {

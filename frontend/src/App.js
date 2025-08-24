@@ -18,6 +18,10 @@ import Viewapprovaldetails from './pages/view_approval_details';
 import Approvelogin from './pages/login_approve';
 import GroupPage from './pages/group_page'; 
 import ThesisRegistration from './pages/thesis_registration';
+import View_own_domain from './pages/view_domain';
+import Update_domain from './pages/update_domain';
+import Delete_domain from './pages/delete_domain';
+
 
 
 
@@ -32,8 +36,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/synopsis" element={<Synopsis />} />
         <Route path="/login" element={<Login />} />       
-        <Route path="/register" element={<Register />} />  
-       
+        <Route path="/register" element={<Register />} />         
         <Route path="/resources" element={<Resources />} />
         <Route path="/forgotpass_submission" element={<ForgotPassSubmission />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
@@ -44,10 +47,11 @@ function App() {
         <Route path="/show_list" element={<AdminApprovalList />} />
         <Route path="/show_approval_details" element={<Viewapprovaldetails />} />
         <Route path="/approve_login" element={<Approvelogin />} />
-
         <Route path="/groups" element={<GroupPage />} />
-
         <Route path="/thesis" element={<ThesisRegistration />} />
+        <Route path="/view_own_domain" element={<View_own_domain />} />
+        <Route path="/update_own_domain" element={<Update_domain />} />
+        <Route path="/delete_own_domain" element={<Delete_domain />} />
 
       </Routes>
     </div>
