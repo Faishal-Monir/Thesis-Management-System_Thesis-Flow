@@ -115,22 +115,36 @@ function Navbar() {
         {
           label: 'Profile',
           dropdown: [
-            { to: '/profile', label: 'View Own Profile(TBA)' },
+            { to: '/profile', label: 'User Research and interest' },
+            { to: '/profile', label: 'Update Research and Interest' },
+            { to: '/profile', label: 'Delete Research and Interest' },
           ],
         },
         {
           label: 'Manage Synopsis',
           dropdown: [
-            { to: '/my_synopsis', label: 'View my Synopsis' },
-            { to: '/create_synopsis', label: 'Create Synopsis' },
-            { to: '/update_synopsis', label: 'Update Synopsis' },
-            { to: '/delete_synopsis', label: 'Delete Synopsis' },
+            // { to: '/my_synopsis', label: 'View my Synopsis' },
+            // { to: '/create_synopsis', label: 'Create Synopsis' },
+            // { to: '/update_synopsis', label: 'Update Synopsis' },
+            // { to: '/delete_synopsis', label: 'Delete Synopsis' },
           ],
         },
+
+        {
+          label: 'Modify Research Interests',
+          dropdown: [
+            { to: '/', label: 'User Research and interest' },
+            { to: '/', label: 'Update Research and Interest' },
+            { to: '/', label: 'Delete Research and Interest' },
+          ],
+        },
+
+
         {
           label: 'Thesis Management',
           dropdown: [
-            { to: '/thesis', label: 'View Registration' },
+            { to: '/thesis', label: 'View Registration Requests' },
+            { to: '/thesis', label: 'View Registered Groups' }
           ],
         },
         {
@@ -156,6 +170,25 @@ function Navbar() {
             { to: '/approve_login', label: 'Approve Login' },
           ],
         },
+        {
+          label: 'Supervisor Management',
+          dropdown: [
+            { to: '/show_list', label: 'View all Domains' },
+            { to: '/show_list', label: 'Update Domain list' },
+          ],
+        },
+
+         {
+          label: 'User Management',
+          dropdown: [
+            { to: '/show_list', label: 'Show User Info' },
+            { to: '/show_approval_details', label: 'Update Information' },
+            { to: '/approve_login', label: 'Reset Password' },
+          ],
+        },
+
+
+
         // { to: '/resources', label: 'Resources' },
         // { to: '/manageUsers', label: 'Manage Users' },
       ];

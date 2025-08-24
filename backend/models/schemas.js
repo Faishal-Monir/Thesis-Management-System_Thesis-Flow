@@ -93,9 +93,14 @@ const groupsSchema = new mongoose.Schema({
   id: { type: Number, required: true, unique: true },
   student_id: { type: [String], required: true }, // array of student IDs
   isRegistered: { type: Number, enum: [0, 1], default: 0 }, // 1 = registered, 0 = not registered
- },
- 
-  { collection: 'groups' });
+ },{ collection: 'groups' });
+
+// Domain Schema
+const domain = new mongoose.Schema({
+  domain_subject: { type: String, required: true }
+}, { collection: 'domain_list' } 
+);
+
 
 module.exports = {
   Userdata: mongoose.model('Userdata', userdataSchema),
@@ -106,6 +111,7 @@ module.exports = {
   Consultation: mongoose.model('Consultation', consultationSchema),
   Domain: mongoose.model('Domain', domainSchema),
   Approval: mongoose.model('Approval', approvalSchema),
-  StudentProposal: mongoose.model('StudentProposal', studentProposalSchema)
+  StudentProposal: mongoose.model('StudentProposal', studentProposalSchema),
+  DomainList: mongoose.model('DomainList', domain)
 };
 
