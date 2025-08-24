@@ -296,6 +296,13 @@ export default function GroupPage() {
           >
             {creating ? "Creating..." : "Create Group"}
           </button>
+          {/* Back button below Create Group */}
+          <button
+            onClick={() => setShowCreate(false)}
+            className="bg-gray-500 text-white px-4 py-2 rounded mt-2 block"
+          >
+            Back
+          </button>
         </div>
       )}
     </div>

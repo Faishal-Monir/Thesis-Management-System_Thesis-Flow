@@ -175,6 +175,8 @@ export default function ThesisRegistration() {
         >
           Thesis Registration
         </button>
+        
+        
       )}
 
       {showRegisterForm && unregisteredGroup && (
@@ -220,6 +222,13 @@ export default function ThesisRegistration() {
             onClick={handleRegisterThesis}
           >
             Register Thesis
+          </button>
+          {/* Back button below Create Group */}
+          <button
+            onClick={() => setShowRegisterForm(false)}
+            className="bg-gray-500 text-white px-4 py-2 rounded mt-2 block"
+          >
+            Back
           </button>
         </div>
       )}
