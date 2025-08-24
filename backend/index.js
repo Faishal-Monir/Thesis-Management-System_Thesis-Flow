@@ -68,5 +68,13 @@ app.use('/', adminApprovalRouter);
 const thesisFeedbackRouter = require('./routes/thesis_feedback');
 app.use('/feedback', thesisFeedbackRouter);
 
+// Group routes
+const groupRouter = require('./routes/group');
+app.use('/groups', groupRouter);
+
+// Thesis registration routes
+const thesisRegistrationRouter = require('./routes/thesis_registration');
+app.use('/thesis', thesisRegistrationRouter);
+
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

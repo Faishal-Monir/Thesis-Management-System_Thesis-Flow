@@ -83,7 +83,7 @@ function Navbar() {
           ],
         },
         {
-          label: 'Thesis Management',
+          label: 'Research Management',
           dropdown: [
             { to: '/propose', label: 'Propose Thesis Idea' },
             { to: '/synopsis', label: 'View Sample Synopsis' },
@@ -93,6 +93,18 @@ function Navbar() {
         {
           label: 'Dummy Links',
           dropdown: [],
+        },
+        {
+          label: 'Thesis Management',
+          dropdown: [
+            { to: '/thesis', label: 'Thesis Registration' },
+          ],
+        },
+        {
+          label: 'Groups',
+          dropdown: [
+            { to: '/groups', label: 'View / Manage Group' },
+          ],
         },
         { to: '/dashboard', label: 'Student Dashboard' },
       ];
@@ -115,6 +127,19 @@ function Navbar() {
             { to: '/delete_synopsis', label: 'Delete Synopsis' },
           ],
         },
+        {
+          label: 'Thesis Management',
+          dropdown: [
+            { to: '/thesis', label: 'View Registration' },
+          ],
+        },
+        {
+          label: 'Groups',
+          dropdown: [
+            { to: '/groups', label: 'View All Groups' },
+          ],
+        },
+        { to: '/propose', label: 'Student Proposal' },
         { to: '/resources', label: 'Resource Management' },
       ];
     } else if (usrType === 'Faculty') {

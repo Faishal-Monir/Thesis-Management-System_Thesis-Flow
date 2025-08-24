@@ -13,7 +13,7 @@ router.get('/dashboard', async (req, res) => {
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-
+      
       let details = {};
 
       if (user.usr_type === 'Student') {
