@@ -21,18 +21,32 @@ const Resources = () => {
     fetchResources();
   }, []);
 
+  useEffect(() => {
+    let timeout;
+    if (successMsg || error) {
+      timeout = setTimeout(() => {
+        setSuccessMsg("");
+        setError("");
+      }, 3000);
+    }
+    return () => clearTimeout(timeout); 
+  }, [successMsg, error]);
+
   // Fetch all resources from server
   const fetchResources = async () => {
     try {
-      const data = await fetchResourcesAPI(); // Use API function
+      const data = await fetchResourcesAPI(); 
       setResources(data);
+      setError(null); // Clear any previous error
     } catch (err) {
       setError(err.message);
+      setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
     }
   };
 
   // Validate URL regex
   const urlRegex = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
+
 
   // Handle form submission to add a new resource
   const handleSubmit = async (e) => {
@@ -72,15 +86,18 @@ const Resources = () => {
       const newResource = await addResourceAPI({
         title: newTitle.trim(),
         link: newLink.trim(),
-      }); // Use API function
+      }); 
       setResources((prev) => [...prev, newResource]);
       setNewTitle("");
       setNewLink("");
       setSuccessMsg("Resource added successfully");
+      console.log("Success message set:", "Resource added successfully");
       setShowAddForm(false);
-      setTimeout(() => setSuccessMsg(""), 3000);
+      setTimeout(() => setSuccessMsg(null), 3000); // Clear success message after 3 seconds
     } catch (err) {
       setError(err.message);
+      console.log("Error message set:", err.message);
+      setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
     } finally {
       setLoading(false);
     }
@@ -115,25 +132,26 @@ const Resources = () => {
 
       setSuccessMsg("Resource updated successfully");
       setEditingResourceId(null);
-      setTimeout(() => setSuccessMsg(""), 3000);
+      setTimeout(() => setSuccessMsg(null), 3000); // Clear success message after 3 seconds
     } catch (err) {
       setError(err.message);
+      setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
     }
   };
 
   // Handle deletion
   const handleDelete = async (resourceId) => {
     if (!window.confirm("Are you sure you want to delete the resource?")) {
-      return; // User canceled
+      return; 
     }
     try {
-      await deleteResourceAPI(resourceId); // Use API function
+      await deleteResourceAPI(resourceId); 
       setResources((prev) => prev.filter((res) => res._id !== resourceId));
       setSuccessMsg("Resource deleted successfully");
-      setTimeout(() => setSuccessMsg(""), 3000);
+      setTimeout(() => setSuccessMsg(null), 3000); // Clear success message after 3 seconds
     } catch (err) {
       setError(err.message);
-      setTimeout(() => setError(""), 3000);
+      setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
     }
   };
 
@@ -141,11 +159,14 @@ const Resources = () => {
     <div className="resources-container">
       <h1 className="resources-title">Thesis Resources</h1>
 
+      {/* Ensure success and error messages are rendered */}
       {successMsg && <div className="success-popup">{successMsg}</div>}
       {error && <div className="error-popup">{error}</div>}
 
       <ul className="resources-list">
-        {resources.length === 0 ? (
+        {loading ? (
+          <div className="loading-spinner">Loading...</div>
+        ) : resources.length === 0 ? (
           <li className="resources-empty">No resources found.</li>
         ) : (
           resources.map(({ _id, title, link }) => (

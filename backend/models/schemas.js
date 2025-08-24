@@ -10,23 +10,19 @@ const userdataSchema = new mongoose.Schema({
   status: { type: Number, required: true } // 1 or 0
 }, { collection: 'userdata' });
 
-// Groups Schema
-const groupsSchema = new mongoose.Schema({
-  id: { type: String, required: true },
-  student_id: { type: String, required: true }
-}, { collection: 'groups' });
 
 // Thesis Schema
 const thesisSchema = new mongoose.Schema({
-  thesis_id: { type: String, required: true },
-  student_id: { type: String, required: true },
+  thesis_id: { type: Number, required: true, unique: true }, // same as group id
+  group_id: { type: Number, required: true },
+  student_ids: { type: [String], required: true }, // all student IDs from the group
   topic: { type: String, required: true },
-  supervisor_id: { type: String, required: true },
-  progress: { type: Number, enum: [1, 2, 3], required: true },
+  supervisor_id: { type: String, required: true }, // verified faculty id
+  progress: { type: Number, enum: [0, 1, 2, 3], default: 0 },
   feedback: { type: String },
   defer: { type: Number, enum: [0, 1], default: 0 },
-  Abstract: { type: String },
-  RaTa: { type: String } // id
+  abstract: { type: String },
+  RaTa: { type: String } // optional, can store report file id
 }, { collection: 'thesis' });
 
 // Synopsis Schema
@@ -91,6 +87,15 @@ const studentProposalSchema = new mongoose.Schema({
   idea: { type: String, required: true },
   status: { type: String, enum: ['Pending', 'Approved', 'Rejected'], default: 'Pending' }
 }, { collection: 'student_proposals' });
+
+// Groups Schema
+const groupsSchema = new mongoose.Schema({
+  id: { type: Number, required: true, unique: true },
+  student_id: { type: [String], required: true }, // array of student IDs
+  isRegistered: { type: Number, enum: [0, 1], default: 0 }, // 1 = registered, 0 = not registered
+ },
+ 
+  { collection: 'groups' });
 
 module.exports = {
   Userdata: mongoose.model('Userdata', userdataSchema),
