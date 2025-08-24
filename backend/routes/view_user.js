@@ -38,7 +38,7 @@ router.get('/:id', async (req, res) => {
 
 
 
-// Decrypt function (same as used for encryption, but for decryption)
+// Decrypt function 
 const crypto = require('crypto');
 const ENCRYPTION_KEY = process.env.SECRET_KEY || '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'; // 64 hex chars
 const IV_LENGTH = 16;
