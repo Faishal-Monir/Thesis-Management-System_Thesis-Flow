@@ -24,7 +24,6 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'All fields are required.' });
     }
 
-    // Check if student_id already exists
     const existingStudent = await Userdata.findOne({ student_id });
     if (existingStudent) {
       return res.status(409).json({ error: 'User already exists.' });
