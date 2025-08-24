@@ -34,6 +34,7 @@ git checkout Faishal
 ```
 (Basically your name above )
 
+************************************************
 --> List of branches: 
 
 1. Main(Do nothing here)
@@ -44,21 +45,45 @@ git checkout Faishal
 6. Mim
 
 Note: For individual testing and merging to the test branch only ! 
-
-Repo name: Thesis-Management-System
-
+************************
+Repo name: 
+``` 
+Thesis-Management-System 
+```
+************************
 Merging two branches: 
 
-git checkout Test
-
+``` 
+git checkout Test 
+```
+```
 git pull origin Test
+```
 
+```
 git merge Faishal
+```
+************************
+Git push from Terminal:
 
-git add .    #only if there are conflicts
-git commit  # Only if a merge commit is required
+```
+git add .
+```   
+```
+git commit -m "Your custom Message here" 
+``` 
 
+```
 git push origin Test
+```
 
+************************ How to run the servers ************************
 
+```
+cd Thesis-Management-System; cd backend; node index.js
+ ```
+
+```
+cd Thesis-Management-System; cd frontend; npm start
+```
 

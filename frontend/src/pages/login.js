@@ -31,7 +31,8 @@ function Login() {
         };
         localStorage.setItem('session', JSON.stringify(sessionData));
         localStorage.setItem('isLoggedIn', 'true');
-        window.location.href = 'https://www.youtube.com/';
+        window.location.reload();
+        window.location.href = '#';
 
 
 
@@ -90,7 +91,7 @@ function Login() {
             </button>
           </div>
           <div className="login-forgot-wrapper">
-            <a href="#" className="login-forgot">Forgot Password?</a>
+            <a href="/forgotpass_submission" className="login-forgot">Forgot Password?</a>
           </div>
           {error && <div className="login-error">{error}</div>}
           <button
