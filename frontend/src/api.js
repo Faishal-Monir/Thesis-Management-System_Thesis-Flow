@@ -21,6 +21,21 @@ export const checkUserExists = (mailOrId) => api.get(`/usr/${mailOrId}`);
 export const sendRegistrationEmail = (data) => api.post('/email/send', data);
 export const resetPassword = (data) => api.post('/reset', data);
 
+
+// Group APIs
+export const fetchAllGroups = () => api.get('/groups');
+export const fetchGroupById = (id) => api.get(`/groups/${id}`);
+export const createGroup = (data) => api.post('/groups', data);
+export const addStudentToGroup = (id, student_id) =>
+ api.put(`/groups/${id}`, { student_id });
+export const deleteGroup = (id) => api.delete(`/groups/${id}`);
+export const removeStudentFromGroup = (groupId, studentId) =>
+ api.delete(`/groups/${groupId}/student`, { data: { student_id: studentId } });
+
+export const updateGroup = (groupId, data) =>
+  axios.put(`/groups/${groupId}`, data);
+
+
 export const fetchResourcesAPI = async () => {
   const response = await api.get('/resources');
   return response.data;
@@ -58,6 +73,15 @@ export const updateSynopsis = (data) => api.put('/update/synopsis', data);
 export const getApprovalList = () => api.get('/approve');
 export const getApprovalDetails = (id) => api.get(`/approve/${id}`);
 export const approveUser = (id, payload) => api.put(`/approve/${id}`, payload);
+
+// Thesis Registration APIs
+export const fetchAllTheses = () => axios.get(`${API_BASE_URL}/thesis`);
+export const registerThesis = (data) => api.post("/thesis/register", data);
+// Fetch group info for a specific student
+export const fetchGroupByStudentId = (student_id) => 
+  api.get(`/groups/student/${student_id}`);
+
+
 
 export default api;
 
