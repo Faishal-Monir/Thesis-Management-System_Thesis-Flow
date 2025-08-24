@@ -115,18 +115,18 @@ function Navbar() {
         {
           label: 'Profile',
           dropdown: [
-            { to: '/profile', label: 'User Research and interest' },
-            { to: '/profile', label: 'Update Research and Interest' },
-            { to: '/profile', label: 'Delete Research and Interest' },
+            // { to: '/profile', label: 'User Research and interest' },
+            // { to: '/profile', label: 'Update Research and Interest' },
+            // { to: '/profile', label: 'Delete Research and Interest' },
           ],
         },
         {
           label: 'Manage Synopsis',
           dropdown: [
-            // { to: '/my_synopsis', label: 'View my Synopsis' },
-            // { to: '/create_synopsis', label: 'Create Synopsis' },
-            // { to: '/update_synopsis', label: 'Update Synopsis' },
-            // { to: '/delete_synopsis', label: 'Delete Synopsis' },
+            { to: '/my_synopsis', label: 'View my Synopsis' },
+            { to: '/create_synopsis', label: 'Create Synopsis' },
+            { to: '/update_synopsis', label: 'Update Synopsis' },
+            { to: '/delete_synopsis', label: 'Delete Synopsis' },
           ],
         },
 
@@ -159,6 +159,10 @@ function Navbar() {
     } else if (usrType === 'Faculty') {
       return [];
     }
+
+
+
+
 
     if (usrType === 'Admin') {
       return [
