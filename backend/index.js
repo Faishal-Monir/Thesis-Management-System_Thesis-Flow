@@ -40,6 +40,14 @@ app.use('/register', domainSelectRoute);
 const domainUpdateRoute = require('./routes/domain_update');
 app.use('/update', domainUpdateRoute);
 
+//Domain reset
+const domainResetRoute = require('./routes/domain_select');
+app.use('/domain', domainResetRoute);
+
+// View Domain
+const domainViewRoute = require('./routes/domain_select');
+app.use('/domain', domainViewRoute);
+
 // Email service route
 const emailServiceRoute = require('./routes/emailservice');
 app.use('/email', emailServiceRoute);
@@ -67,6 +75,14 @@ app.use('/', adminApprovalRouter);
 // thesis feedback route
 const thesisFeedbackRouter = require('./routes/thesis_feedback');
 app.use('/feedback', thesisFeedbackRouter);
+
+// Group routes
+const groupRouter = require('./routes/group');
+app.use('/groups', groupRouter);
+
+// Thesis registration routes
+const thesisRegistrationRouter = require('./routes/thesis_registration');
+app.use('/thesis', thesisRegistrationRouter);
 
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

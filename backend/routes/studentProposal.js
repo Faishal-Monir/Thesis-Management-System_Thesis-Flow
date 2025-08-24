@@ -15,7 +15,7 @@ router.post('/propose', async (req, res) => {
     await newProposal.save();
     return res.status(201).json({ message: 'Proposal submitted successfully.', proposal: newProposal });
   } catch (err) {
-    console.error('🔥 Error saving proposal:', err);
+    console.error(' Error saving proposal:', err);
     return res.status(500).json({ error: 'Server error while submitting proposal.' });
   }
 });
@@ -26,7 +26,7 @@ router.get('/propose', async (req, res) => {
     const proposals = await StudentProposal.find();
     return res.status(200).json(proposals);
   } catch (err) {
-    console.error('🔥 Error fetching proposals:', err);
+    console.error('Error fetching proposals:', err);
     return res.status(500).json({ error: 'Server error while fetching proposals.' });
   }
 });
@@ -38,7 +38,7 @@ router.get('/propose/:id', async (req, res) => {
     if (!proposal) return res.status(404).json({ error: 'Proposal not found.' });
     return res.status(200).json(proposal);
   } catch (err) {
-    console.error('🔥 Error fetching proposal:', err);
+    console.error(' Error fetching proposal:', err);
     return res.status(500).json({ error: 'Server error while fetching proposal.' });
   }
 });
@@ -55,7 +55,7 @@ router.put('/propose/:id', async (req, res) => {
     if (!updated) return res.status(404).json({ error: 'Proposal not found.' });
     return res.status(200).json({ message: 'Proposal updated successfully.', proposal: updated });
   } catch (err) {
-    console.error('🔥 Error updating proposal:', err);
+    console.error('Error updating proposal:', err);
     return res.status(500).json({ error: 'Server error while updating proposal.' });
   }
 });
@@ -67,7 +67,7 @@ router.delete('/propose/:id', async (req, res) => {
     if (!deleted) return res.status(404).json({ error: 'Proposal not found.' });
     return res.status(200).json({ message: 'Proposal deleted successfully.' });
   } catch (err) {
-    console.error('🔥 Error deleting proposal:', err);
+    console.error('Error deleting proposal:', err);
     return res.status(500).json({ error: 'Server error while deleting proposal.' });
   }
 });

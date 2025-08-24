@@ -3,7 +3,7 @@ const router = express.Router();
 const { Domain } = require('../models/schemas');
 
 // Update domain API
-router.post('/domain', async (req, res) => {
+router.put('/domain', async (req, res) => {
   try {
     const { sup_id, domain, Field } = req.body;
     if (!sup_id || !domain || !Field) {

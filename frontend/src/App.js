@@ -16,6 +16,8 @@ import ForgotPassword from './pages/forgotpassword';
 import AdminApprovalList from './pages/admin_approval_list';
 import Viewapprovaldetails from './pages/view_approval_details';
 import Approvelogin from './pages/login_approve';
+import GroupPage from './pages/group_page'; 
+import ThesisRegistration from './pages/thesis_registration';
 
 
 
@@ -31,8 +33,7 @@ function App() {
         <Route path="/synopsis" element={<Synopsis />} />
         <Route path="/login" element={<Login />} />       
         <Route path="/register" element={<Register />} />  
-        <Route path="/studentproposal" element={<StudentProposal />} />
-        <Route path="/studentDashboard" element={<StudentDashboard />} />
+       
         <Route path="/resources" element={<Resources />} />
         <Route path="/forgotpass_submission" element={<ForgotPassSubmission />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
@@ -43,6 +44,10 @@ function App() {
         <Route path="/show_list" element={<AdminApprovalList />} />
         <Route path="/show_approval_details" element={<Viewapprovaldetails />} />
         <Route path="/approve_login" element={<Approvelogin />} />
+
+        <Route path="/groups" element={<GroupPage />} />
+
+        <Route path="/thesis" element={<ThesisRegistration />} />
 
       </Routes>
     </div>
