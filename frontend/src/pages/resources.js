@@ -83,30 +83,50 @@ export default function Resources() {
   const isWord = (filename) => filename.endsWith(".doc") || filename.endsWith(".docx");
 
   return (
-    <div className="resources-container">
-      <h1 className="resources-title">Thesis Resources</h1>
+    <>
+      {/* Animated background particles */}
+      <div className="bg-animation">
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+      </div>
 
-      {successMsg && <div className="success-popup">{successMsg}</div>}
-      {error && <div className="error-popup">{error}</div>}
+      <div className="resources-container">
+        <h1 className="resources-title">Thesis Resources</h1>
 
-      {loading ? (
-        <div className="loading-spinner">Loading...</div>
-      ) : resources.length === 0 ? (
-        <p className="resources-empty">No resources found.</p>
-      ) : (
-        <ul className="resources-list">
-          {resources.map(({ _id, title, filePath }) => {
-            const fileName = filePath.split("/").pop();
-            const fileUrl = `${API_BASE_URL}${filePath}`;
-            const downloadUrl = `${API_BASE_URL}/resources/download/${fileName}`;
+        {successMsg && <div className="success-popup">{successMsg}</div>}
+        {error && <div className="error-popup">{error}</div>}
 
-            return (
-              <li key={_id} className="resource-item">
-                <div className="resource-content">
-                  <strong className="resource-title">{title}</strong>
-                  <div className="resource-links mt-2">
-                    <a href={fileUrl} target="_blank" rel="noopener noreferrer">View File</a>{" | "}
-                    <a href={downloadUrl} target="_blank" rel="noopener noreferrer" download>Download</a>
+        {loading ? (
+          <div className="loading-spinner">Loading...</div>
+        ) : resources.length === 0 ? (
+          <p className="resources-empty">No resources found.</p>
+        ) : (
+          <ul className="resources-list">
+            {resources.map(({ _id, title, filePath }) => {
+              const fileName = filePath.split("/").pop();
+              const fileUrl = `${API_BASE_URL}${filePath}`;
+              const downloadUrl = `${API_BASE_URL}/resources/download/${fileName}`;
+
+              return (
+                <li key={_id} className="resource-item">
+                  <div className="resource-content">
+                    <div className="links-container">
+                      <strong className="resource-title">{title}</strong>
+                      <div className="resource-links mt-2">
+                        <a href={fileUrl} target="_blank" rel="noopener noreferrer">View File</a>{" | "}
+                        <a href={downloadUrl} target="_blank" rel="noopener noreferrer" download>Download</a>
+                      </div>
+                    </div>
+
+                    {isFaculty && (
+                      <div className="button-group mt-2">
+                        <button className="delete-button" onClick={() => handleDelete(_id)}>Delete</button>
+                      </div>
+                    )}
                   </div>
 
                   {isPDF(filePath) && (
@@ -134,51 +154,48 @@ export default function Resources() {
                       style={{ marginTop: "10px", border: "1px solid #ccc" }}
                     ></iframe>
                   )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
-                  {isFaculty && (
-                    <div className="button-group mt-2">
-                      <button className="delete-button" onClick={() => handleDelete(_id)}>Delete</button>
-                    </div>
-                  )}
+        {isFaculty && (
+          <div className="add-link-wrapper mt-4">
+            {!showAddForm ? (
+              <button className="resources-button" onClick={() => setShowAddForm(true)}>Add New Resource</button>
+            ) : (
+              <div className="resources-form mt-2">
+                <input
+                  type="text"
+                  placeholder="Enter resource title"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                  className="resources-input"
+                />
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  onChange={(e) => setNewFile(e.target.files[0])}
+                  className="resources-input"
+                />
+                <div className="form-buttons">
+                  <button className="resources-button mt-2" onClick={handleAddResource} disabled={loading}>
+                    {loading ? "Adding..." : "Add Resource"}
+                  </button>
+                  <button
+                    className="resources-button mt-2"
+                    style={{background: "linear-gradient(135deg, #64748b, #475569)"}}
+                    onClick={() => { setShowAddForm(false); setNewTitle(""); setNewFile(null); }}
+                  >
+                    Cancel
+                  </button>
                 </div>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-
-      {isFaculty && (
-        <div className="add-link-wrapper mt-4">
-          {!showAddForm ? (
-            <button className="resources-button" onClick={() => setShowAddForm(true)}>Add New Resource</button>
-          ) : (
-            <div className="resources-form mt-2">
-              <input
-                type="text"
-                placeholder="Enter resource title"
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
-                className="resources-input"
-              />
-              <input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={(e) => setNewFile(e.target.files[0])}
-                className="resources-input"
-              />
-              <button className="resources-button mt-2" onClick={handleAddResource} disabled={loading}>
-                {loading ? "Adding..." : "Add Resource"}
-              </button>
-              <button
-                className="resources-button mt-2 bg-gray-300 text-black"
-                onClick={() => { setShowAddForm(false); setNewTitle(""); setNewFile(null); }}
-              >
-                Cancel
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
