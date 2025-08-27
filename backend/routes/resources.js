@@ -1,9 +1,28 @@
 const express = require('express');
-const Resource = require('../models/schemas').Resources; 
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const Resource = require('../models/schemas').Resources;
 
+// Serve static files
+router.use('/files/resources', express.static(path.join(__dirname, '../files/resources')));
 
-// GET /api/resources - Retrieve all resources
+// Multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(__dirname, '../files/resources');
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  }
+});
+const upload = multer({ storage });
+
+// GET all resources
 router.get('/', async (req, res) => {
   try {
     const resources = await Resource.find().sort({ _id: -1 });
@@ -13,80 +32,44 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /api/resources - Add a new resource with title and link
-router.post('/', async (req, res) => {
+// POST upload resource
+router.post('/', upload.single('file'), async (req, res) => {
   try {
-    const { title, link } = req.body;
+    const { title } = req.body;
+    if (!title || !req.file) return res.status(400).json({ message: 'Title and file required' });
 
-    if (!title || !link) {
-      return res.status(400).json({ message: 'Title and link are required.' });
-    }
-
-    const urlRegex = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
-    if (!urlRegex.test(link)) {
-      return res.status(400).json({ message: 'Invalid URL format.' });
-    }
-
-    const newResource = new Resource({ title: title.trim(), link: link.trim() });
+    const filePath = `/files/resources/${req.file.filename}`;
+    const newResource = new Resource({ title, filePath });
     const savedResource = await newResource.save();
-
     res.status(201).json(savedResource);
-
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
 
-// PUT /api/resources/:id - Update title and/or link of a resource
-router.put('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { title, link } = req.body;
-
-    if (!title && !link) {
-      return res.status(400).json({ message: 'At least one of title or link must be provided.' });
-    }
-
-    const updateData = {};
-    if (title) updateData.title = title.trim();
-    if (link) {
-      const urlRegex = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
-      if (!urlRegex.test(link)) {
-        return res.status(400).json({ message: 'Invalid URL format.' });
-      }
-      updateData.link = link.trim();
-    }
-
-    const updatedResource = await Resource.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
-
-    if (!updatedResource) {
-      return res.status(404).json({ message: 'Resource not found' });
-    }
-
-    res.status(200).json(updatedResource);
-
-  } catch (err) {
-    res.status(500).json({ error: 'Server error', details: err.message });
-  }
-});
-
-// DELETE /api/resources/:id - Delete a resource by ID
+// DELETE resource
 router.delete('/:id', async (req, res) => {
   try {
-    const { id } = req.params;
+    const deleted = await Resource.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ message: 'Resource not found' });
 
-    const deletedResource = await Resource.findByIdAndDelete(id);
-
-    if (!deletedResource) {
-      return res.status(404).json({ message: 'Resource not found' });
-    }
+    // Remove file from server
+    const file = path.join(__dirname, '../', deleted.filePath);
+    if (fs.existsSync(file)) fs.unlinkSync(file);
 
     res.status(200).json({ message: 'Resource deleted successfully' });
-
   } catch (err) {
     res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
 
+// IDM-safe download
+router.get('/download/:filename', (req, res) => {
+  const { filename } = req.params;
+  const filepath = path.join(__dirname, '../files/resources', filename);
+  res.download(filepath, filename, err => {
+    if (err) res.status(404).json({ message: 'File not found' });
+  });
+});
 
 module.exports = router;

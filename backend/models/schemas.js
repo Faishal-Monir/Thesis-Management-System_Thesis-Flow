@@ -36,7 +36,7 @@ const synopsisSchema = new mongoose.Schema({
 }, { collection: 'synopsis' });
 
 
-// //Resources Schema
+// Resources Schema
 const resourcesSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -44,16 +44,10 @@ const resourcesSchema = new mongoose.Schema({
     trim: true,
     minlength: 1,
   },
-  link: {
+  filePath: {
     type: String,
-    required: true,
+    required: true, // store relative path like /files/resources/filename.pdf
     trim: true,
-    validate: {
-      validator: function (url) {
-        return /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(url);
-      },
-      message: 'Link must be a valid URL.'
-    }
   }
 }, { collection: 'resources' });
 

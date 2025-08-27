@@ -1,296 +1,184 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./resources.css";
-import { fetchResourcesAPI, addResourceAPI, updateResourceAPI, deleteResourceAPI } from "../api"; // Import API functions
+import { fetchResourcesAPI, addResourceAPI, deleteResourceAPI } from "../api";
 
-const Resources = () => {
+export default function Resources() {
   const [resources, setResources] = useState([]);
-  const [newTitle, setNewTitle] = useState("");
-  const [newLink, setNewLink] = useState("");
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  const [editingResourceId, setEditingResourceId] = useState(null);
-  const [updatedTitle, setUpdatedTitle] = useState("");
-  const [updatedLink, setUpdatedLink] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
+  const [newTitle, setNewTitle] = useState("");
+  const [newFile, setNewFile] = useState(null);
 
-  const session = JSON.parse(localStorage.getItem("session")); // Get session from localStorage
-  const isFaculty = session?.usr_type === "Faculty"; // Check if the user is a Faculty
+  const session = JSON.parse(localStorage.getItem("session"));
+  const isFaculty = session?.usr_type === "Faculty";
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5005";
+
+  // Load all resources
   useEffect(() => {
-    fetchResources();
+    const loadResources = async () => {
+      try {
+        const data = await fetchResourcesAPI();
+        setResources(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadResources();
   }, []);
 
+  // Auto-clear messages
   useEffect(() => {
-    let timeout;
-    if (successMsg || error) {
-      timeout = setTimeout(() => {
-        setSuccessMsg("");
-        setError("");
-      }, 3000);
-    }
-    return () => clearTimeout(timeout); 
-  }, [successMsg, error]);
+    const timer = setTimeout(() => {
+      setError("");
+      setSuccessMsg("");
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [error, successMsg]);
 
-  // Fetch all resources from server
-  const fetchResources = async () => {
-    try {
-      const data = await fetchResourcesAPI(); 
-      setResources(data);
-      setError(null); // Clear any previous error
-    } catch (err) {
-      setError(err.message);
-      setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
-    }
-  };
-
-  // Validate URL regex
-  const urlRegex = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
-
-
-  // Handle form submission to add a new resource
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!newTitle.trim()) {
-      setError("Please enter a title");
-      return;
-    }
-    if (!newLink.trim()) {
-      setError("Please enter a link");
-      return;
-    }
-    if (!urlRegex.test(newLink.trim())) {
-      setError("Please enter a valid URL");
-      return;
-    }
-    if (!window.confirm("Are you sure you want to add a resource?")) {
-      return; // User canceled
-    }
-
-    // Check for duplicate link or title (case-insensitive)
-    const duplicate = resources.some(
-      (res) =>
-        res.link.toLowerCase() === newLink.trim().toLowerCase() ||
-        res.title.toLowerCase() === newTitle.trim().toLowerCase()
-    );
-    if (duplicate) {
-      setError("Resource with this title or link already exists");
+  // Add new resource
+  const handleAddResource = async () => {
+    if (!newTitle.trim() || !newFile) {
+      setError("Title and file are required");
       return;
     }
 
-    setError(null);
-    setLoading(true);
+    const formData = new FormData();
+    formData.append("title", newTitle.trim());
+    formData.append("file", newFile);
 
     try {
-      const newResource = await addResourceAPI({
-        title: newTitle.trim(),
-        link: newLink.trim(),
-      }); 
-      setResources((prev) => [...prev, newResource]);
+      setLoading(true);
+      const res = await addResourceAPI(formData);
+      setResources(prev => [...prev, res]);
       setNewTitle("");
-      setNewLink("");
-      setSuccessMsg("Resource added successfully");
-      console.log("Success message set:", "Resource added successfully");
+      setNewFile(null);
       setShowAddForm(false);
-      setTimeout(() => setSuccessMsg(null), 3000); // Clear success message after 3 seconds
+      setSuccessMsg("Resource added successfully");
     } catch (err) {
       setError(err.message);
-      console.log("Error message set:", err.message);
-      setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
     } finally {
       setLoading(false);
     }
   };
 
-  // Submit update for title and link
-  const submitUpdate = async (resourceId) => {
-    if (!updatedTitle.trim()) {
-      setError("Please enter a title");
-      return;
-    }
-    if (!updatedLink.trim()) {
-      setError("Please enter a link");
-      return;
-    }
-    if (!urlRegex.test(updatedLink.trim())) {
-      setError("Please enter a valid URL");
-      return;
-    }
-    if (!window.confirm("Are you sure you want to update this resource?")) {
-      return; // User canceled
-    }
-
+  // Delete resource
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure?")) return;
     try {
-      const updatedResource = await updateResourceAPI(resourceId, {
-        title: updatedTitle.trim(),
-        link: updatedLink.trim(),
-      }); // Use API function
-      setResources((prev) =>
-        prev.map((res) => (res._id === resourceId ? updatedResource : res))
-      );
-
-      setSuccessMsg("Resource updated successfully");
-      setEditingResourceId(null);
-      setTimeout(() => setSuccessMsg(null), 3000); // Clear success message after 3 seconds
-    } catch (err) {
-      setError(err.message);
-      setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
-    }
-  };
-
-  // Handle deletion
-  const handleDelete = async (resourceId) => {
-    if (!window.confirm("Are you sure you want to delete the resource?")) {
-      return; 
-    }
-    try {
-      await deleteResourceAPI(resourceId); 
-      setResources((prev) => prev.filter((res) => res._id !== resourceId));
+      await deleteResourceAPI(id);
+      setResources(prev => prev.filter(r => r._id !== id));
       setSuccessMsg("Resource deleted successfully");
-      setTimeout(() => setSuccessMsg(null), 3000); // Clear success message after 3 seconds
     } catch (err) {
       setError(err.message);
-      setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
     }
   };
+
+  // Helper to check file type
+  const isPDF = (filename) => filename.endsWith(".pdf");
+  const isWord = (filename) => filename.endsWith(".doc") || filename.endsWith(".docx");
 
   return (
     <div className="resources-container">
       <h1 className="resources-title">Thesis Resources</h1>
 
-      {/* Ensure success and error messages are rendered */}
       {successMsg && <div className="success-popup">{successMsg}</div>}
       {error && <div className="error-popup">{error}</div>}
 
-      <ul className="resources-list">
-        {loading ? (
-          <div className="loading-spinner">Loading...</div>
-        ) : resources.length === 0 ? (
-          <li className="resources-empty">No resources found.</li>
-        ) : (
-          resources.map(({ _id, title, link }) => (
-            <li key={_id} className="resource-item">
-              <div className="resource-content">
-                <div className="resource-details">
+      {loading ? (
+        <div className="loading-spinner">Loading...</div>
+      ) : resources.length === 0 ? (
+        <p className="resources-empty">No resources found.</p>
+      ) : (
+        <ul className="resources-list">
+          {resources.map(({ _id, title, filePath }) => {
+            const fileName = filePath.split("/").pop();
+            const fileUrl = `${API_BASE_URL}${filePath}`;
+            const downloadUrl = `${API_BASE_URL}/resources/download/${fileName}`;
+
+            return (
+              <li key={_id} className="resource-item">
+                <div className="resource-content">
                   <strong className="resource-title">{title}</strong>
-                  <br />
-                  <a
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="resource-link"
-                  >
-                    {link}
-                  </a>
+                  <div className="resource-links mt-2">
+                    <a href={fileUrl} target="_blank" rel="noopener noreferrer">View File</a>{" | "}
+                    <a href={downloadUrl} target="_blank" rel="noopener noreferrer" download>Download</a>
+                  </div>
+
+                  {isPDF(filePath) && (
+                    <object
+                      data={fileUrl}
+                      type="application/pdf"
+                      width="100%"
+                      height="400px"
+                      style={{ marginTop: "10px", border: "1px solid #ccc" }}
+                    >
+                      <p>
+                        PDF cannot be displayed.{" "}
+                        <a href={fileUrl} target="_blank" rel="noopener noreferrer">Download</a>
+                      </p>
+                    </object>
+                  )}
+
+                  {isWord(filePath) && (
+                    <iframe
+                      src={`https://docs.google.com/gview?url=${fileUrl}&embedded=true`}
+                      width="100%"
+                      height="500px"
+                      frameBorder="0"
+                      title={title}
+                      style={{ marginTop: "10px", border: "1px solid #ccc" }}
+                    ></iframe>
+                  )}
+
+                  {isFaculty && (
+                    <div className="button-group mt-2">
+                      <button className="delete-button" onClick={() => handleDelete(_id)}>Delete</button>
+                    </div>
+                  )}
                 </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
 
-                {isFaculty && editingResourceId === _id ? (
-                  <div className="update-form">
-                    <input
-                      type="text"
-                      value={updatedTitle}
-                      onChange={(e) => setUpdatedTitle(e.target.value)}
-                      className="update-input"
-                      placeholder="Enter new title"
-                      required
-                    />
-                    <input
-                      type="url"
-                      value={updatedLink}
-                      onChange={(e) => setUpdatedLink(e.target.value)}
-                      className="update-input"
-                      placeholder="Enter new link"
-                      required
-                    />
-                    <button
-                      onClick={() => submitUpdate(_id)}
-                      className="update-submit-button"
-                    >
-                      Submit
-                    </button>
-                    <button
-                      onClick={() => setEditingResourceId(null)}
-                      className="update-cancel-button"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                ) : isFaculty ? (
-                  <div className="button-group">
-                    <button
-                      onClick={() => {
-                        setEditingResourceId(_id);
-                        setUpdatedTitle(title);
-                        setUpdatedLink(link);
-                      }}
-                      className="update-button"
-                    >
-                      Update
-                    </button>
-                    <button
-                      onClick={() => handleDelete(_id)}
-                      className="delete-button"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-            </li>
-          ))
-        )}
-      </ul>
-
-      {/* Add Link form */}
       {isFaculty && (
-        <div className="add-link-wrapper" style={{ marginTop: "20px" }}>
+        <div className="add-link-wrapper mt-4">
           {!showAddForm ? (
-            <button
-              className="resources-button"
-              onClick={() => setShowAddForm(true)}
-            >
-              Add New Resource
-            </button>
+            <button className="resources-button" onClick={() => setShowAddForm(true)}>Add New Resource</button>
           ) : (
-            <form onSubmit={handleSubmit} className="resources-form">
+            <div className="resources-form mt-2">
               <input
                 type="text"
                 placeholder="Enter resource title"
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
                 className="resources-input"
-                required
               />
               <input
-                type="url"
-                placeholder="Enter resource link"
-                value={newLink}
-                onChange={(e) => setNewLink(e.target.value)}
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={(e) => setNewFile(e.target.files[0])}
                 className="resources-input"
-                required
               />
-              <button
-                type="submit"
-                disabled={loading}
-                className="resources-button"
-              >
+              <button className="resources-button mt-2" onClick={handleAddResource} disabled={loading}>
                 {loading ? "Adding..." : "Add Resource"}
               </button>
               <button
-                type="button"
-                onClick={() => setShowAddForm(false)}
-                className="resources-button"
-                style={{ marginTop: "10px", backgroundColor: "#ccc", color: "#333" }}
+                className="resources-button mt-2 bg-gray-300 text-black"
+                onClick={() => { setShowAddForm(false); setNewTitle(""); setNewFile(null); }}
               >
                 Cancel
               </button>
-            </form>
+            </div>
           )}
         </div>
       )}
     </div>
   );
-};
-
-export default Resources;
+}

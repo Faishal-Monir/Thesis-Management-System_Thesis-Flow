@@ -40,16 +40,15 @@ export const fetchResourcesAPI = async () => {
   return response.data;
 };
 
-export const addResourceAPI = async (data) => {
-  const response = await api.post('/resources', data);
+export const addResourceAPI = async (formData) => {
+  // Important: multipart/form-data for file upload
+  const response = await api.post("/resources", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return response.data;
 };
-
-export const updateResourceAPI = async (id, data) => {
-  const response = await api.put(`/resources/${id}`, data);
-  return response.data;
-};
-
 export const deleteResourceAPI = async (id) => {
   await api.delete(`/resources/${id}`);
 };
