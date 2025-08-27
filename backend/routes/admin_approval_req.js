@@ -3,11 +3,11 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const { Approval } = require('../models/schemas');
 
-// Create approval entry
+
 router.post('/req', async (req, res) => {
   try {
-    const { sup_id, type, status } = req.body;
-    const approval = new Approval({ sup_id, type, status });
+    const { sup_id, type, status, msg } = req.body;
+    const approval = new Approval({ sup_id, type, status, msg });
     await approval.save();
     res.status(201).json({ message: 'Approval entry created', approval });
   } catch (err) {

@@ -1,0 +1,80 @@
+
+.delete-domain-page {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: #f6f8fa;
+}
+
+.delete-domain-container {
+	background: #fff;
+	padding: 2rem 2.5rem;
+	border-radius: 16px;
+	box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+	width: 350px;
+}
+
+.delete-domain-title {
+	text-align: center;
+	font-size: 1.6rem;
+	font-weight: 700;
+	color: #1e2a4a;
+	margin-bottom: 1.5rem;
+}
+
+.delete-domain-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.2rem;
+}
+
+.delete-domain-label {
+	font-weight: 500;
+	color: #1e2a4a;
+	margin-bottom: 0.3rem;
+	display: block;
+}
+
+.delete-domain-input {
+	padding: 0.7rem 1rem;
+	border-radius: 8px;
+	background: #e5e7eb;
+	color: #333;
+	font-size: 1rem;
+	margin-bottom: 0.5rem;
+}
+
+.delete-domain-btn {
+	background: #1e2a4a;
+	color: #fff;
+	font-weight: 600;
+	border: none;
+	border-radius: 8px;
+	padding: 0.8rem 0;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.delete-domain-btn:disabled {
+	background: #a0aec0;
+	cursor: not-allowed;
+}
+
+.delete-domain-error {
+	background: #ffe0e0;
+	color: #c00;
+	padding: 0.7rem 1rem;
+	border-radius: 8px;
+	margin-bottom: 0.5rem;
+	text-align: center;
+}
+.delete-domain-success {
+	background: #e0ffe0;
+	color: #008c2c;
+	padding: 0.7rem 1rem;
+	border-radius: 8px;
+	margin-bottom: 0.5rem;
+	text-align: center;
+}
+

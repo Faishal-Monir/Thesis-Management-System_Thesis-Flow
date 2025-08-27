@@ -115,7 +115,9 @@ function Navbar() {
         {
           label: 'Profile',
           dropdown: [
-            { to: '/profile', label: 'View Own Profile(TBA)' },
+            // { to: '/profile', label: 'User Research and interest' },
+            // { to: '/profile', label: 'Update Research and Interest' },
+            // { to: '/profile', label: 'Delete Research and Interest' },
           ],
         },
         {
@@ -127,10 +129,23 @@ function Navbar() {
             { to: '/delete_synopsis', label: 'Delete Synopsis' },
           ],
         },
+
+        {
+          label: 'Modify Research Interests',
+          dropdown: [
+            { to: '/view_own_domain', label: 'User Research and interest' },
+            { to: '/update_own_domain', label: 'Update Research and Interest' },
+            { to: '/delete_own_domain', label: 'Delete Research and Interest' },
+            { to: '/enlist_domain', label: 'Request For Domain Enlistment' },
+          ],
+        },
+
+
         {
           label: 'Thesis Management',
           dropdown: [
-            { to: '/thesis', label: 'View Registration' },
+            { to: '/thesis', label: 'View Registration Requests' },
+            { to: '/thesis', label: 'View Registered Groups' }
           ],
         },
         {
@@ -146,16 +161,41 @@ function Navbar() {
       return [];
     }
 
+
+
+
+
     if (usrType === 'Admin') {
       return [
+        { to: '/show_list', label: 'All Approval List' },
         {
           label: 'Login Approvals',
           dropdown: [
-            { to: '/show_list', label: 'Approval List' },
             { to: '/show_approval_details', label: 'Show Approval Details' },
             { to: '/approve_login', label: 'Approve Login' },
           ],
         },
+        {
+          label: 'Thesis And Group Management',
+          dropdown: [
+            { to: '/#', label: 'Update/Delete Thesis Group<TBA>' },
+            { to: '/#', label: 'Create New Thesis Domain' },
+          ],
+        },
+
+         {
+          label: 'User Management',
+          dropdown: [
+            { to: '/#', label: 'Show User Info<TBA>' },
+            { to: '/#', label: 'Update Information<TBA>' },
+            { to: '/#', label: 'Reset Password' },
+            { to: '/#', label: 'Send Email to User' },
+            { to: '/#', label: 'Send Central Email'},
+          ],
+        },
+
+
+
         // { to: '/resources', label: 'Resources' },
         // { to: '/manageUsers', label: 'Manage Users' },
       ];

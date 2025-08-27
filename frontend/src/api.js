@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5005'; 
 
 const api = axios.create({
@@ -27,10 +26,10 @@ export const fetchAllGroups = () => api.get('/groups');
 export const fetchGroupById = (id) => api.get(`/groups/${id}`);
 export const createGroup = (data) => api.post('/groups', data);
 export const addStudentToGroup = (id, student_id) =>
- api.put(`/groups/${id}`, { student_id });
+  api.put(`/groups/${id}`, { student_id });
 export const deleteGroup = (id) => api.delete(`/groups/${id}`);
 export const removeStudentFromGroup = (groupId, studentId) =>
- api.delete(`/groups/${groupId}/student`, { data: { student_id: studentId } });
+  api.delete(`/groups/${groupId}/student`, { data: { student_id: studentId } });
 
 export const updateGroup = (groupId, data) =>
   axios.put(`/groups/${groupId}`, data);
@@ -78,10 +77,21 @@ export const approveUser = (id, payload) => api.put(`/approve/${id}`, payload);
 export const fetchAllTheses = () => axios.get(`${API_BASE_URL}/thesis`);
 export const registerThesis = (data) => api.post("/thesis/register", data);
 // Fetch group info for a specific student
-export const fetchGroupByStudentId = (student_id) => 
-  api.get(`/groups/student/${student_id}`);
+export const fetchGroupByStudentId = (student_id) => api.get(`/groups/student/${student_id}`);
 
 
+// Fetch domain info by sup_id
+export const fetchDomainBySupId = (sup_id) => api.get(`/domain/view/${sup_id}`);
+
+// Register domain
+export const registerDomain = (data) => api.post('/register/domain', data);
+
+// Update domain
+export const updateDomain = (data) => api.put('/update/domain', data);
+
+// Fetch all domain subjects for dropdown
+export const fetchDomainList = () => api.get('/domainlist/view');
+export const clearDomain = (sup_id) => api.put('/domain/clear', { sup_id });
 
 export default api;
 

@@ -16,12 +16,6 @@ function encrypt(text) {
 }
 
 
-
-
-
-
-
-
 // Password reset API
 router.post('/', async (req, res) => {
   try {

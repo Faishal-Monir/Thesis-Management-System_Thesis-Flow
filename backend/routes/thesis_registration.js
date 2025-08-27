@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { Thesis, Groups, Userdata } = require('../models/schemas');
 
+
 // Try to import nodemailer safely
 let nodemailer;
 let emailTransporter = null;
+
 
 try {
   nodemailer = require('nodemailer');
@@ -15,17 +17,13 @@ try {
       pass: process.env.EMAIL_PASS || 'your-app-password'
     }
   });
-  console.log('✅ Email transporter created successfully');
-} catch (error) {
-  console.error('❌ Error with nodemailer:', error.message);
-  console.log('📧 Email functionality will be disabled');
-}
+} catch (error) {}
+
 
 // Helper function for sending thesis registration emails
 const sendThesisRegistrationEmail = async (recipients, emailData) => {
   // Check if email transporter is available
   if (!emailTransporter) {
-    console.log('⚠️ Email transporter not available, skipping email');
     return { success: false, message: 'Email service not available' };
   }
 
@@ -98,12 +96,13 @@ const sendThesisRegistrationEmail = async (recipients, emailData) => {
     await Promise.all(emailPromises);
     return { success: true, message: 'Emails sent successfully' };
   } catch (error) {
-    console.error('Error sending emails:', error);
     return { success: false, message: error.message };
   }
 };
 
+
 // ------------------- THESIS ROUTES -------------------
+
 
 // POST /thesis/register - Register a thesis
 router.post('/register', async (req, res) => {
@@ -155,15 +154,8 @@ router.post('/register', async (req, res) => {
           abstract,
           thesisId: thesis.thesis_id
         });
-
-        if (emailResult.success) {
-          console.log(`✅ Registration emails sent to: ${allRecipients.join(', ')}`);
-        } else {
-          console.log(`❌ Failed to send emails: ${emailResult.message}`);
-        }
         
       } catch (emailError) {
-        console.error('❌ Error in email process:', emailError);
         emailResult = { success: false, message: emailError.message };
       }
     }
@@ -177,10 +169,10 @@ router.post('/register', async (req, res) => {
     });
 
   } catch (err) {
-    console.error('❌ Error in thesis registration:', err);
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // GET /thesis - Fetch all theses with student info
 router.get('/', async (req, res) => {
@@ -198,6 +190,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+
 // GET /thesis/:id - Fetch thesis by thesis_id with student info
 router.get('/:id', async (req, res) => {
   try {
@@ -210,6 +203,7 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // PUT /thesis/:id - Update thesis
 router.put('/:id', async (req, res) => {
@@ -227,5 +221,6 @@ router.put('/:id', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 module.exports = router;
