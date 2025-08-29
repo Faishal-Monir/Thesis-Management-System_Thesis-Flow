@@ -98,6 +98,8 @@ function Navbar() {
           label: 'Thesis Management',
           dropdown: [
             { to: '/thesis', label: 'Thesis Registration' },
+            { to: '/thesis_defer', label: 'Thesis Defer Request' },
+            { to: '/thesis_progress', label: 'Thesis Progress' }
           ],
         },
         {
@@ -144,8 +146,10 @@ function Navbar() {
         {
           label: 'Thesis Management',
           dropdown: [
-            { to: '/thesis', label: 'View Registration Requests' },
-            { to: '/thesis', label: 'View Registered Groups' }
+            { to: '/thesis', label: 'View Registration Requests <TBA>' },
+            { to: '/thesis', label: 'View Registered Groups' },
+            { to: '/thesis_defer', label: 'Thesis Defer Request' },
+            { to: '/thesis_progress', label: 'Thesis Progress' }
           ],
         },
         {
@@ -180,6 +184,7 @@ function Navbar() {
           dropdown: [
             { to: '/#', label: 'Update/Delete Thesis Group<TBA>' },
             { to: '/#', label: 'Create New Thesis Domain' },
+            { to: '/thesis_defer', label: 'Thesis Defer Request' }
           ],
         },
 

@@ -92,5 +92,19 @@ app.use('/groups', groupRouter);
 const thesisRegistrationRouter = require('./routes/thesis_registration');
 app.use('/thesis', thesisRegistrationRouter);
 
+// Thesis defer routes
+const thesisDeferRouter = require('./routes/thesis_defer');
+app.use('/thesis_defer', thesisDeferRouter);
+
+// Thesis progress routes
+const thesisProgressRouter = require('./routes/thesis_progress');
+app.use('/thesis_progress', thesisProgressRouter);
+
+// Serve thesis progress files
+app.use(
+  "/files/thesis_progress",
+  express.static(path.join(__dirname, "files/thesis_progress"))
+);
+
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -149,10 +149,36 @@ export default function ThesisRegistration() {
             Thesis ID: {thesis.thesis_id} | Topic: {thesis.topic}
           </h3>
           <p><strong>Abstract:</strong> {thesis.abstract}</p>
-          <p><strong>Progress:</strong> {thesis.progress || 0} / 3</p>
+          {/* <p><strong>Progress:</strong> {thesis.progress || 0} / 3</p> */}
+          <div className="progress-section">
+            <p className="progress-label">
+              <strong>Progress:</strong> {thesis.progress || 0} / 3
+            </p>
+            <div className="progress-container">
+              <div 
+                className="progress-bar" 
+                style={{ width: `${((thesis.progress || 0) / 3) * 100}%` }}
+              >
+                <span className="progress-text">
+                  {Math.round(((thesis.progress || 0) / 3) * 100)}%
+                </span>
+              </div>
+            </div>
+            <div className="progress-stages">
+              {['P1', 'P2', 'P3'].map((stage, index) => (
+                <span 
+                  key={stage} 
+                  className={`stage ${(thesis.progress || 0) > index ? 'completed' : 'pending'}`}
+                >
+                  {stage}
+                </span>
+              ))}
+            </div>
+          </div>
+                    <p><strong>Defer:</strong> {thesis.defer_status === "approved" ? "Yes" : "No"}</p>
           <p><strong>Supervisor:</strong> {thesis.supervisor_id}</p>
           <p><strong>Feedback:</strong> {thesis.feedback || "No feedback yet"}</p>
-          <p><strong>RaTa:</strong> {thesis.RaTa || "N/A"}</p>
+          <p><strong>Ra/Ta:</strong> {thesis.RaTa || "N/A"}</p>
 
           {thesis.students && thesis.students.length > 0 && (
             <div className="mt-2">

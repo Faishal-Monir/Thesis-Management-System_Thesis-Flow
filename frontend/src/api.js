@@ -92,6 +92,68 @@ export const updateDomain = (data) => api.put('/update/domain', data);
 export const fetchDomainList = () => api.get('/domainlist/view');
 export const clearDomain = (sup_id) => api.put('/domain/clear', { sup_id });
 
+// Thesis Defer APIs
+export const fetchAllThesisDefers = () => api.get('/thesis_defer'); // get all theses defer info
+
+// Student requests defer for their thesis
+export const requestThesisDefer = (data) => 
+    api.put('/thesis_defer', { 
+        thesis_id: data.thesis_id, 
+        defer: 1 // always request defer
+    });
+
+// Faculty approves or rejects a defer request
+export const decideThesisDefer = (data) => 
+    api.put('/thesis_defer/decision', { 
+        thesis_id: data.thesis_id, 
+        decision: data.decision // "approve" or "reject"
+    });
+
+// Admin resets a thesis defer back to none
+export const resetThesisDefer = (thesis_id) =>
+  api.put("/thesis_defer/reset", { thesis_id });
+
+
+// Fetch all thesis progress
+export const fetchThesisProgressAPI = async () => {
+  const response = await api.get("/thesis_progress");
+  return response.data; // array of thesis objects
+};
+
+// Fetch single thesis by ID
+export const fetchThesisByIdAPI = async (thesisId) => {
+  const id = Number(thesisId);
+  if (isNaN(id)) throw new Error("Invalid thesis ID");
+  const response = await api.get(`/thesis_progress/${id}`);
+  return response.data;
+};
+
+// Upload a progress report (P1, P2, P3)
+export const uploadThesisProgressAPI = async (thesisId, formData) => {
+  const id = Number(thesisId);
+  if (isNaN(id)) throw new Error("Invalid thesis ID");
+
+  const response = await api.post(`/thesis_progress/${id}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data.thesis || response.data; // backend returns { message, thesis }
+};
+
+// Generate URL for viewing a thesis report file
+export const getReportFileURL = (filePath) => {
+  if (!filePath) return "";
+  return `${API_BASE_URL}${filePath}`;
+};
+
+// Generate download URL for a thesis report
+export const getReportDownloadURL = (filePath) => {
+  if (!filePath) return "";
+  const filename = filePath.split("/").pop();
+  return `${API_BASE_URL}/thesis_progress/download/${filename}`;
+};
+
 export default api;
 
 
