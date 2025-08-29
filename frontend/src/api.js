@@ -54,13 +54,20 @@ export const deleteResourceAPI = async (id) => {
 };
 
 
-// Student Proposal API functions
-export const fetchAllProposals = () => api.get('/students/propose');
+// // Student Proposal API functions - Updated
+export const fetchAllProposals = (faculty_id = null) => {
+  const params = faculty_id ? { faculty_id } : {};
+  return api.get('/students/propose', { params });
+};
+
 export const fetchProposalById = (id) => api.get(`/students/propose/${id}`);
 export const createProposal = (data) => api.post('/students/propose', data);
 export const updateProposal = (id, data) => api.put(`/students/propose/${id}`, data);
 export const deleteProposal = (id) => api.delete(`/students/propose/${id}`);
 
+// New function for updating proposal status
+export const updateProposalStatus = (id, statusData) => 
+  api.post(`/students/propose/status/${id}`, statusData);
 
 // Synopsis APIs
 export const getSynopsisBySupId = (sup_id) => api.get(`/synopsis/${sup_id}`);

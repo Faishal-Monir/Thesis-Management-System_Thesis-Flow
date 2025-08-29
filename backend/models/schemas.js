@@ -81,12 +81,17 @@ const approvalSchema = new mongoose.Schema({
   status: { type: Number, enum: [0, 1], default: 0 }
 }, { collection: 'approval' });
 
-// Student Thesis Proposal Schema
+// // Student Thesis Proposal Schema - Updated
 const studentProposalSchema = new mongoose.Schema({
   student_id: { type: String, required: true },
   domain: { type: String, required: true },
   idea: { type: String, required: true },
-  status: { type: String, enum: ['Pending', 'Approved', 'Rejected'], default: 'Pending' }
+  status: { type: String, enum: ['Pending', 'Approved', 'Interested', 'Rejected'], default: 'Pending' },
+  updated_by: { 
+    faculty_id: { type: String, default: null },
+    name: { type: String, default: null },
+    email: { type: String, default: null }
+  }
 }, { collection: 'student_proposals' });
 
 // Groups Schema
