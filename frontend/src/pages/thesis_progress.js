@@ -230,53 +230,84 @@ export default function ThesisProgress() {
             </div>
           )}
           {/* Download button visible to Faculty */}
-          {isFaculty && (
+          {(isFaculty || isStudent) && (
             <div style={{ margin: "10px", textAlign: "center", display: "flex", justifyContent: "center", gap: "12px" }}>
-              <button
-                className="tp-button"
-                onClick={async () => {
-                  try {
-                    const response = await fetch(fileUrl, {
-                      method: "GET",
-                      headers: {
-                        // optional: send token if your API needs auth
-                        // "Authorization": `Bearer ${session.token}`
+              {isFaculty && (
+                <>
+                  <button
+                    className="tp-button"
+                    onClick={async () => {
+                      try {
+                        const response = await fetch(fileUrl, {
+                          method: "GET",
+                          headers: {
+                            // optional: send token if your API needs auth
+                            // "Authorization": `Bearer ${session.token}`
+                          }
+                        });
+                        if (!response.ok) throw new Error("Failed to download file");
+                        const blob = await response.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = fileName;
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url);
+                      } catch (err) {
+                        alert("Download failed: " + err.message);
                       }
-                    });
-
-                    if (!response.ok) throw new Error("Failed to download file");
-
-                    const blob = await response.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement("a");
-                    a.href = url;
-                    a.download = fileName;
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                    window.URL.revokeObjectURL(url);
-                  } catch (err) {
-                    alert("Download failed: " + err.message);
-                  }
-                }}
-              >
-                ⬇️ Download
-              </button>
-
-              <button
-                className="tp-button"
-                onClick={() => {
-                  if (thesis && thesis.group_id) {
-                    localStorage.setItem("Group_id", thesis.group_id);
-                  }
-                  if (stage) {
-                    localStorage.setItem("stage", stage);
-                  }
-                  window.location.href = "/feedback";
-                }}
-              >
-                📝 Submit Feedback
-              </button>
+                    }}
+                  >
+                    ⬇️ Download
+                  </button>
+                  <button
+                    className="tp-button"
+                    onClick={() => {
+                      if (thesis && thesis.group_id) {
+                        localStorage.setItem("Group_id", thesis.group_id);
+                      }
+                      if (stage) {
+                        localStorage.setItem("stage", stage);
+                      }
+                      window.location.href = "/feedback";
+                    }}
+                  >
+                    📝 Submit Feedback
+                  </button>
+                  <button
+                    className="tp-button"
+                    onClick={() => {
+                      if (thesis && thesis.group_id) {
+                        localStorage.setItem("Group_id", thesis.group_id);
+                      }
+                      if (stage) {
+                        localStorage.setItem("stage", stage);
+                      }
+                      window.location.href = "/viewfeedback";
+                    }}
+                  >
+                    View Feedback
+                  </button>
+                </>
+              )}
+              {isStudent && (
+                <button
+                  className="tp-button"
+                  onClick={() => {
+                    if (thesis && thesis.group_id) {
+                      localStorage.setItem("Group_id", thesis.group_id);
+                    }
+                    if (stage) {
+                      localStorage.setItem("stage", stage);
+                    }
+                    window.location.href = "/viewfeedback";
+                  }}
+                >
+                  View Thesis Progress
+                </button>
+              )}
             </div>
           )}
 

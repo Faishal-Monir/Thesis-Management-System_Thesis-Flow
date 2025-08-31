@@ -162,6 +162,8 @@ export const getReportDownloadURL = (filePath) => {
 };
 // Thesis feed back api call
 export const updateThesisFeedbackAPI = (groupId, data) => api.put(`/feedback/update/${groupId}`, data);
+// Fetch feedback for a specific group and stage
+export const fetchThesisFeedbackAPI = (groupId, stage) => api.get(`/feedback/show/${groupId}/${stage}`);
 
 export default api;
 

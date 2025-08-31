@@ -14,21 +14,36 @@ router.get('/show/:thesisid', async (req, res) => {
 	}
 });
 
+router.get('/show/:thesisid/:stage', async (req, res) => {
+	try {
+		const thesisid = req.params.thesisid;
+		const stage = req.params.stage;
+		if (!['P1','P2','P3'].includes(stage)) {
+			return res.status(400).json({ message: 'Invalid stage' });
+		}
+		const thesis = await Thesis.findOne({ thesis_id: thesisid });
+		if (!thesis) return res.status(404).json({ message: 'Thesis not found' });
+		const feedback = thesis.feedback && thesis.feedback[stage] ? thesis.feedback[stage] : "";
+		res.json({ thesisid: thesis.thesis_id, stage, feedback });
+	} catch (err) {
+		res.status(500).json({ message: 'Error fetching stage feedback' });
+	}
+});
 
 router.put('/update/:thesisid', async (req, res) => {
-  try {
-    const thesisid = Number(req.params.thesisid); // Ensure number type
-    const { stage, feedback } = req.body;
-    if (!stage || !['P1','P2','P3'].includes(stage)) {
-      return res.status(400).json({ message: 'Invalid or missing stage' });
-    }
-    // Find thesis
-    const thesis = await Thesis.findOne({ thesis_id: thesisid });
-    if (!thesis) return res.status(404).json({ message: 'Thesis not found' });
-		// Ensure feedback subfields exist
-		if (!thesis.feedback) {
-			thesis.feedback = { P1: "", P2: "", P3: "" };
+	try {
+		const thesisid = Number(req.params.thesisid); // Ensure number type
+		const { stage, feedback } = req.body;
+		if (!stage || !['P1','P2','P3'].includes(stage)) {
+			return res.status(400).json({ message: 'Invalid or missing stage' });
 		}
+		// Find thesis
+		const thesis = await Thesis.findOne({ thesis_id: thesisid });
+    if (!thesis) return res.status(404).json({ message: 'Thesis not found' });
+	// Ensure feedback subfields exist
+	if (!thesis.feedback) {
+		thesis.feedback = { P1: "", P2: "", P3: "" };
+	}
 		if (!Object.prototype.hasOwnProperty.call(thesis.feedback, stage)) {
 			return res.status(400).json({ message: 'Invalid stage key in feedback' });
 		}
