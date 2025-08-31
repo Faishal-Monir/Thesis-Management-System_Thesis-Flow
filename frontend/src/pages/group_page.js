@@ -239,16 +239,18 @@ export default function GroupPage() {
             )}
 
             
-            <button
-              className="tp-button"
-              style={{ marginTop: "10px" }}
-              onClick={() => {
-                localStorage.setItem("Group_id", group.id);
-                window.location.href = "/research_help";
-              }}
-            >
-            Assign RA/TA
-            </button>
+            {user.usr_type === "Faculty" && (
+              <button
+                className="tp-button"
+                style={{ marginTop: "10px" }}
+                onClick={() => {
+                  localStorage.setItem("Group_id", group.id);
+                  window.location.href = "/research_help";
+                }}
+              >
+                Assign RA/TA
+              </button>
+            )}
           </div>
         );
       })}

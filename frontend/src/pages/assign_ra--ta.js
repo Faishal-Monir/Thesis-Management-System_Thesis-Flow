@@ -16,6 +16,9 @@ export default function AssignRaTa() {
   useEffect(() => {
     async function fetchUsers() {
       try {
+      const session = localStorage.getItem("session");
+      const sessionObj = session ? JSON.parse(session) : {};
+      const isAllowed = sessionObj.usr_type === "Faculty" || sessionObj.usr_type === "Admin";
         const res = await api.get("/usr");
         const filtered = res.data.filter(
           (u) => u.usr_type === "Ta" || u.usr_type === "Ra"
