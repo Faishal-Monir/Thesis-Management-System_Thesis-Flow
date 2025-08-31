@@ -85,7 +85,7 @@ const approvalSchema = new mongoose.Schema({
   status: { type: Number, enum: [0, 1], default: 0 }
 }, { collection: 'approval' });
 
-// Approval Schema
+// faculty Approval Schema
 const facultyapprovalSchema = new mongoose.Schema({
   sup_id: { type: String, required: true },
   type: { type: String, required: true },
