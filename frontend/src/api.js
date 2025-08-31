@@ -160,6 +160,8 @@ export const getReportDownloadURL = (filePath) => {
   const filename = filePath.split("/").pop();
   return `${API_BASE_URL}/thesis_progress/download/${filename}`;
 };
+// Thesis feed back api call
+export const updateThesisFeedbackAPI = (groupId, data) => api.put(`/feedback/update/${groupId}`, data);
 
 export default api;
 

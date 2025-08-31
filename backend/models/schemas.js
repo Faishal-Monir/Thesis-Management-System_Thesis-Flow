@@ -19,7 +19,11 @@ const thesisSchema = new mongoose.Schema({
   topic: { type: String, required: true },
   supervisor_id: { type: String, required: true }, // verified faculty id
   progress: { type: Number, enum: [0, 1, 2, 3], default: 0 },
-  feedback: { type: String },
+  feedback: {
+    P1: { type: String, trim: true, default: "" },
+    P2: { type: String, trim: true, default: "" },
+    P3: { type: String, trim: true, default: "" }
+  },
   defer: { type: Number, enum: [0, 1], default: 0 },
   defer_status: { type: String, enum: ["none", "pending", "approved", "rejected"], default: "none" },
   abstract: { type: String },

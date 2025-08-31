@@ -231,7 +231,7 @@ export default function ThesisProgress() {
           )}
           {/* Download button visible to Faculty */}
           {isFaculty && (
-            <div style={{ margin: "10px",textAlign: "center" }}>
+            <div style={{ margin: "10px", textAlign: "center", display: "flex", justifyContent: "center", gap: "12px" }}>
               <button
                 className="tp-button"
                 onClick={async () => {
@@ -261,6 +261,21 @@ export default function ThesisProgress() {
                 }}
               >
                 ⬇️ Download
+              </button>
+
+              <button
+                className="tp-button"
+                onClick={() => {
+                  if (thesis && thesis.group_id) {
+                    localStorage.setItem("Group_id", thesis.group_id);
+                  }
+                  if (stage) {
+                    localStorage.setItem("stage", stage);
+                  }
+                  window.location.href = "/feedback";
+                }}
+              >
+                📝 Submit Feedback
               </button>
             </div>
           )}
@@ -305,7 +320,7 @@ export default function ThesisProgress() {
 
   return (
     <div className={containerClass}>
-      <h2>Thesis Progress - Group {thesis.group_id}</h2>
+      <h2 >Thesis Progress - Group {thesis.group_id}</h2>
       <p><strong>Topic:</strong> {thesis.topic}</p>
       <p><strong>Supervisor:</strong> {thesis.supervisor_id}</p>
       {thesis.student_ids && (
