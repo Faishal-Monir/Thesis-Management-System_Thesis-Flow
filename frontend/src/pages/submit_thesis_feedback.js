@@ -13,7 +13,7 @@ export default function SubmitThesisFeedback() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Only allow faculty
+
   if (!session || session.usr_type !== "Faculty") {
     return (
       <div className="update-domain-page">
