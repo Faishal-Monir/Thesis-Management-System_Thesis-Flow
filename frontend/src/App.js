@@ -26,6 +26,7 @@ import ThesisDefer from './pages/thesis_defer';
 import ThesisProgress from './pages/thesis_progress';
 import Feedback from './pages/submit_thesis_feedback';
 import ViewFeedback from './pages/view_feedback';
+import AssignResearch_help from './pages/assign_ra--ta';
 
 
 
@@ -62,6 +63,7 @@ function App() {
         <Route path="/thesis_progress" element={<ThesisProgress />} />
         <Route path="/feedback" element={<Feedback />} />
         <Route path="/viewfeedback" element={<ViewFeedback />} />
+        <Route path="/research_help" element={<AssignResearch_help />} />
       </Routes>
     </div>
   );

@@ -177,7 +177,18 @@ export default function ThesisRegistration() {
           </div>
                     <p><strong>Defer:</strong> {thesis.defer_status === "approved" ? "Yes" : "No"}</p>
           <p><strong>Supervisor:</strong> {thesis.supervisor_id}</p>
-          <p><strong>Feedback:</strong> {thesis.feedback || "No feedback yet"}</p>
+          {thesis.feedback && typeof thesis.feedback === "object" ? (
+  <div>
+    <strong>Feedback:</strong>
+    <ul>
+      {Object.entries(thesis.feedback).map(([stage, feedback]) => (
+        <li key={stage}>{stage}: {feedback}</li>
+      ))}
+    </ul>
+  </div>
+) : (
+  <p><strong>Feedback:</strong> {thesis.feedback || "No feedback yet"}</p>
+)}
           <p><strong>Ra/Ta:</strong> {thesis.RaTa || "N/A"}</p>
 
           {thesis.students && thesis.students.length > 0 && (

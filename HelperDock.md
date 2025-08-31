@@ -95,7 +95,7 @@ cd frontend ; cd src ; cd pages
 $name = "create_synopsis"; foreach ($ext in "js","css") { New-Item -ItemType File -Name "$name.$ext" -Force | Out-Null }
 
 
-$name = "view_feedback"; foreach ($ext in "js","css") { New-Item -ItemType File -Name "$name.$ext" -Force | Out-Null }
+$name = "assign_ra--ta"; foreach ($ext in "js","css") { New-Item -ItemType File -Name "$name.$ext" -Force | Out-Null }
 
 ****************************************************************************
 Cache data: 

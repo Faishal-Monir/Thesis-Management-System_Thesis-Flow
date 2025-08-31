@@ -106,5 +106,12 @@ app.use(
   express.static(path.join(__dirname, "files/thesis_progress"))
 );
 
+// Assign RaTa route
+const assignRaTaRouter = require('./routes/assign_ra_ta');
+app.use('/assignhelp', assignRaTaRouter);
+
+
+
+
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -27,8 +27,8 @@ const thesisSchema = new mongoose.Schema({
   defer: { type: Number, enum: [0, 1], default: 0 },
   defer_status: { type: String, enum: ["none", "pending", "approved", "rejected"], default: "none" },
   abstract: { type: String },
-  RaTa: { type: String }, // optional, can store report file id
-  reports: { // store file paths
+  RaTa: { type: String }, 
+  reports: { 
     P1: { type: String, trim: true, default: null },
     P2: { type: String, trim: true, default: null},
     P3: { type: String, trim: true, default: null}
