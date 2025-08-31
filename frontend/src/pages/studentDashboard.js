@@ -37,7 +37,7 @@ const StudentDashboard = () => {
         <div className="student-card">
           <p><strong>Name:</strong> {student.name}</p>
           <p><strong>Email:</strong> {student.email}</p>
-          <p><strong>{role === "Faculty" ? "Faculty ID" : "Student ID"}:</strong> {student.student_id}</p>
+          <p><strong>{role === "Faculty" ? "Faculty ID" : role === "Admin" ? "Admin ID" : role === "Ra" ? "RA ID" : role === "Ta" ? "TA ID" : "Student ID"}:</strong> {student.student_id}</p>
           <p><strong>Status:</strong> {student.status === 1 ? "Active" : "Inactive"}</p>
         </div>
       ) : (

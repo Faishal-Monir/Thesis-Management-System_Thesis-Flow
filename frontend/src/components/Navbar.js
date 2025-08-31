@@ -146,7 +146,6 @@ function Navbar() {
         {
           label: 'Thesis Management',
           dropdown: [
-            { to: '/thesis', label: 'View Registration Requests <TBA>' },
             { to: '/thesis', label: 'View Registered Groups' },
             { to: '/thesis_defer', label: 'Thesis Defer Request' },
             { to: '/thesis_progress', label: 'Thesis Progress' }
