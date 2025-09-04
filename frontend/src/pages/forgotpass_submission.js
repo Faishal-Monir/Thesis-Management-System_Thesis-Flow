@@ -33,7 +33,7 @@ function ForgotPassSubmission() {
 				await sendRegistrationEmail({
 					mail: user.mail,
 					subject: 'Password Reset Request',
-					msg: `You requested a password reset for your Thesis Management System account. Click the link below to reset your password:\n\nhttp://localhost:3000/forgotpassword
+					msg: `You requested a password reset for your Thesis Management System account. Click the link below to reset your password:\n\nhttp://thesis-management-system-llaqtxut3.vercel.app/forgotpassword
                     \n\nIf you did not request this, please ignore this email.`
 				});
 
