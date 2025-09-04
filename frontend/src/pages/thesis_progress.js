@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchThesisByIdAPI, uploadThesisProgressAPI } from "../api";
+import { fetchThesisByIdAPI, uploadThesisProgressAPI, getReportFileURL } from "../api";
 import "./thesis_progress.css";
 
 export default function ThesisProgress() {
@@ -11,7 +11,6 @@ export default function ThesisProgress() {
   const [uploadError, setUploadError] = useState("");
 
   const session = JSON.parse(localStorage.getItem("session"));
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5005";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -379,9 +378,8 @@ export default function ThesisProgress() {
       <h3>Reports</h3>
       <ul>
         {["P1", "P2", "P3"].map(stage => {
-          const fileUrl = thesis.reports[stage] ? `${API_BASE_URL}${thesis.reports[stage]}` : null;
+          const fileUrl = thesis.reports[stage] ? getReportFileURL(thesis.reports[stage]) : null;
           const isSubmitted = !!fileUrl;
-          
           return (
             <li key={stage}>
               <div>
@@ -392,7 +390,6 @@ export default function ThesisProgress() {
                   <span className="not-submitted-indicator">Not submitted</span>
                 )}
               </div>
-              
               {isSubmitted ? renderFileViewer(stage, fileUrl) : renderNotSubmittedPreview()}
             </li>
           );
