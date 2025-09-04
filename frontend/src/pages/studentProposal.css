@@ -368,6 +368,7 @@ body {
   margin-bottom: 1rem;
   transition: var(--transition);
   background: var(--card-background);
+  margin-left: 1rem;
 }
 
 .edit-input:focus, .form-input:focus {
