@@ -87,7 +87,7 @@ function Registration() {
             onChange={handleChange}
             required
           />
-          <label htmlFor="student_id" className="registration-label">ID</label>
+          <label htmlFor="student_id" className="registration-label">ID/Pin</label>
           <input
             id="student_id"
             name="student_id"
