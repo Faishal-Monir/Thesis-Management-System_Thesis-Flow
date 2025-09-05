@@ -149,7 +149,7 @@ export default function ThesisRegistration() {
   };
 
   return (
-    <div className="p-6 mt-navbar max-w-5xl mx-auto" style={{marginTop: '100px',maxWidth: '700px'}}>
+    <div className="p-6 mt-navbar max-w-5xl mx-auto" style={{marginTop: '100px',maxWidth: '1200px'}}>
       <h2 className="text-xl font-bold mb-4">
         {user.usr_type === "Faculty" ? "Theses You Supervise" : "Your Thesis Information"}
       </h2>
@@ -188,11 +188,22 @@ export default function ThesisRegistration() {
               ))}
             </div>
           </div>
-          <p><strong>Defer:</strong> {thesis.defer_status === "approved" ? "Yes" : "No"}</p>
+                    <p><strong>Defer:</strong> {thesis.defer_status === "approved" ? "Yes" : "No"}</p>
           <p><strong>Supervisor ID:</strong> {thesis.supervisor_id}</p>
           <p><strong>Supervisor Name:</strong> {supervisorMap[thesis.supervisor_id]?.name || "N/A"}</p>
           <p><strong>Supervisor Email:</strong> {supervisorMap[thesis.supervisor_id]?.email || "N/A"}</p>
-          <p><strong>Feedback:</strong> {thesis.feedback || "No feedback yet"}</p>
+          {thesis.feedback && typeof thesis.feedback === "object" ? (
+  <div>
+    <strong>Feedback:</strong>
+    <ul>
+      {Object.entries(thesis.feedback).map(([stage, feedback]) => (
+        <li key={stage}>{stage}: {feedback}</li>
+      ))}
+    </ul>
+  </div>
+) : (
+  <p><strong>Feedback:</strong> {thesis.feedback || "No feedback yet"}</p>
+)}
           <p><strong>Ra/Ta:</strong> {thesis.RaTa || "N/A"}</p>
 
           {thesis.students && thesis.students.length > 0 && (

@@ -24,6 +24,9 @@ import Delete_domain from './pages/delete_domain';
 import Domain_enlistment from './pages/request_domain_enlistment';
 import ThesisDefer from './pages/thesis_defer';
 import ThesisProgress from './pages/thesis_progress';
+import Feedback from './pages/submit_thesis_feedback';
+import ViewFeedback from './pages/view_feedback';
+import AssignResearch_help from './pages/assign_ra--ta';
 
 
 
@@ -58,6 +61,9 @@ function App() {
         <Route path="/enlist_domain" element={<Domain_enlistment />} />
         <Route path="/thesis_defer" element={<ThesisDefer />} />
         <Route path="/thesis_progress" element={<ThesisProgress />} />
+        <Route path="/feedback" element={<Feedback />} />
+        <Route path="/viewfeedback" element={<ViewFeedback />} />
+        <Route path="/research_help" element={<AssignResearch_help />} />
       </Routes>
     </div>
   );

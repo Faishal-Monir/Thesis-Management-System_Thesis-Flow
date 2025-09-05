@@ -24,7 +24,8 @@ router.get('/dashboard', async (req, res) => {
           status: user.status
         };
         return res.json({ user: details, role: 'Student' });
-      } else if (user.usr_type === 'Faculty') {
+      } 
+      else if (user.usr_type === 'Faculty') {
         details = {
           name: user.Name,
           email: user.mail,
@@ -32,7 +33,50 @@ router.get('/dashboard', async (req, res) => {
           status: user.status
         };
         return res.json({ user: details, role: 'Faculty' });
-      } else {
+      } 
+
+      else if (user.usr_type === 'Admin') {
+        details = {
+          name: user.Name,
+          email: user.mail,
+          student_id: user.student_id,
+          status: user.status
+        };
+        return res.json({ user: details, role: 'Admin' });
+      } 
+
+            else if (user.usr_type === 'Ra') {
+        details = {
+          name: user.Name,
+          email: user.mail,
+          student_id: user.student_id,
+          status: user.status
+        };
+        return res.json({ user: details, role: 'Ra' });
+      } 
+
+            else if (user.usr_type === 'Ta') {
+        details = {
+          name: user.Name,
+          email: user.mail,
+          student_id: user.student_id,
+          status: user.status
+        };
+        return res.json({ user: details, role: 'Ta' });
+      } 
+
+
+
+
+
+
+
+
+
+
+
+      
+      else {
         return res.status(400).json({ error: 'Invalid user role' });
       }
     } else {

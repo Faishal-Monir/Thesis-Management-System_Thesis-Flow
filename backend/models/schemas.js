@@ -19,12 +19,16 @@ const thesisSchema = new mongoose.Schema({
   topic: { type: String, required: true },
   supervisor_id: { type: String, required: true }, // verified faculty id
   progress: { type: Number, enum: [0, 1, 2, 3], default: 0 },
-  feedback: { type: String },
+  feedback: {
+    P1: { type: String, trim: true, default: "" },
+    P2: { type: String, trim: true, default: "" },
+    P3: { type: String, trim: true, default: "" }
+  },
   defer: { type: Number, enum: [0, 1], default: 0 },
   defer_status: { type: String, enum: ["none", "pending", "approved", "rejected"], default: "none" },
   abstract: { type: String },
-  RaTa: { type: String }, // optional, can store report file id
-  reports: { // store file paths
+  RaTa: { type: String }, 
+  reports: { 
     P1: { type: String, trim: true, default: null },
     P2: { type: String, trim: true, default: null},
     P3: { type: String, trim: true, default: null}
@@ -81,6 +85,14 @@ const approvalSchema = new mongoose.Schema({
   status: { type: Number, enum: [0, 1], default: 0 }
 }, { collection: 'approval' });
 
+// faculty Approval Schema
+const facultyapprovalSchema = new mongoose.Schema({
+  sup_id: { type: String, required: true },
+  type: { type: String, required: true },
+  msg: { type: String, required: false },
+  status: { type: Number, enum: [0, 1], default: 0 }
+}, { collection: 'facultyapproval' });
+
 // // Student Thesis Proposal Schema - Updated
 const studentProposalSchema = new mongoose.Schema({
   student_id: { type: String, required: true },
@@ -118,6 +130,7 @@ module.exports = {
   Domain: mongoose.model('Domain', domainSchema),
   Approval: mongoose.model('Approval', approvalSchema),
   StudentProposal: mongoose.model('StudentProposal', studentProposalSchema),
-  DomainList: mongoose.model('DomainList', domain)
+  DomainList: mongoose.model('DomainList', domain),
+  FacultyApprovallist: mongoose.model('FacultyApproval', facultyapprovalSchema)
 };
 

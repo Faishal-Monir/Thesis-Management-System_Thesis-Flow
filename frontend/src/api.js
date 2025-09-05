@@ -1,5 +1,7 @@
 import axios from 'axios';
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5005'; 
+// const API_BASE_URL = 'https://thesis-management-system-e3e1.onrender.com'; 
+const API_BASE_URL = 'http://localhost:5005';
+
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -160,6 +162,10 @@ export const getReportDownloadURL = (filePath) => {
   const filename = filePath.split("/").pop();
   return `${API_BASE_URL}/thesis_progress/download/${filename}`;
 };
+// Thesis feed back api call
+export const updateThesisFeedbackAPI = (groupId, data) => api.put(`/feedback/update/${groupId}`, data);
+// Fetch feedback for a specific group and stage
+export const fetchThesisFeedbackAPI = (groupId, stage) => api.get(`/feedback/show/${groupId}/${stage}`);
 
 export default api;
 

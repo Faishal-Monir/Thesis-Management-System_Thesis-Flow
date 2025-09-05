@@ -1,0 +1,163 @@
+.assign-ra-ta-page {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	  /* background: #fff; */
+}
+
+.assign-ra-ta-card {
+	width: 100%;
+	max-width: 600px;
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 2px 24px rgba(0, 0, 0, 0.10);
+	padding: 2.5rem 2.5rem 2rem 2.5rem;
+}
+	html,
+	body,
+	#root {
+		height: 100%;
+	}
+	body {
+		margin: 0;
+	}
+	:root {
+		--navbar-h: 72px;
+	}
+
+	.assign-ra-ta-page {
+		min-height: calc(100vh - var(--navbar-h));
+		display: grid;
+		place-items: center;
+		padding: 0 1rem;
+		overflow: hidden;
+	}
+
+	.assign-ra-ta-card {
+		width: 100%;
+		max-width: 480px;
+		background: #fff;
+		border-radius: 12px;
+		box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+		padding: 1.5rem;
+	}
+
+	.assign-ra-ta-title {
+			font-size: 2rem;
+			font-weight: 700;
+			margin: 0 0 1.5rem 0;
+			color: #273992;
+			text-align: center;
+	}
+	.assign-ra-ta-group-id {
+		color: #6366f1;
+		font-weight: 600;
+	}
+	.assign-ra-ta-list {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			margin-bottom: 2rem;
+			flex-wrap: wrap;
+	}
+	.assign-ra-ta-label {
+			font-weight: 500;
+			margin-bottom: 0.25rem;
+			font-size: 1.1rem;
+	}
+	.assign-ra-ta-select {
+			padding: 0.85rem 1.1rem;
+			border-radius: 8px;
+			border: 1px solid #cbd5e1;
+			font-size: 1.1rem;
+			min-width: 260px;
+	}
+	.assign-ra-ta-error,
+	.assign-ra-ta-success {
+		font-weight: 500;
+		text-align: center;
+		padding: 0.5rem 0.25rem;
+		border-radius: 8px;
+	}
+	.assign-ra-ta-error {
+		color: #b91c1c;
+		background: #fee2e2;
+	}
+	.assign-ra-ta-success {
+		color: #166534;
+		background: #dcfce7;
+	}
+	.assign-ra-ta-btn {
+		background: #273992;
+		color: #fff;
+		font-weight: 600;
+		font-size: 1rem;
+		border-radius: 8px;
+		border: none;
+		padding: 0.65rem 1.2rem;
+		cursor: pointer;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+		transition: background 0.15s ease;
+	}
+	.assign-ra-ta-details-btn {
+		margin-left: 0.75rem;
+		min-width: 110px;
+	}
+	.assign-ra-ta-assign-btn {
+		margin-top: 0;
+		min-width: 110px;
+/* Button row for assign and details */
+.assign-ra-ta-btn-row {
+	display: flex;
+	gap: 0.75rem;
+	margin-top: 0.5rem;
+	justify-content: flex-start;
+}
+	}
+	.assign-ra-ta-btn:hover:not(:disabled) {
+		background: #1f2e78;
+	}
+	.assign-ra-ta-btn:disabled {
+		cursor: not-allowed;
+		opacity: 0.7;
+	}
+	.assign-ra-ta-popup {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: rgba(0,0,0,0.25);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1000;
+	}
+	.assign-ra-ta-popup-content {
+		background: #fff;
+		border-radius: 16px;
+		box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+		padding: 32px 40px;
+		min-width: 320px;
+		text-align: left;
+	}
+	.assign-ra-ta-popup-title {
+		font-size: 1.3rem;
+		font-weight: 700;
+		color: #6366f1;
+		margin-bottom: 16px;
+	}
+	.assign-ra-ta-close-btn {
+		margin-top: 18px;
+		background: #b91c1c;
+	}
+	.assign-ra-ta-close-btn:hover {
+		background: #991b1b;
+	}
+
+	@media (max-width: 640px) {
+		.assign-ra-ta-card {
+			padding: 1.25rem;
+		}
+	}
