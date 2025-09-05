@@ -101,8 +101,9 @@ export default function ThesisCorrection() {
     ? theses.filter(t => t.student_ids?.includes(user.student_id))
     : [];
   const pendingTheses = user.usr_type === "Faculty"
-    ? theses.filter(t => t.correction_request && !t.correction_approved)
-    : [];
+  ? theses.filter(t => t.correction_request && !t.correction_approved && t.supervisor_id === user.student_id)
+  : [];
+
 
   return (
     <div className="p-6 mt-navbar max-w-5xl mx-auto" style={{ marginTop: "100px", maxWidth: "700px" }}>
@@ -190,8 +191,8 @@ export default function ThesisCorrection() {
           <h3 className="font-semibold mb-2">Theses Correction Management (Admin)</h3>
           {theses.filter(t => t.updated_topic || t.correction_request).map(t => (
             <div key={t.thesis_id} className="border p-3 rounded mb-3 flex justify-between items-center">
-              <div>
-                <p><strong>Thesis ID:</strong> {t.thesis_id}</p>
+              <div > 
+                <p ><strong>Thesis ID:</strong> {t.thesis_id}</p>
                 <p><strong>Topic:</strong> {t.topic}</p>
                 <p><strong>Status:</strong>{" "}
                   {t.updated_topic ? "Updated" :

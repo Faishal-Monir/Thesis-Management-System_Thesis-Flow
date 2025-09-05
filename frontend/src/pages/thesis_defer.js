@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./thesis_registration.css"; // reuse the same CSS
+
 import { fetchAllThesisDefers, requestThesisDefer, decideThesisDefer, resetThesisDefer } from "../api";
 
 export default function ThesisDefer() { 
@@ -70,9 +70,12 @@ export default function ThesisDefer() {
       : [];
 
   const pendingTheses =
-    user.usr_type === "Faculty"
-      ? theses.filter((t) => t.defer_status === "pending")
-      : [];
+  user.usr_type === "Faculty"
+    ? theses.filter(
+        (t) => t.defer_status === "pending" && t.supervisor_id === user.student_id
+      )
+    : [];
+  
 
   return (
     <div className="p-6 mt-navbar max-w-5xl mx-auto" style={{ marginTop: "100px", maxWidth: "700px" }}>
@@ -143,9 +146,9 @@ export default function ThesisDefer() {
             .filter(t => t.defer_status !== "none")
             .map((thesis) => (
               <div key={thesis.thesis_id} className="border p-2 rounded mb-2 flex justify-between items-center">
-                <div>
+                <div className="mr-6">
                   <p><strong>Thesis ID:</strong> {thesis.thesis_id}</p>
-                  <p><strong>Group Members:</strong> {thesis.student_ids?.join(", ")}</p>
+                  
                   <p><strong>Progress:</strong> {thesis.progress}</p>
                   <p><strong>Status:</strong> {thesis.defer_status}</p>
                 </div>
