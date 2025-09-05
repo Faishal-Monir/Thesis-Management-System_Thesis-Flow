@@ -30,12 +30,12 @@ function ForgotPassSubmission() {
 				}));
 
 		
-				await sendRegistrationEmail({
-					mail: user.mail,
-					subject: 'Password Reset Request',
-					msg: `You requested a password reset for your Thesis Management System account. Click the link below to reset your password:\n\nhttp://thesis-management-system-bay.vercel.app/forgotpassword
-                    \n\nIf you did not request this, please ignore this email.`
-				});
+						await sendRegistrationEmail({
+							mail: user.mail,
+							subject: 'Password Reset Request',
+							msg: `You requested a password reset for your Thesis Management System account. Click the link below to reset your password:\n\n${process.env.REACT_APP_FRONTEND_BASE_URL}/forgotpassword
+												\n\nIf you did not request this, please ignore this email.`
+						});
 
 				setSuccess('Reset link sent to your email.');
 				setTimer(30);
