@@ -167,6 +167,24 @@ export const updateThesisFeedbackAPI = (groupId, data) => api.put(`/feedback/upd
 // Fetch feedback for a specific group and stage
 export const fetchThesisFeedbackAPI = (groupId, stage) => api.get(`/feedback/show/${groupId}/${stage}`);
 
+
+// Student requests thesis correction
+export const requestThesisCorrection = (thesis_id) => 
+  api.put("/thesis_correction/request", { thesis_id });
+
+// Faculty approves thesis correction
+export const approveThesisCorrection = (thesis_id) =>
+  api.put("/thesis_correction/approve", { thesis_id, approve: true });
+
+// Admin resets thesis correction flags
+export const resetThesisCorrection = (thesis_id) =>
+  api.put("/thesis_correction/reset", { thesis_id });
+
+// Update topic & abstract after approval
+export const correctThesisAPI = (thesisId, data) => 
+  api.put(`/thesis_correction/${thesisId}`, data);
+
+
 export default api;
 
 

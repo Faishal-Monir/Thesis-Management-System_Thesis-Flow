@@ -143,10 +143,12 @@ export default function ThesisRegistration() {
       {theses.length === 0 && <p>No thesis found.</p>}
       {theses.map((thesis) => (
         <div key={thesis.thesis_id} className="border p-3 rounded mb-3">
-          <h3 className="font-semibold">
-            Thesis ID: {thesis.thesis_id} | Topic: {thesis.topic}
-          </h3>
-          <p><strong>Abstract:</strong> {thesis.abstract}</p>
+          <h2 className="font-semibold">
+            Thesis ID: {thesis.thesis_id}
+          </h2>
+            <h2 className="mt-2">Topic: {thesis.topic}</h2>
+          
+          <p className="mt-2"><strong>Abstract:</strong> {thesis.abstract}</p>
           <div className="progress-section">
             <p className="progress-label">
               <strong>Progress:</strong> {thesis.progress || 0} / 3
