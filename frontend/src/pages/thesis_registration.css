@@ -18,7 +18,7 @@ body {
 
 /* Main Container */
 .max-w-5xl {
-  max-width: 800px;
+  max-width: 1920px;
 }
 
 .mx-auto {
@@ -35,6 +35,8 @@ body {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  max-width: 1200px; /* Increase this value */
+  width: 100%;      /* Ensure it uses the available space */
 }
 
 .border::before {

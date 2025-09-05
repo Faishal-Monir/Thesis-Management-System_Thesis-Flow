@@ -1,5 +1,5 @@
 .my-synopsis-page {
-  max-width: 1200px;
+  max-width: 1900px;
   margin: 2rem auto;
   padding: 0 1rem;
 }
@@ -36,21 +36,6 @@
 }
 
 
-@media (min-width: 0px) {
-  .synopsis-card {
-    grid-column: span 12;
-  }
-}
-@media (min-width: 640px) {
-  .synopsis-card {
-    grid-column: span 6;
-  }
-}
-@media (min-width: 1024px) {
-  .synopsis-card {
-    grid-column: span 4;
-  }
-}
 
 .synopsis-card {
   border: 1px solid #e5e7eb;
@@ -148,4 +133,21 @@
 
 .status-text {
   font-size: 0.95rem;
+}
+
+
+@media (min-width: 0px) {
+  .synopsis-card {
+    grid-column: span 12;
+  }
+}
+@media (min-width: 640px) {
+  .synopsis-card {
+    grid-column: span 6;
+  }
+}
+@media (min-width: 1024px) {
+  .synopsis-card {
+    grid-column: span 4;
+  }
 }

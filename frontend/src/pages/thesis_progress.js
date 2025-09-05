@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { fetchThesisByIdAPI, uploadThesisProgressAPI } from "../api";
+import { fetchAllTheses, fetchThesisByIdAPI, uploadThesisProgressAPI, fetchUserByEmail, getReportFileURL } from "../api";
 import "./thesis_progress.css";
 
 export default function ThesisProgress() {
-  const [thesis, setThesis] = useState(null);
+  const [theses, setTheses] = useState([]);
+  const [selectedThesis, setSelectedThesis] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
+  const [supervisorMap, setSupervisorMap] = useState({});
+  const [faculties, setFaculties] = useState([]);
 
   const session = JSON.parse(localStorage.getItem("session"));
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5005";
@@ -22,52 +25,60 @@ export default function ThesisProgress() {
           return;
         }
 
-        // Fetch the thesis data first (keeping original logic)
-        const thesisId = 1; // Keep the original hardcoded ID
-        const data = await fetchThesisByIdAPI(thesisId);
-        
-        if (!data) {
+        // Fetch all theses
+        const resTheses = await fetchAllTheses();
+        let data = resTheses.data.map(t => ({
+          ...t,
+          student_ids: t.student_ids || [],
+        }));
+
+        if (!data || data.length === 0) {
           setError("No thesis data available.");
           setLoading(false);
           return;
         }
 
-        // Now check access based on user type
+        // Fetch all users and filter faculty
+        const resUsers = await fetchUserByEmail("");
+        setFaculties(resUsers.data.filter(u => u.usr_type === "Faculty"));
+
+        const supervisorMap = {};
+        resUsers.data
+          .filter(u => u.usr_type === "Faculty")
+          .forEach(fac => {
+            supervisorMap[fac.student_id] = {
+              name: fac.Name,
+              email: fac.mail,
+            };
+          });
+        setSupervisorMap(supervisorMap);
+
+        // Filter theses based on user type
+        let filteredTheses = [];
         if (session.usr_type === "Student") {
-          // Check if this student is part of this thesis group
-          if (!session.student_id) {
-            setError("Student ID not found. Please contact admin.");
-            setLoading(false);
-            return;
-          }
-          
-          // Check if student_id is in the thesis student_ids array
-          if (!data.student_ids || !data.student_ids.includes(session.student_id)) {
-            setError("You are not part of any registered thesis group.");
-            setLoading(false);
-            return;
-          }
-          
-          // Student has access
-          setThesis(data);
-          
+          filteredTheses = data.filter(t => t.student_ids.includes(session.student_id));
         } else if (session.usr_type === "Faculty") {
-          // Check if this faculty member is the supervisor of this thesis
-          if (data.supervisor_id !== session.student_id) {
-            setError("Access denied. You are not the supervisor of this thesis group.");
-            setLoading(false);
-            return;
-          }
-          
-          // Faculty has access
-          setThesis(data);
-          
-        } else {
-          setError("Access denied. Only students and faculty can view thesis progress.");
+          filteredTheses = data.filter(t => t.supervisor_id === session.student_id);
+        }
+
+        if (filteredTheses.length === 0) {
+          setError(
+            session.usr_type === "Faculty"
+              ? "Access denied. You are not supervising any thesis group."
+              : "You are not part of any registered thesis group."
+          );
           setLoading(false);
           return;
         }
-        
+
+        // Set all theses for faculty, single thesis for student
+        setTheses(filteredTheses);
+
+        if (session.usr_type === "Student") {
+          setSelectedThesis(filteredTheses[0]);
+        } else if (session.usr_type === "Faculty") {
+          setSelectedThesis(filteredTheses[0]);
+        }
       } catch (err) {
         setError(err.message || "Failed to load thesis data.");
       } finally {
@@ -75,7 +86,7 @@ export default function ThesisProgress() {
       }
     };
     fetchData();
-  }, []); // Fixed: removed 'session' from dependency array
+  }, []);
 
   const getNextStage = (progress) => {
     switch (progress) {
@@ -96,8 +107,8 @@ export default function ThesisProgress() {
     }
   };
 
-  const nextStage = thesis ? getNextStage(thesis.progress) : "";
-  const allSubmitted = thesis && thesis.progress >= 3;
+  const nextStage = selectedThesis ? getNextStage(selectedThesis.progress) : "";
+  const allSubmitted = selectedThesis && selectedThesis.progress >= 3;
   const isStudent = session?.usr_type === "Student";
   const isFaculty = session?.usr_type === "Faculty";
 
@@ -105,8 +116,7 @@ export default function ThesisProgress() {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
     setUploadError("");
-    
-    // Validate file size (10MB limit)
+
     if (selectedFile && selectedFile.size > 10 * 1024 * 1024) {
       setUploadError("File size must be less than 10MB");
       setFile(null);
@@ -116,13 +126,11 @@ export default function ThesisProgress() {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    
-    // Only students can upload
+
     if (!isStudent) {
       setUploadError("Only students can upload progress reports.");
       return;
     }
-    
     if (!file) {
       setUploadError("Please select a file");
       return;
@@ -132,28 +140,25 @@ export default function ThesisProgress() {
       return;
     }
 
-    // Show confirmation popup
     const confirmed = window.confirm("Are you sure you want to Upload?");
-    if (!confirmed) {
-      return;
-    }
+    if (!confirmed) return;
 
     setUploading(true);
     setUploadError("");
-    
+
     try {
       const formData = new FormData();
       formData.append("report", file);
       formData.append("stage", nextStage);
 
-      const updatedThesis = await uploadThesisProgressAPI(thesis.thesis_id, formData);
-      setThesis(updatedThesis);
+      const updatedThesis = await uploadThesisProgressAPI(selectedThesis.thesis_id, formData);
+      setSelectedThesis(updatedThesis);
+      setTheses(prev => prev.map(t => t.thesis_id === updatedThesis.thesis_id ? updatedThesis : t));
       setFile(null);
-      
-      // Reset file input
+
       const fileInput = document.querySelector('.tp-file-input');
       if (fileInput) fileInput.value = "";
-      
+
     } catch (err) {
       setUploadError(err.message || "Upload failed. Please try again.");
     } finally {
@@ -183,22 +188,16 @@ export default function ThesisProgress() {
     if (!fileUrl) return null;
 
     const fileName = getFileName(fileUrl);
-    
+
     return (
       <div className="file-preview submitted">
         <p>{getFileIcon(fileName)} {fileName}</p>
         <p><em>Document ready for viewing</em></p>
         <div className="tp-file-viewer">
           {isPDF(fileUrl) ? (
-            <object 
-              data={fileUrl} 
-              type="application/pdf" 
-              width="100%" 
-              height="400px"
-              style={{ borderRadius: "4px" }}
-            >
+            <object data={fileUrl} type="application/pdf" width="100%" height="400px" style={{ borderRadius: "4px" }}>
               <p>
-                PDF cannot be displayed in this browser. 
+                PDF cannot be displayed. 
                 <br />
                 <a href={fileUrl} target="_blank" rel="noopener noreferrer">
                   <button className="file-preview button">Download PDF</button>
@@ -229,48 +228,19 @@ export default function ThesisProgress() {
               </a>
             </div>
           )}
-          {/* Download button visible to Faculty */}
+
+          {/* Faculty + Student Feedback Buttons */}
           {(isFaculty || isStudent) && (
             <div style={{ margin: "10px", textAlign: "center", display: "flex", justifyContent: "center", gap: "12px" }}>
               {isFaculty && (
                 <>
                   <button
                     className="tp-button"
-                    onClick={async () => {
-                      try {
-                        const response = await fetch(fileUrl, {
-                          method: "GET",
-                          headers: {
-                            // optional: send token if your API needs auth
-                            // "Authorization": `Bearer ${session.token}`
-                          }
-                        });
-                        if (!response.ok) throw new Error("Failed to download file");
-                        const blob = await response.blob();
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement("a");
-                        a.href = url;
-                        a.download = fileName;
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        window.URL.revokeObjectURL(url);
-                      } catch (err) {
-                        alert("Download failed: " + err.message);
-                      }
-                    }}
-                  >
-                    ⬇️ Download
-                  </button>
-                  <button
-                    className="tp-button"
                     onClick={() => {
-                      if (thesis && thesis.group_id) {
-                        localStorage.setItem("Group_id", thesis.group_id);
+                      if (selectedThesis && selectedThesis.group_id) {
+                        localStorage.setItem("Group_id", selectedThesis.group_id);
                       }
-                      if (stage) {
-                        localStorage.setItem("stage", stage);
-                      }
+                      if (stage) localStorage.setItem("stage", stage);
                       window.location.href = "/feedback";
                     }}
                   >
@@ -279,12 +249,10 @@ export default function ThesisProgress() {
                   <button
                     className="tp-button"
                     onClick={() => {
-                      if (thesis && thesis.group_id) {
-                        localStorage.setItem("Group_id", thesis.group_id);
+                      if (selectedThesis && selectedThesis.group_id) {
+                        localStorage.setItem("Group_id", selectedThesis.group_id);
                       }
-                      if (stage) {
-                        localStorage.setItem("stage", stage);
-                      }
+                      if (stage) localStorage.setItem("stage", stage);
                       window.location.href = "/viewfeedback";
                     }}
                   >
@@ -296,12 +264,10 @@ export default function ThesisProgress() {
                 <button
                   className="tp-button"
                   onClick={() => {
-                    if (thesis && thesis.group_id) {
-                      localStorage.setItem("Group_id", thesis.group_id);
+                    if (selectedThesis && selectedThesis.group_id) {
+                      localStorage.setItem("Group_id", selectedThesis.group_id);
                     }
-                    if (stage) {
-                      localStorage.setItem("stage", stage);
-                    }
+                    if (stage) localStorage.setItem("stage", stage);
                     window.location.href = "/viewfeedback";
                   }}
                 >
@@ -310,7 +276,6 @@ export default function ThesisProgress() {
               )}
             </div>
           )}
-
         </div>
       </div>
     );
@@ -322,56 +287,50 @@ export default function ThesisProgress() {
     </div>
   );
 
-  if (loading) {
-    return (
-      <div className="resources-container">
-        <div className="tp-loading">Loading thesis progress...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="resources-container">
-        <div className="tp-error">{error}</div>
-      </div>
-    );
-  }
-
-  if (!thesis) {
-    return (
-      <div className="resources-container">
-        <p>No thesis data available.</p>
-      </div>
-    );
-  }
+  if (loading) return <div className="resources-container"><div className="tp-loading">Loading thesis progress...</div></div>;
+  if (error) return <div className="resources-container"><div className="tp-error">{error}</div></div>;
+  if (!selectedThesis) return <div className="resources-container"><p>No thesis data available.</p></div>;
 
   const containerClass = allSubmitted ? "resources-container completed" : "resources-container";
   const progressClass = allSubmitted ? "progress-indicator completed" : "progress-indicator";
 
   return (
     <div className={containerClass}>
-      <h2 >Thesis Progress - Group {thesis.group_id}</h2>
-      <p><strong>Topic:</strong> {thesis.topic}</p>
-      <p><strong>Supervisor:</strong> {thesis.supervisor_id}</p>
-      {thesis.student_ids && (
-        <p><strong>Group Members:</strong> {thesis.student_ids.join(", ")}</p>
+      {isFaculty && theses.length > 1 && (
+        <div className="group-selector" style={{ backgroundColor: "#e3f2fd", padding: "15px", borderRadius: "5px", marginBottom: "20px", border: "1px solid #2196f3" }}>
+          <h3>Select Group to View:</h3>
+          <select 
+            value={selectedThesis?.thesis_id || ""} 
+            onChange={(e) => {
+              const thesisId = e.target.value;
+              const thesis = theses.find(t => t.thesis_id == thesisId);
+              if (thesis) setSelectedThesis(thesis);
+            }}
+            style={{ padding: "8px 12px", fontSize: "14px", borderRadius: "4px", border: "1px solid #ccc", minWidth: "250px" }}
+          >
+            {theses.map(thesis => (
+              <option key={thesis.thesis_id} value={thesis.thesis_id}>
+                Group {thesis.group_id} - {thesis.topic.substring(0, 50)}{thesis.topic.length > 50 ? '...' : ''}
+              </option>
+            ))}
+          </select>
+          <p style={{ margin: "8px 0 0 0", fontSize: "14px", color: "#666" }}>
+            You are supervising {theses.length} group{theses.length > 1 ? 's' : ''}
+          </p>
+        </div>
       )}
-      <p>
-        <strong>Current Stage:</strong> 
-        <span className={progressClass}>
-          {allSubmitted ? "Completed" : getProgressLabel(thesis.progress)}
-        </span>
-      </p>
-      
+
+      <h2 className="tp-heading">Thesis Progress - Group {selectedThesis.group_id}</h2>
+      <p className="tp-topic"><strong>Topic:</strong> {selectedThesis.topic}</p>
+
+      <p><strong>Supervisor ID:</strong> {selectedThesis.supervisor_id}</p>
+      <p><strong>Supervisor Name:</strong> {supervisorMap[selectedThesis.supervisor_id]?.name || "N/A"}</p>
+      <p><strong>Supervisor Email:</strong> {supervisorMap[selectedThesis.supervisor_id]?.email || "N/A"}</p>
+      {selectedThesis.student_ids && <p><strong>Group Members:</strong> {selectedThesis.student_ids.join(", ")}</p>}
+      <p><strong>Current Stage:</strong> <span className={progressClass}>{allSubmitted ? "Completed" : getProgressLabel(selectedThesis.progress)}</span></p>
+
       {isFaculty && (
-        <div className="faculty-view-indicator" style={{ 
-          backgroundColor: "#e3f2fd", 
-          padding: "10px", 
-          borderRadius: "5px", 
-          marginBottom: "15px",
-          border: "1px solid #2196f3"
-        }}>
+        <div className="faculty-view-indicator" style={{ backgroundColor: "#e3f2fd", padding: "10px", borderRadius: "5px", marginBottom: "15px", border: "1px solid #2196f3" }}>
           <p><strong>Faculty View:</strong> You are viewing this group's progress as their supervisor.</p>
         </div>
       )}
@@ -379,70 +338,36 @@ export default function ThesisProgress() {
       <h3>Reports</h3>
       <ul>
         {["P1", "P2", "P3"].map(stage => {
-          const fileUrl = thesis.reports[stage] ? `${API_BASE_URL}${thesis.reports[stage]}` : null;
+          const fileUrl = selectedThesis.reports[stage] ? getReportFileURL(selectedThesis.reports[stage]) : null;
           const isSubmitted = !!fileUrl;
-          
           return (
             <li key={stage}>
               <div>
                 <strong>{stage} Report:</strong>{" "}
-                {isSubmitted ? (
-                  <span className="submitted-indicator">Submitted</span>
-                ) : (
-                  <span className="not-submitted-indicator">Not submitted</span>
-                )}
+                {isSubmitted ? <span className="submitted-indicator">Submitted</span> : <span className="not-submitted-indicator">Not submitted</span>}
               </div>
-              
               {isSubmitted ? renderFileViewer(stage, fileUrl) : renderNotSubmittedPreview()}
             </li>
           );
         })}
       </ul>
 
-      {/* Upload section - only show for students */}
       {isStudent && nextStage && !allSubmitted && (
         <div className="upload-section">
           <h3>Upload {nextStage} Report</h3>
           <form onSubmit={handleUpload} className="tp-upload-form">
             <div className="form-group">
-              <input 
-                type="file" 
-                accept=".pdf,.doc,.docx" 
-                onChange={handleFileChange}
-                className="tp-file-input"
-                disabled={uploading}
-              />
-              <div className="file-format-help">
-                Accepted formats: PDF, DOC, DOCX (Max size: 10MB)
-              </div>
+              <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="tp-file-input" disabled={uploading} />
+              <div className="file-format-help">Accepted formats: PDF, DOC, DOCX (Max size: 10MB)</div>
             </div>
-            
-            <button 
-              type="submit" 
-              disabled={uploading || !file} 
-              className="tp-button"
-            >
-              {uploading ? "Uploading..." : `Upload ${nextStage}`}
-            </button>
-            
+            <button type="submit" disabled={uploading || !file} className="tp-button">{uploading ? "Uploading..." : `Upload ${nextStage}`}</button>
             {uploadError && <div className="tp-error">{uploadError}</div>}
           </form>
         </div>
       )}
 
-      {/* Faculty view message for completed theses */}
-      {isFaculty && allSubmitted && (
-        <div className="tp-all-submitted">
-          This group has completed all progress reports!
-        </div>
-      )}
-
-      {/* Student view message for completed theses */}
-      {isStudent && allSubmitted && (
-        <div className="tp-all-submitted">
-          All progress reports submitted! Well done!
-        </div>
-      )}
+      {isFaculty && allSubmitted && <div className="tp-all-submitted">This group has completed all progress reports!</div>}
+      {isStudent && allSubmitted && <div className="tp-all-submitted">All progress reports submitted! Well done!</div>}
     </div>
   );
 }

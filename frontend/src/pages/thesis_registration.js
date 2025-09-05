@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./thesis_registration.css";
-import { fetchAllTheses, registerThesis, fetchUserByEmail, fetchGroupByStudentId } from "../api";
+import { fetchAllTheses, registerThesis, fetchUserByEmail, fetchGroupByStudentId, checkUserExists } from "../api";
 
 export default function ThesisRegistration() {
   const [theses, setTheses] = useState([]);
@@ -12,6 +12,8 @@ export default function ThesisRegistration() {
   const [selectedFaculty, setSelectedFaculty] = useState("");
   const [topic, setTopic] = useState("");
   const [abstract, setAbstract] = useState("");
+  const [supervisorMap, setSupervisorMap] = useState({});
+  const [rataMap, setRataMap] = useState({}); // New: store Ra/Ta info
 
   useEffect(() => {
     const cachedUser = localStorage.getItem("session");
@@ -41,6 +43,31 @@ export default function ThesisRegistration() {
         const resUsers = await fetchUserByEmail(""); 
         setFaculties(resUsers.data.filter(u => u.usr_type === "Faculty"));
 
+        const supervisorMap = {};
+        resUsers.data
+          .filter(u => u.usr_type === "Faculty")
+          .forEach(fac => {
+            supervisorMap[fac.student_id] = {
+              name: fac.Name,
+              email: fac.mail,
+            };
+          });
+        setSupervisorMap(supervisorMap);
+
+        // Fetch Ra/Ta names and emails for all theses
+        const rataPromises = fetchedTheses.map(async (thesis) => {
+          if (thesis.RaTa) {
+            const res = await checkUserExists(thesis.RaTa);
+            // Only store name and mail
+            return { [thesis.thesis_id]: { name: res.data.Name, email: res.data.mail } };
+          }
+          return { [thesis.thesis_id]: { name: "N/A", email: "N/A" } };
+        });
+
+        const rataResults = await Promise.all(rataPromises);
+        const rataMap = Object.assign({}, ...rataResults);
+        setRataMap(rataMap);
+
         // Fetch group info for current student
         if (user.usr_type === "Student") {
           const resGroup = await fetchGroupByStudentId(user.student_id);
@@ -68,7 +95,6 @@ export default function ThesisRegistration() {
       return;
     }
 
-    // Log the data being sent
     const requestData = {
       group_id: unregisteredGroup.group_id,
       student_id: selectedFaculty,
@@ -76,14 +102,8 @@ export default function ThesisRegistration() {
       abstract: abstract.trim()
     };
 
-    console.log("Sending thesis registration data:", requestData);
-    console.log("Group info:", unregisteredGroup);
-    console.log("Selected faculty:", selectedFaculty);
-
     try {
       const response = await registerThesis(requestData);
-      console.log("Registration response:", response);
-      
       alert("Thesis registered successfully!");
       setShowRegisterForm(false);
       setSelectedFaculty("");
@@ -109,39 +129,17 @@ export default function ThesisRegistration() {
       setGroupInfo(resGroup.data);
 
     } catch (err) {
-      console.error("Full error object:", err);
-      console.error("Error response:", err.response);
-      console.error("Error request:", err.request);
-      console.error("Error config:", err.config);
-      console.error("Error message:", err.message);
-      
-      // Log the URL being called
-      if (err.config) {
-        console.error("Request URL:", err.config.url);
-        console.error("Request method:", err.config.method);
-        console.error("Request data:", err.config.data);
-      }
-      
-      // More specific error messages
-      if (err.response) {
-        console.error("Response status:", err.response.status);
-        console.error("Response data:", err.response.data);
-        alert(`Error registering thesis: ${err.response.data?.error || err.response.statusText} (Status: ${err.response.status})`);
-      } else if (err.request) {
-        alert("Error: No response from server. Please check your connection.");
-      } else {
-        alert(`Error: ${err.message}`);
-      }
+      console.error("Error registering thesis:", err);
+      alert(`Error registering thesis: ${err.message}`);
     }
   };
 
   return (
-    <div className="p-6 mt-navbar max-w-5xl mx-auto" style={{marginTop: '100px',maxWidth: '700px'}}>
+    <div className="p-6 mt-navbar max-w-5xl mx-auto" style={{marginTop: '100px',maxWidth: '1200px'}}>
       <h2 className="text-xl font-bold mb-4">
         {user.usr_type === "Faculty" ? "Theses You Supervise" : "Your Thesis Information"}
       </h2>
 
-      {/* Thesis list */}
       {theses.length === 0 && <p>No thesis found.</p>}
       {theses.map((thesis) => (
         <div key={thesis.thesis_id} className="border p-3 rounded mb-3">
@@ -149,7 +147,6 @@ export default function ThesisRegistration() {
             Thesis ID: {thesis.thesis_id} | Topic: {thesis.topic}
           </h3>
           <p><strong>Abstract:</strong> {thesis.abstract}</p>
-          {/* <p><strong>Progress:</strong> {thesis.progress || 0} / 3</p> */}
           <div className="progress-section">
             <p className="progress-label">
               <strong>Progress:</strong> {thesis.progress || 0} / 3
@@ -175,21 +172,27 @@ export default function ThesisRegistration() {
               ))}
             </div>
           </div>
-                    <p><strong>Defer:</strong> {thesis.defer_status === "approved" ? "Yes" : "No"}</p>
-          <p><strong>Supervisor:</strong> {thesis.supervisor_id}</p>
+          <p><strong>Defer:</strong> {thesis.defer_status === "approved" ? "Yes" : "No"}</p>
+          <p><strong>Supervisor ID:</strong> {thesis.supervisor_id}</p>
+          <p><strong>Supervisor Name:</strong> {supervisorMap[thesis.supervisor_id]?.name || "N/A"}</p>
+          <p><strong>Supervisor Email:</strong> {supervisorMap[thesis.supervisor_id]?.email || "N/A"}</p>
+
           {thesis.feedback && typeof thesis.feedback === "object" ? (
-  <div>
-    <strong>Feedback:</strong>
-    <ul>
-      {Object.entries(thesis.feedback).map(([stage, feedback]) => (
-        <li key={stage}>{stage}: {feedback}</li>
-      ))}
-    </ul>
-  </div>
-) : (
-  <p><strong>Feedback:</strong> {thesis.feedback || "No feedback yet"}</p>
-)}
-          <p><strong>Ra/Ta:</strong> {thesis.RaTa || "N/A"}</p>
+            <div>
+              <strong>Feedback:</strong>
+              <ul>
+                {Object.entries(thesis.feedback).map(([stage, feedback]) => (
+                  <li key={stage}>{stage}: {feedback}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <p><strong>Feedback:</strong> {thesis.feedback || "No feedback yet"}</p>
+          )}
+
+          {/* Updated Ra/Ta info */}
+          <p><strong>Ra/Ta Name:</strong> {rataMap[thesis.thesis_id]?.name || "N/A"}</p>
+          <p><strong>Ra/Ta Email:</strong> {rataMap[thesis.thesis_id]?.email || "N/A"}</p>
 
           {thesis.students && thesis.students.length > 0 && (
             <div className="mt-2">
@@ -204,7 +207,6 @@ export default function ThesisRegistration() {
         </div>
       ))}
 
-      {/* Thesis Registration Button */}
       {unregisteredGroup && !showRegisterForm && (
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
@@ -212,21 +214,17 @@ export default function ThesisRegistration() {
         >
           Thesis Registration
         </button>
-        
-        
       )}
 
       {showRegisterForm && unregisteredGroup && (
         <div className="border p-4 rounded mt-4">
           <h3 className="font-semibold mb-2">Register New Thesis</h3>
-
           <input
             type="text"
             value={unregisteredGroup.group_id}
             readOnly
             className="border p-2 mb-2 w-full bg-gray-100 font-semibold"
           />
-
           <select
             value={selectedFaculty}
             onChange={(e) => setSelectedFaculty(e.target.value)}
@@ -239,7 +237,6 @@ export default function ThesisRegistration() {
               </option>
             ))}
           </select>
-
           <input
             type="text"
             placeholder="Thesis Topic"
@@ -253,14 +250,12 @@ export default function ThesisRegistration() {
             onChange={(e) => setAbstract(e.target.value)}
             className="border p-2 mb-2 w-full"
           />
-
           <button
             className="bg-green-500 text-white px-4 py-2 rounded mt-2 block"
             onClick={handleRegisterThesis}
           >
             Register Thesis
           </button>
-          {/* Back button below Create Group */}
           <button
             onClick={() => setShowRegisterForm(false)}
             className="bg-gray-500 text-white px-4 py-2 rounded mt-2 block"

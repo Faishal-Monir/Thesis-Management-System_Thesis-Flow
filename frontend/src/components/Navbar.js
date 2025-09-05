@@ -12,8 +12,21 @@ function Navbar() {
   const [offCanvasOpen, setOffCanvasOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState({});
 
- 
   const [status, setStatus] = useState(() => (isLoggedIn ? (session?.status ?? null) : null));
+
+  // Profile picture state
+  const [profilePic, setProfilePic] = useState(null);
+
+  useEffect(() => {
+    if (isLoggedIn && session?.student_id) {
+      checkUserExists(session.student_id)
+        .then(res => {
+          const pic = res?.data?.profile_pic;
+          setProfilePic(pic);
+        })
+        .catch(() => setProfilePic(null));
+    }
+  }, [isLoggedIn, session?.student_id]);
 
   useEffect(() => {
     let isMounted = true;
@@ -76,89 +89,90 @@ function Navbar() {
 
     if (usrType === 'Student') {
       return [
-        {
-          label: 'Profile',
-          dropdown: [
-            { to: '/profile', label: 'View Own Profile(TBA)' },
-          ],
-        },
-        {
-          label: 'Research Management',
-          dropdown: [
-            { to: '/propose', label: 'Propose Thesis Idea' },
-            { to: '/synopsis', label: 'View Sample Synopsis' },
-            { to: '/resources', label: 'Resources' },
-          ],
-        },
-        {
-          label: 'Dummy Links',
-          dropdown: [],
-        },
-        {
-          label: 'Thesis Management',
-          dropdown: [
-            { to: '/thesis', label: 'Thesis Registration' },
-            { to: '/thesis_defer', label: 'Thesis Defer Request' },
-            { to: '/thesis_progress', label: 'Thesis Progress' }
-          ],
-        },
-        {
-          label: 'Groups',
-          dropdown: [
-            { to: '/groups', label: 'View / Manage Group' },
-          ],
-        },
-        { to: '/dashboard', label: 'Student Dashboard' },
+
+        
+                        {
+                    label: 'Groups',
+                    dropdown: [
+                      { to: '/groups', label: 'View / Manage Group' },
+                    ],
+                  },
+                  {
+                    label: 'Profile',
+                    dropdown: [
+                      { to: '/profile', label: 'Update Own Profile(TBA)' },
+                    ],
+                  },
+                  {
+                    label: 'Research Management',
+                    dropdown: [
+                      { to: '/propose', label: 'Propose Thesis Idea' },
+                      { to: '/resources', label: 'Resources' },
+                      { to: '/synopsis', label: 'View Sample Synopsis' },
+                    ],
+                  },
+                  {
+                    label: 'Thesis Management',
+                    dropdown: [
+                      { to: '/thesis_defer', label: 'Thesis Defer Request' },
+                      { to: '/thesis_progress', label: 'Thesis Progress' },
+                      { to: '/thesis', label: 'Thesis Registration' },
+                    ],
+                  },
+                  { to: '/dashboard', label: 'Go back to Student Dashboard' },
+
+
+
+
       ];
     }
 
     if (usrType === 'Faculty' && status === 1) {
       return [
-        {
-          label: 'Profile',
-          dropdown: [
-            // { to: '/profile', label: 'User Research and interest' },
-            // { to: '/profile', label: 'Update Research and Interest' },
-            // { to: '/profile', label: 'Delete Research and Interest' },
-          ],
-        },
-        {
-          label: 'Manage Synopsis',
-          dropdown: [
-            { to: '/my_synopsis', label: 'View my Synopsis' },
-            { to: '/create_synopsis', label: 'Create Synopsis' },
-            { to: '/update_synopsis', label: 'Update Synopsis' },
-            { to: '/delete_synopsis', label: 'Delete Synopsis' },
-          ],
-        },
+                  {
+              label: 'Groups',
+              dropdown: [
+                { to: '/groups', label: 'View All Groups' },
+              ],
+            },
+            {
+              label: 'Manage Synopsis',
+              dropdown: [
+                { to: '/create_synopsis', label: 'Create Synopsis' },
+                { to: '/delete_synopsis', label: 'Delete Synopsis' },
+                { to: '/update_synopsis', label: 'Update Synopsis' },
+                { to: '/my_synopsis', label: 'View my Synopsis' },
+              ],
+            },
+            {
+              label: 'Modify Research Interests',
+              dropdown: [
+                { to: '/delete_own_domain', label: 'Delete Research and Interest' },
+                { to: '/enlist_domain', label: 'Request For Domain Enlistment' },
+                { to: '/update_own_domain', label: 'Update Research and Interest' },
+                { to: '/view_own_domain', label: 'User Research and interest' },
+              ],
+            },
+            {
+              label: 'Profile',
+              dropdown: [
+                // { to: '/profile', label: 'Delete Research and Interest' },
+                // { to: '/profile', label: 'Update Research and Interest' },
+                // { to: '/profile', label: 'User Research and interest' },
+              ],
+            },
+            {
+              label: 'Thesis Management',
+              dropdown: [
+                { to: '/thesis_defer', label: 'Thesis Defer Request' },
+                { to: '/thesis_progress', label: 'Thesis Progress' },
+                { to: '/thesis', label: 'View Registered Groups' },
+              ],
+            },
+            { to: '/resources', label: 'Resource Management' },
+            { to: '/propose', label: 'Student Proposal' },
 
-        {
-          label: 'Modify Research Interests',
-          dropdown: [
-            { to: '/view_own_domain', label: 'User Research and interest' },
-            { to: '/update_own_domain', label: 'Update Research and Interest' },
-            { to: '/delete_own_domain', label: 'Delete Research and Interest' },
-            { to: '/enlist_domain', label: 'Request For Domain Enlistment' },
-          ],
-        },
 
-
-        {
-          label: 'Thesis Management',
-          dropdown: [
-            { to: '/thesis', label: 'View Registered Groups' },
-            { to: '/thesis_defer', label: 'Thesis Defer Request' },
-            { to: '/thesis_progress', label: 'Thesis Progress' }
-          ],
-        },
-        {
-          label: 'Groups',
-          dropdown: [
-            { to: '/groups', label: 'View All Groups' },
-          ],
-        },
-        { to: '/propose', label: 'Student Proposal' },
-        { to: '/resources', label: 'Resource Management' },
       ];
     } else if (usrType === 'Faculty') {
       return [];
@@ -246,7 +260,7 @@ function Navbar() {
           <Link to="/dashboard" className="navbar-link login">Home</Link>
 
           {!statusLoadingForFaculty && (
-            <span className="navbar-link Menu" onClick={() => setOffCanvasOpen(true)} style={{ cursor: 'pointer' }}>
+            <span className="navbar-link Menu navbar-options-link" onClick={() => setOffCanvasOpen(true)}>
               Options
             </span>
           )}
@@ -255,6 +269,14 @@ function Navbar() {
           <a href="https://www.bracu.ac.bd/contact" className="navbar-link" target="_blank" rel="noopener noreferrer">Contact</a>
         </div>
         <div className="navbar-user-actions">
+          {/* Profile picture view */}
+          <span className="navbar-profile-pic-wrapper">
+            <img
+              src={profilePic ? profilePic : require('./user.png')}
+              alt="Profile"
+              className="navbar-profile-pic"
+            />
+          </span>
           <span className="navbar-user-name">
             {name}{typeof status === 'number'}
           </span>
@@ -264,7 +286,7 @@ function Navbar() {
         </div>
       </div>
 
-      <div className={`navbar-offcanvas navbar-offcanvas-dark ${offCanvasOpen ? 'open' : ''}`}>
+      <div className={`navbar-offcanvas navbar-offcanvas-dark ${offCanvasOpen ? 'open' : ''}`}> 
         <div className="navbar-offcanvas-links">
           {offCanvasLinks.map((link, idx) =>
             link.dropdown ? (
