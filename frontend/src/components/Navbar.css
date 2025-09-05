@@ -1,3 +1,23 @@
+/* Profile picture wrapper and image */
+.navbar-profile-pic-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+
+.navbar-profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+  border: 2px solid #273992;
+}
+
+/* Options link style for pointer */
+.navbar-options-link {
+  cursor: pointer;
+}
 .navbar-container {
   width: 100vw;
   background-color: #0a1624;

@@ -110,8 +110,9 @@ app.use(
 const assignRaTaRouter = require('./routes/assign_ra_ta');
 app.use('/assignhelp', assignRaTaRouter);
 
-
-
+// Profile picture upload cloudinary
+const profileUploadRouter = require('./routes/profile_upload');
+app.use('/', profileUploadRouter);
 
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
