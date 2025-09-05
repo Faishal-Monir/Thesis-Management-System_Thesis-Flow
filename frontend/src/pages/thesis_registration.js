@@ -136,7 +136,7 @@ export default function ThesisRegistration() {
   };
 
   return (
-    <div className="p-6 mt-navbar max-w-5xl mx-auto" style={{marginTop: '100px',maxWidth: '700px'}}>
+    <div className="p-6 mt-navbar max-w-5xl mx-auto" style={{marginTop: '100px',maxWidth: '1200px'}}>
       <h2 className="text-xl font-bold mb-4">
         {user.usr_type === "Faculty" ? "Theses You Supervise" : "Your Thesis Information"}
       </h2>
