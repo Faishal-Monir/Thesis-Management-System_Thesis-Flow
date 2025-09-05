@@ -100,7 +100,7 @@ function Navbar() {
                   {
                     label: 'Profile',
                     dropdown: [
-                      { to: '/profile', label: 'Update Own Profile(TBA)' },
+                      { to: "/update_profile", label: 'Update Own Profile Info' },
                     ],
                   },
                   {
@@ -156,7 +156,7 @@ function Navbar() {
             {
               label: 'Profile',
               dropdown: [
-                // { to: '/profile', label: 'Delete Research and Interest' },
+                { to: "/update_profile", label: 'Update Own Profile Info' },
                 // { to: '/profile', label: 'Update Research and Interest' },
                 // { to: '/profile', label: 'User Research and interest' },
               ],
@@ -212,7 +212,7 @@ function Navbar() {
           ],
         },
 
-
+        { to: "/update_profile", label: 'Update Own Profile Info' },
 
         // { to: '/resources', label: 'Resources' },
         // { to: '/manageUsers', label: 'Manage Users' },

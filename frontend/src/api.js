@@ -167,6 +167,15 @@ export const updateThesisFeedbackAPI = (groupId, data) => api.put(`/feedback/upd
 // Fetch feedback for a specific group and stage
 export const fetchThesisFeedbackAPI = (groupId, stage) => api.get(`/feedback/show/${groupId}/${stage}`);
 
+// Update user profile by student_id
+export const updateUserByStudentId = (student_id, data) =>
+  api.put(`/update-user/${student_id}`, data);
+
+
+
+
+
+
 export default api;
 
 
