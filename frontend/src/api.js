@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API_BASE_URL = 'https://thesis-management-system-e3e1.onrender.com'; 
+// const API_BASE_URL = 'https://thesis-management-system-e3e1.onrender.com'; 
+const API_BASE_URL = 'https://localhost:5005'; 
 
 
 const api = axios.create({
