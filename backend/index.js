@@ -1,7 +1,8 @@
+// ...existing code...
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
 const path = require('path');
 
 const app = express();
@@ -113,6 +114,11 @@ app.use('/assignhelp', assignRaTaRouter);
 // Profile picture upload cloudinary
 const profileUploadRouter = require('./routes/profile_upload');
 app.use('/', profileUploadRouter);
+
+//profile update route 
+const updateUserRouter = require('./routes/update_user');
+app.use('/',updateUserRouter);
+
 
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
