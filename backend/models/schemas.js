@@ -7,7 +7,8 @@ const userdataSchema = new mongoose.Schema({
   mail: { type: String, required: true, unique: true },
   Password: { type: String, required: true }, // encrypted
   usr_type: { type: String, required: true }, // 'Student' or 'Faculty'
-  status: { type: Number, required: true } // 1 or 0
+  status: { type: Number, required: true }, // 1 or 0
+  profile_pic: { type: String, default: "" } // URL of profile picture
 }, { collection: 'userdata' });
 
 

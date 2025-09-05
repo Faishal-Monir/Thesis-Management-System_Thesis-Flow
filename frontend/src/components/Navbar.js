@@ -12,8 +12,21 @@ function Navbar() {
   const [offCanvasOpen, setOffCanvasOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState({});
 
- 
   const [status, setStatus] = useState(() => (isLoggedIn ? (session?.status ?? null) : null));
+
+  // Profile picture state
+  const [profilePic, setProfilePic] = useState(null);
+
+  useEffect(() => {
+    if (isLoggedIn && session?.student_id) {
+      checkUserExists(session.student_id)
+        .then(res => {
+          const pic = res?.data?.profile_pic;
+          setProfilePic(pic);
+        })
+        .catch(() => setProfilePic(null));
+    }
+  }, [isLoggedIn, session?.student_id]);
 
   useEffect(() => {
     let isMounted = true;
@@ -247,7 +260,7 @@ function Navbar() {
           <Link to="/dashboard" className="navbar-link login">Home</Link>
 
           {!statusLoadingForFaculty && (
-            <span className="navbar-link Menu" onClick={() => setOffCanvasOpen(true)} style={{ cursor: 'pointer' }}>
+            <span className="navbar-link Menu navbar-options-link" onClick={() => setOffCanvasOpen(true)}>
               Options
             </span>
           )}
@@ -256,6 +269,14 @@ function Navbar() {
           <a href="https://www.bracu.ac.bd/contact" className="navbar-link" target="_blank" rel="noopener noreferrer">Contact</a>
         </div>
         <div className="navbar-user-actions">
+          {/* Profile picture view */}
+          <span className="navbar-profile-pic-wrapper">
+            <img
+              src={profilePic ? profilePic : require('./user.png')}
+              alt="Profile"
+              className="navbar-profile-pic"
+            />
+          </span>
           <span className="navbar-user-name">
             {name}{typeof status === 'number'}
           </span>
@@ -265,7 +286,7 @@ function Navbar() {
         </div>
       </div>
 
-      <div className={`navbar-offcanvas navbar-offcanvas-dark ${offCanvasOpen ? 'open' : ''}`}>
+      <div className={`navbar-offcanvas navbar-offcanvas-dark ${offCanvasOpen ? 'open' : ''}`}> 
         <div className="navbar-offcanvas-links">
           {offCanvasLinks.map((link, idx) =>
             link.dropdown ? (
