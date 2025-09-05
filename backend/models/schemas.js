@@ -85,6 +85,14 @@ const approvalSchema = new mongoose.Schema({
   status: { type: Number, enum: [0, 1], default: 0 }
 }, { collection: 'approval' });
 
+// faculty Approval Schema
+const facultyapprovalSchema = new mongoose.Schema({
+  sup_id: { type: String, required: true },
+  type: { type: String, required: true },
+  msg: { type: String, required: false },
+  status: { type: Number, enum: [0, 1], default: 0 }
+}, { collection: 'facultyapproval' });
+
 // // Student Thesis Proposal Schema - Updated
 const studentProposalSchema = new mongoose.Schema({
   student_id: { type: String, required: true },
@@ -122,6 +130,7 @@ module.exports = {
   Domain: mongoose.model('Domain', domainSchema),
   Approval: mongoose.model('Approval', approvalSchema),
   StudentProposal: mongoose.model('StudentProposal', studentProposalSchema),
-  DomainList: mongoose.model('DomainList', domain)
+  DomainList: mongoose.model('DomainList', domain),
+  FacultyApprovallist: mongoose.model('FacultyApproval', facultyapprovalSchema)
 };
 
