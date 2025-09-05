@@ -32,8 +32,7 @@ function Login() {
   localStorage.setItem('session', JSON.stringify(sessionData));
   localStorage.setItem('isLoggedIn', 'true');
   localStorage.setItem('loginTime', Date.now().toString());
-  const FRONTEND_BASE_URL = process.env.REACT_APP_FRONTEND_BASE_URL || window.location.origin;
-  window.location.href = `${FRONTEND_BASE_URL}/dashboard`;
+  window.location.href = 'http://thesis-management-system-bay.vercel.app/dashboard';
 
 
 
