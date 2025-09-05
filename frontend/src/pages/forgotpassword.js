@@ -27,7 +27,7 @@ function ForgotPassword() {
 			await sendRegistrationEmail({
 				mail,
 				subject: 'Password Reset Successful',
-				msg: `Your password has been successfully reset for your Thesis Management System account.\n\n You can use this link: http://thesis-management-system-llaqtxut3.vercel.app/login to login with your new password.`
+				msg: `Your password has been successfully reset for your Thesis Management System account.\n\n You can use this link: http://localhost:3000/login to login with your new password.`
 			});
 			setSuccess('Password reset successful! Confirmation email sent.');
 			setTimeout(() => {

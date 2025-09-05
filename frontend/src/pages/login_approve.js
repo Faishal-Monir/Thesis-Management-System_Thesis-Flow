@@ -36,7 +36,7 @@ function LoginApprove() {
         await sendRegistrationEmail({
           mail: userMail,
           subject: 'Your account is approved',
-          msg: `Thank you for registering in our Thesis Management System your account is now approved.\nYou can login by simply going to the following Link: \n\nhttp://thesis-management-system-llaqtxut3.vercel.app/login`
+          msg: `Thank you for registering in our Thesis Management System your account is now approved.\nYou can login by simply going to the following Link: \n\nhttp://localhost:3000/login`
         });
         setSuccess('Approval successful! Email sent.');
       } else {
