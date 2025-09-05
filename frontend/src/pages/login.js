@@ -32,7 +32,7 @@ function Login() {
   localStorage.setItem('session', JSON.stringify(sessionData));
   localStorage.setItem('isLoggedIn', 'true');
   localStorage.setItem('loginTime', Date.now().toString());
-  window.location.href = 'http://thesis-management-system-bay.vercel.app/dashboard';
+  window.location.href = 'http://thesis-management-system-llaqtxut3.vercel.app/dashboard';
 
 
 
