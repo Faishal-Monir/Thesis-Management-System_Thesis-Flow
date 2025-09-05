@@ -99,3 +99,4 @@ $name = "create_synopsis"; foreach ($ext in "js","css") { New-Item -ItemType Fil
 Cache data: 
 
 {Name: 'Mahir Labib Dihan [MLD] [Faculty]', student_id: '1234', mail: 'abc@gmail.com', usr_type: 'Faculty', status: 1}
+
