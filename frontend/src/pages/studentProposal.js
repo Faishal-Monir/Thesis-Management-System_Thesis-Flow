@@ -149,7 +149,7 @@ const StudentProposal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!studentId || !domain || !idea) {
+    if (!domain || !idea) {
       showToastMessage("All fields are required.");
       return;
     }
@@ -157,9 +157,11 @@ const StudentProposal = () => {
     const isConfirmed = window.confirm("Are you sure you want to add a new proposal?");
     if (!isConfirmed) return;
 
+
+
     // Check for duplicates
     const exists = proposals.some(
-      (p) => p.student_id === studentId.trim()  
+      (p) => p.student_id === loggedStudentId.trim()  
     );
 
     if (exists) {
@@ -169,7 +171,7 @@ const StudentProposal = () => {
 
     try {
       await createProposal({
-        student_id: studentId,
+        student_id: loggedStudentId,
         domain,
         idea,
       });
@@ -463,15 +465,20 @@ const StudentProposal = () => {
       {userType === "Student" && proposals.filter(p => p.student_id === loggedStudentId).length === 0 && (
         showForm ? (
           <form className="proposal-form" onSubmit={handleSubmit}>
-            <input 
+            {/* <input 
               className="form-input" 
               type="text" 
               placeholder="Student ID" 
               value={studentId} 
               onChange={(e) => setStudentId(e.target.value)} 
               required 
+            /> */}
+            <p className="form-input"><strong>ID:</strong> {loggedStudentId}</p> {/* New Proposal auto-filled */}
+            <input 
+              type="hidden" 
+              name="student_id" 
+              value={loggedStudentId} 
             />
-            
             {/* Domain dropdown */}
             <select
               className="form-input"

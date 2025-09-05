@@ -65,6 +65,7 @@ body {
   color: var(--danger-color);
   text-align: center;
   font-weight: 500;
+  margin-top: 10px;
 }
 
 .no-proposals {
@@ -254,7 +255,7 @@ body {
 
 .toast {
   position: fixed;
-  top: 2rem;
+  top: 5rem;
   right: 2rem;
   background: var(--danger-color);
   color: white;
@@ -290,7 +291,7 @@ body {
 
 .toast-popup {
   position: fixed;
-  top: 2rem;
+  top: 5rem;
   left: 2rem;
   background: #374151;
   color: #fff;

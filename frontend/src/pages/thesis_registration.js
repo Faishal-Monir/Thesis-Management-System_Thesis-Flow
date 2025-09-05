@@ -12,6 +12,8 @@ export default function ThesisRegistration() {
   const [selectedFaculty, setSelectedFaculty] = useState("");
   const [topic, setTopic] = useState("");
   const [abstract, setAbstract] = useState("");
+  const [supervisorMap, setSupervisorMap] = useState({});
+
 
   useEffect(() => {
     const cachedUser = localStorage.getItem("session");
@@ -40,6 +42,17 @@ export default function ThesisRegistration() {
         // Fetch all users and filter faculty
         const resUsers = await fetchUserByEmail(""); 
         setFaculties(resUsers.data.filter(u => u.usr_type === "Faculty"));
+
+        const supervisorMap = {};
+        resUsers.data
+          .filter(u => u.usr_type === "Faculty")
+          .forEach(fac => {
+            supervisorMap[fac.student_id] = {
+              name: fac.Name,
+              email: fac.mail,
+            };
+          });
+        setSupervisorMap(supervisorMap);
 
         // Fetch group info for current student
         if (user.usr_type === "Student") {
@@ -175,8 +188,10 @@ export default function ThesisRegistration() {
               ))}
             </div>
           </div>
-                    <p><strong>Defer:</strong> {thesis.defer_status === "approved" ? "Yes" : "No"}</p>
-          <p><strong>Supervisor:</strong> {thesis.supervisor_id}</p>
+          <p><strong>Defer:</strong> {thesis.defer_status === "approved" ? "Yes" : "No"}</p>
+          <p><strong>Supervisor ID:</strong> {thesis.supervisor_id}</p>
+          <p><strong>Supervisor Name:</strong> {supervisorMap[thesis.supervisor_id]?.name || "N/A"}</p>
+          <p><strong>Supervisor Email:</strong> {supervisorMap[thesis.supervisor_id]?.email || "N/A"}</p>
           <p><strong>Feedback:</strong> {thesis.feedback || "No feedback yet"}</p>
           <p><strong>Ra/Ta:</strong> {thesis.RaTa || "N/A"}</p>
 
