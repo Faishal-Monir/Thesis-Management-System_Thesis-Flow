@@ -29,10 +29,10 @@ function Login() {
           mail: user.mail,
           usr_type: user.usr_type,
         };
-  localStorage.setItem('session', JSON.stringify(sessionData));
-  localStorage.setItem('isLoggedIn', 'true');
-  localStorage.setItem('loginTime', Date.now().toString());
-  window.location.href = 'http://localhost:3000/dashboard';
+    localStorage.setItem('session', JSON.stringify(sessionData));
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('loginTime', Date.now().toString());
+    window.location.href = `${process.env.REACT_APP_FRONTEND_BASE_URL}/dashboard`;
 
 
 
