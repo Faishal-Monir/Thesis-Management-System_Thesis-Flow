@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './login.css';
 import { fetchUserByEmail, fetchPasswordByEmail } from '../api';
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +34,7 @@ function Login() {
   localStorage.setItem('session', JSON.stringify(sessionData));
   localStorage.setItem('isLoggedIn', 'true');
   localStorage.setItem('loginTime', Date.now().toString());
-  window.location.href = 'http://localhost:3000/dashboard';
+  navigate('/dashboard');
 
 
 
@@ -104,7 +106,7 @@ function Login() {
           <div className="login-or">Don't have an account ? </div>
           <button
             type="button"
-            onClick={() => window.location.href = '/register'}
+            onClick={() => navigate('/register')}
             className="login-btn-register"
           >
             Register
