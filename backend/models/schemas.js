@@ -86,13 +86,29 @@ const approvalSchema = new mongoose.Schema({
   status: { type: Number, enum: [0, 1], default: 0 }
 }, { collection: 'approval' });
 
-// faculty Approval Schema
-const facultyapprovalSchema = new mongoose.Schema({
-  sup_id: { type: String, required: true },
-  type: { type: String, required: true },
-  msg: { type: String, required: false },
-  status: { type: Number, enum: [0, 1], default: 0 }
-}, { collection: 'facultyapproval' });
+
+// // faculty Approval Schema
+// const facultyapprovalSchema = new mongoose.Schema({
+//   sup_id: { type: String, required: true },
+//   type: { type: String, required: true },
+//   msg: { type: String, required: false },
+//   status: { type: Number, enum: [0, 1], default: 0 }
+// }, { collection: 'facultyapproval' });
+
+// Faculty Approval Schema (event log)
+
+const facultyApprovalSchema = new mongoose.Schema({
+  faculty_id: { type: String, required: true },
+  event: [{
+    student_id: { type: String, required: true },
+    date: { type: String, required: true },
+    time: { type: String, required: true },
+    type: { type: String, required: true },
+    status: { type: Number, enum: [0, 1], required: true }
+  }]
+}, { collection: 'faculty_approvals' });
+
+
 
 // // Student Thesis Proposal Schema - Updated
 const studentProposalSchema = new mongoose.Schema({
@@ -131,7 +147,7 @@ module.exports = {
   Domain: mongoose.model('Domain', domainSchema),
   Approval: mongoose.model('Approval', approvalSchema),
   StudentProposal: mongoose.model('StudentProposal', studentProposalSchema),
-  DomainList: mongoose.model('DomainList', domain),
-  FacultyApprovallist: mongoose.model('FacultyApproval', facultyapprovalSchema)
+  DomainList: mongoose.model('DomainList', domain)
+  ,FacultyApproval: mongoose.model('FacultyApproval', facultyApprovalSchema)
 };
 
