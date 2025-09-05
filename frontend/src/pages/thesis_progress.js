@@ -305,7 +305,7 @@ export default function ThesisProgress() {
                     window.location.href = "/viewfeedback";
                   }}
                 >
-                  View Thesis Progress
+                  View Thesis Feedback
                 </button>
               )}
             </div>
