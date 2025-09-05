@@ -1,3 +1,10 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json"
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/:path*" },
+    {
+      "source": "/((?!static/|asset-manifest\\.json|favicon\\.ico|robots\\.txt|manifest\\.json).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
