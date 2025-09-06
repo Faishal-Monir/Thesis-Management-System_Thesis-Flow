@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "./studentDashboard.css";
-import { fetchStudentById } from "../api";
+import { fetchStudentById, checkUserExists } from "../api";
 
 const StudentDashboard = () => {
   const [student, setStudent] = useState(null);
   const [role, setRole] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [profilePic, setProfilePic] = useState("");
 
   useEffect(() => {
     // Get cached student info
@@ -17,6 +18,20 @@ const StudentDashboard = () => {
         setStudent(res.data.user);
         setRole(res.data.role);
         setError(null);
+        // Fetch profile image using email
+        if (res.data.user && res.data.user.email) {
+          checkUserExists(res.data.user.email)
+            .then((profileRes) => {
+              if (profileRes.data && profileRes.data.profile_pic && profileRes.data.profile_pic !== "") {
+                setProfilePic(profileRes.data.profile_pic);
+              } else {
+                setProfilePic("");
+              }
+            })
+            .catch(() => setProfilePic(""));
+        } else {
+          setProfilePic("");
+        }
         setLoading(false);
       })
       .catch((err) => {
@@ -92,7 +107,15 @@ const StudentDashboard = () => {
             {/* Profile Section */}
             <div className="profile-section">
               <div className="profile-avatar">
-                {student.name.charAt(0).toUpperCase()}
+                {profilePic && profilePic !== "" ? (
+                  <img
+                    src={profilePic}
+                    alt="Profile"
+                    style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }}
+                  />
+                ) : (
+                  student.name.charAt(0).toUpperCase()
+                )}
               </div>
               <h2 className="profile-name">{student.name}</h2>
               <div className={`profile-role ${getRoleColor()}`}>
