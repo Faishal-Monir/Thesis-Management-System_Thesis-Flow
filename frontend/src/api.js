@@ -188,9 +188,13 @@ export const resetThesisCorrection = (thesis_id) =>
 export const correctThesisAPI = (thesisId, data) => 
   api.put(`/thesis_correction/${thesisId}`, data);
 
+// Meeting APIs
+export const fetchAllMeetings = () => api.get('/meeting');
+// Book a meeting (assume POST to /meeting/book with meeting data)
+export const bookMeeting = (data) => api.post('/book/meeting', data);
 
-
-
+// Fetch all users (for faculty list)
+export const fetchAllUsers = () => api.get('/usr');
 
 
 

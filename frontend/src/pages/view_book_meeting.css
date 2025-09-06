@@ -1,41 +1,112 @@
-.meeting-list {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+.meeting-container {
+	max-width: 900px;
+	margin: 40px auto;
+	padding: 24px;
+  padding-top: 72px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.meeting-card {
-  background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  margin-bottom: 24px;
-  padding: 18px 22px;
+
+.meeting-controls {
+	display: flex;
+	gap: 16px;
+	margin-bottom: 18px;
 }
-.meeting-card h3 {
-  margin-top: 0;
-  color: #2d3a4b;
+.meeting-controls input {
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
-.meeting-card ul {
-  list-style: none;
-  padding: 0;
+.meeting-controls button {
+	padding: 8px 16px;
+	background: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
 }
-.meeting-card li {
-  margin-bottom: 8px;
-  font-size: 15px;
+.meeting-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 12px;
+}
+.meeting-table th, .meeting-table td {
+	border: 1px solid #e0e0e0;
+	padding: 10px;
+	text-align: center;
+}
+.meeting-table th {
+	background: #f5f5f5;
 }
 .book-btn {
-  background: #007bff;
-  color: #fff;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 15px;
-  margin-top: 10px;
-  transition: background 0.2s;
+	background: #28a745;
+	color: #fff;
+	border: none;
+	padding: 6px 14px;
+	border-radius: 4px;
+	cursor: pointer;
 }
 .book-btn:hover {
-  background: #0056b3;
+	background: #218838;
+}
+.error {
+	color: #d9534f;
+	margin-bottom: 10px;
+}
+
+
+.popup-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0,0,0,0.3);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+}
+.popup-form {
+	background: #fff;
+	padding: 32px 24px;
+	border-radius: 8px;
+	box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+	min-width: 320px;
+}
+.popup-form h3 {
+	margin-bottom: 18px;
+}
+.popup-form label {
+	display: block;
+	margin-bottom: 4px;
+	font-weight: 500;
+}
+.popup-form input[type="text"],
+.popup-form input[type="date"],
+.popup-form input[type="time"] {
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+.popup-form button {
+	padding: 8px 16px;
+	background: #f56600; /* deep green */
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.popup-form button.book-btn {
+	background: #007bff; /* blue */
+}
+.popup-form button[type="button"] {
+	background: #f47709; /* deep green for cancel */
+}
+.popup-form button:disabled {
+	opacity: 0.7;
+	cursor: not-allowed;
 }
