@@ -123,6 +123,11 @@ const thesisCorrectionRoutes = require("./routes/thesis_correction");
 app.use("/thesis_correction", thesisCorrectionRoutes);
 
 
+const Faculty_meeting = require('./routes/faculty_meeting');
+app.use('/', Faculty_meeting);
+
+
+
 
 
 const PORT = process.env.PORT || 5005;
