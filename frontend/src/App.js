@@ -29,6 +29,8 @@ import ViewFeedback from './pages/view_feedback';
 import AssignResearch_help from './pages/assign_ra--ta';
 import Update from './pages/update_profile';
 
+import ThesisCorrection from './pages/thesis_correction';
+
 
 
 

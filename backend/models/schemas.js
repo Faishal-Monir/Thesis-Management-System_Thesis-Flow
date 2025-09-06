@@ -29,6 +29,9 @@ const thesisSchema = new mongoose.Schema({
   defer_status: { type: String, enum: ["none", "pending", "approved", "rejected"], default: "none" },
   abstract: { type: String },
   RaTa: { type: String }, 
+  updated_topic: { type: Number, enum: [0, 1], default: 0 },
+  correction_request: { type: Boolean, default: false }, // new: student requested correction
+  correction_approved: { type: Boolean, default: false }, // new: faculty approved correction
   reports: { 
     P1: { type: String, trim: true, default: null },
     P2: { type: String, trim: true, default: null},

@@ -3,22 +3,6 @@ const router = express.Router();
 const { Groups, Userdata } = require('../models/schemas');
 
 
-// // GET /groups - fetch all groups with student info
-// router.get('/', async (req, res) => {
-//  try {
-//    const groups = await Groups.find();
-//    const detailedGroups = await Promise.all(
-//      groups.map(async (g) => {
-//        const students = await Userdata.find({ student_id: { $in: g.student_id } });
-//        return { ...g._doc, students };
-//      })
-//    );
-//    res.status(200).json(detailedGroups);
-//  } catch (err) {
-//    res.status(500).json({ error: err.message });
-//  }
-// });
-
 // GET /groups - fetch all groups with student info
 router.get('/', async (req, res) => {
   try {

@@ -119,6 +119,11 @@ app.use('/', profileUploadRouter);
 const updateUserRouter = require('./routes/update_user');
 app.use('/',updateUserRouter);
 
+const thesisCorrectionRoutes = require("./routes/thesis_correction");
+app.use("/thesis_correction", thesisCorrectionRoutes);
+
+
+
 
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
