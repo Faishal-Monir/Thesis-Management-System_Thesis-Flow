@@ -1,11 +1,36 @@
+/* Outer wrapper to move the card down */
+.meeting-outer {
+	margin-top: 150px;
+}
+.floating-error-popup {
+	position: fixed;
+	top: 90px; /* 80px navbar + 10px gap */
+	right: 32px;
+	background: #d9534f;
+	color: #fff;
+	padding: 14px 24px;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+	z-index: 2000;
+	font-size: 1rem;
+	min-width: 220px;
+	text-align: center;
+	animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; transform: translateY(-10px); }
+	to { opacity: 1; transform: translateY(0); }
+}
 .meeting-container {
 	max-width: 900px;
-	margin: 40px auto;
-	padding: 24px;
-  padding-top: 72px;
+	margin: 120px auto 40px auto; /* Brute force: large margin-top */
+	padding: 80px 24px 24px 24px; /* Brute force: large padding-top */
 	background: #fff;
 	border-radius: 8px;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+	position: relative;
+	z-index: 10;
 }
 
 .meeting-controls {
@@ -29,7 +54,7 @@
 .meeting-table {
 	width: 100%;
 	border-collapse: collapse;
-	margin-top: 12px;
+	margin-top: 32px;
 }
 .meeting-table th, .meeting-table td {
 	border: 1px solid #e0e0e0;

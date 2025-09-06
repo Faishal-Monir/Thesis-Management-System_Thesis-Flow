@@ -106,32 +106,32 @@ export const fetchAllThesisDefers = () => api.get('/thesis_defer'); // get all t
 
 // Student requests defer for their thesis
 export const requestThesisDefer = (data) => 
-    api.put('/thesis_defer', { 
-        thesis_id: data.thesis_id, 
-        defer: 1 // always request defer
-    });
-
-// Faculty approves or rejects a defer request
-export const decideThesisDefer = (data) => 
+  api.put('/thesis_defer', { 
+    thesis_id: data.thesis_id, 
+    defer: 1 // always request defer
+  });
+  
+  // Faculty approves or rejects a defer request
+  export const decideThesisDefer = (data) => 
     api.put('/thesis_defer/decision', { 
-        thesis_id: data.thesis_id, 
-        decision: data.decision // "approve" or "reject"
+      thesis_id: data.thesis_id, 
+      decision: data.decision // "approve" or "reject"
     });
-
-// Admin resets a thesis defer back to none
-export const resetThesisDefer = (thesis_id) =>
-  api.put("/thesis_defer/reset", { thesis_id });
-
-
-// Fetch all thesis progress
-export const fetchThesisProgressAPI = async () => {
-  const response = await api.get("/thesis_progress");
-  return response.data; // array of thesis objects
-};
-
-// Fetch single thesis by ID
-export const fetchThesisByIdAPI = async (thesisId) => {
-  const id = Number(thesisId);
+    
+    // Admin resets a thesis defer back to none
+    export const resetThesisDefer = (thesis_id) =>
+      api.put("/thesis_defer/reset", { thesis_id });
+    
+    
+    // Fetch all thesis progress
+    export const fetchThesisProgressAPI = async () => {
+      const response = await api.get("/thesis_progress");
+      return response.data; // array of thesis objects
+    };
+    
+    // Fetch single thesis by ID
+    export const fetchThesisByIdAPI = async (thesisId) => {
+      const id = Number(thesisId);
   if (isNaN(id)) throw new Error("Invalid thesis ID");
   const response = await api.get(`/thesis_progress/${id}`);
   return response.data;
@@ -141,7 +141,7 @@ export const fetchThesisByIdAPI = async (thesisId) => {
 export const uploadThesisProgressAPI = async (thesisId, formData) => {
   const id = Number(thesisId);
   if (isNaN(id)) throw new Error("Invalid thesis ID");
-
+  
   const response = await api.post(`/thesis_progress/${id}`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -169,7 +169,7 @@ export const fetchThesisFeedbackAPI = (groupId, stage) => api.get(`/feedback/sho
 
 // Update user profile by student_id
 export const updateUserByStudentId = (student_id, data) =>
-api.put(`/update-user/${student_id}`, data);
+  api.put(`/update-user/${student_id}`, data);
 
 
 // Student requests thesis correction
@@ -196,6 +196,17 @@ export const bookMeeting = (data) => api.post('/book/meeting', data);
 // Fetch all users (for faculty list)
 export const fetchAllUsers = () => api.get('/usr');
 
+// Fetch meetings for a specific faculty
+export const fetchMeetingsByFacultyId = (faculty_id) => api.get(`/meeting/${faculty_id}`);
+
+
+// Update meeting status (faculty approval)
+export const updateMeetingStatus = (faculty_id, student_id, statusData) =>
+  api.put(`/update/meeting/${faculty_id}/${student_id}`, statusData);
+
+
+// Delete expired meetings (events before today)
+export const deleteExpiredMeetings = () => api.delete('/meeting/expired');
 
 
 

@@ -61,14 +61,12 @@ router.post('/book/meeting', async (req, res) => {
 
 
 // PUT: Update a specific event for a faculty_id by student_id
+// PUT: Update a specific event for a faculty_id by student_id (partial update)
 router.put('/update/meeting/:faculty_id/:student_id', async (req, res) => {
 	try {
 		const faculty_id = req.params.faculty_id;
 		const student_id = req.params.student_id;
 		const { date, time, type, status } = req.body;
-		if (!date || !time || !type || typeof status !== 'number') {
-			return res.status(400).json({ error: 'date, time, type, and status (0 or 1) are required' });
-		}
 		const meeting = await FacultyApproval.findOne({ faculty_id });
 		if (!meeting) {
 			return res.status(404).json({ error: 'Faculty meeting not found' });
@@ -77,7 +75,11 @@ router.put('/update/meeting/:faculty_id/:student_id', async (req, res) => {
 		if (idx === -1) {
 			return res.status(404).json({ error: 'Event for student_id not found' });
 		}
-		meeting.event[idx] = { student_id, date, time, type, status };
+		// Only update fields that are provided
+		if (date !== undefined) meeting.event[idx].date = date;
+		if (time !== undefined) meeting.event[idx].time = time;
+		if (type !== undefined) meeting.event[idx].type = type;
+		if (status !== undefined && typeof status === 'number') meeting.event[idx].status = status;
 		await meeting.save();
 		res.json(meeting.event[idx]);
 	} catch (err) {
@@ -87,7 +89,37 @@ router.put('/update/meeting/:faculty_id/:student_id', async (req, res) => {
 
 
 
-
+// DELETE: Remove all expired meetings (events with date before today)
+router.delete('/meeting/expired', async (req, res) => {
+	try {
+		const today = new Date();
+		today.setHours(0, 0, 0, 0); // Only compare date part
+		const allMeetings = await FacultyApproval.find({});
+		let totalDeleted = 0;
+		for (const meeting of allMeetings) {
+			const originalLength = meeting.event.length;
+			// Keep only events with valid date today or in future
+			meeting.event = meeting.event.filter(ev => {
+				if (!ev.date) return true; // If no date, keep
+				// Accept only yyyy-mm-dd format
+				const match = /^\d{4}-\d{2}-\d{2}$/.test(ev.date);
+				if (!match) return true; // If not valid format, keep
+				const evDate = new Date(ev.date);
+				if (isNaN(evDate.getTime())) return true; // If invalid date, keep
+				evDate.setHours(0, 0, 0, 0);
+				return evDate >= today;
+			});
+			const deletedCount = originalLength - meeting.event.length;
+			totalDeleted += deletedCount;
+			if (deletedCount > 0) {
+				await meeting.save();
+			}
+		}
+		res.json({ message: 'Expired meetings deleted', totalDeleted });
+	} catch (err) {
+		res.status(500).json({ error: 'Server error', details: err.message });
+	}
+});
 
 
 
