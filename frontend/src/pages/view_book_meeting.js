@@ -126,20 +126,21 @@ const ViewBookMeeting = () => {
 					formattedDate = `${yyyy}-${mm}-${dd}`;
 				}
 			}
-			await bookMeeting({
-				faculty_id: popupData.faculty_id,
-				event: [
-					{
-						student_id: session.student_id,
-						date: formattedDate,
-						time,
-						type: popupData.type,
-						status: 0,
-					},
-				],
-			});
-			alert('Meeting booked successfully!');
-			closePopup();
+					await bookMeeting({
+						faculty_id: popupData.faculty_id,
+						event: [
+							{
+								student_id: session.student_id,
+								date: formattedDate,
+								time,
+								type: popupData.type,
+								status: 0,
+							},
+						],
+					});
+					alert('Meeting booked successfully!');
+					closePopup();
+					window.location.reload();
 		} catch (err) {
 			setError('Booking failed');
 		}

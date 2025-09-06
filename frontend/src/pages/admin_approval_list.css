@@ -1,3 +1,35 @@
+.approval-sort-menu {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.approval-sort-select {
+  background: #f3f4f6;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  color: #273992;
+  font-weight: 600;
+  outline: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.enlist-btn {
+  background: #273992;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: background 0.2s;
+}
+.enlist-btn:hover {
+  background: #1e2766;
+}
 
 .msg-field {
   display: flex;
