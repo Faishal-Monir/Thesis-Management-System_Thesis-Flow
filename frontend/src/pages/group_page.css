@@ -1,3 +1,28 @@
+/* Assign RA/TA button styling */
+.tp-button {
+   background: linear-gradient(135deg, #2f67d7, #3069ba);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  padding: 0.7rem 1.6rem;
+  margin-top: 10px;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.18);
+  transition: background 0.2s, transform 0.1s;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  z-index: 1;
+}
+.tp-button:hover {
+  background: linear-gradient(135deg, #23272f, #4b5563);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(36, 37, 38, 0.22);
+}
+.tp-button:active {
+  transform: translateY(0) scale(0.98);
+}
 /* /* General container */
 .group-page {
   font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
