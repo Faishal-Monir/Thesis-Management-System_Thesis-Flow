@@ -1,0 +1,41 @@
+.meeting-list {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.meeting-card {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  margin-bottom: 24px;
+  padding: 18px 22px;
+}
+.meeting-card h3 {
+  margin-top: 0;
+  color: #2d3a4b;
+}
+.meeting-card ul {
+  list-style: none;
+  padding: 0;
+}
+.meeting-card li {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+.book-btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+.book-btn:hover {
+  background: #0056b3;
+}

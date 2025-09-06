@@ -95,6 +95,7 @@ function Navbar() {
                     label: 'Groups',
                     dropdown: [
                       { to: '/groups', label: 'View / Manage Group' },
+                      { to: '/view_book_meeting', label: 'View/Book a Meeting' },
                     ],
                   },
                   {
@@ -158,7 +159,7 @@ function Navbar() {
               label: 'Profile',
               dropdown: [
                 { to: "/update_profile", label: 'Update Own Profile Info' },
-                // { to: '/profile', label: 'Update Research and Interest' },
+                { to: '/view_book_meeting', label: 'View Meetings' },
                 // { to: '/profile', label: 'User Research and interest' },
               ],
             },

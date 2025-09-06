@@ -28,8 +28,9 @@ import Feedback from './pages/submit_thesis_feedback';
 import ViewFeedback from './pages/view_feedback';
 import AssignResearch_help from './pages/assign_ra--ta';
 import Update from './pages/update_profile';
-
 import ThesisCorrection from './pages/thesis_correction';
+import View_book_meeting from './pages/view_book_meeting';
+
 
 
 
@@ -68,6 +69,8 @@ function App() {
         <Route path="/viewfeedback" element={<ViewFeedback />} />
         <Route path="/research_help" element={<AssignResearch_help />} />
         <Route path="/update_profile" element={<Update />} />
+        <Route path="/thesis_correction" element={<ThesisCorrection />} />
+        <Route path="/view_book_meeting" element={<View_book_meeting />} />
       </Routes>
     </div>
   );
