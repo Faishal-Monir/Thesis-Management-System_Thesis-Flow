@@ -1,0 +1,408 @@
+/* Professional CSS scoped for thesis_correction.js and thesis_defer.js components only */
+
+/* Main container - scoped to thesis management pages */
+.thesis-management-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin: 100px auto;
+  max-width: 800px;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  position: relative;
+  color: #1e293b;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.thesis-management-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%);
+  border-radius: 16px 16px 0 0;
+}
+
+/* Professional typography - scoped */
+.thesis-management-container h2 {
+  color: #1e293b !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 2rem !important;
+  text-align: center;
+  position: relative;
+  letter-spacing: -0.025em;
+}
+
+.thesis-management-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: #3b82f6;
+  border-radius: 1px;
+}
+
+.thesis-management-container h3 {
+  color: #374151 !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 1.5rem !important;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 8px;
+  border-left: 3px solid #3b82f6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Clean card design - scoped */
+.thesis-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.75rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.thesis-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: #e2e8f0;
+  border-radius: 12px 0 0 12px;
+  transition: all 0.3s ease;
+}
+
+.thesis-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e1;
+}
+
+.thesis-card:hover::before {
+  background: #3b82f6;
+}
+
+/* Admin cards - scoped */
+.thesis-admin-card {
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.thesis-admin-card:hover {
+  background: #f9fafb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.thesis-admin-small-card {
+  background: #fefefe;
+  border: 1px solid #f1f5f9;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.thesis-admin-small-card:hover {
+  background: #f9fafb;
+}
+
+/* Professional text styling - scoped */
+.thesis-management-container p {
+  color: #4b5563 !important;
+  line-height: 1.6;
+  margin-bottom: 0.75rem !important;
+  font-size: 0.95rem;
+}
+
+.thesis-management-container p strong {
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+}
+
+/* Clean button design - scoped */
+.thesis-btn {
+  font-weight: 500 !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 8px !important;
+  border: none !important;
+  cursor: pointer;
+  font-size: 0.9rem !important;
+  letter-spacing: 0.025em;
+  transition: all 0.2s ease;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-family: inherit;
+}
+
+.thesis-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.thesis-btn:active {
+  transform: translateY(0);
+}
+
+.thesis-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  animation: thesis-pulse 2s infinite;
+  transform: none !important;
+}
+
+/* Professional button variants - scoped */
+.thesis-btn-blue {
+  background: #3b82f6 !important;
+  color: white !important;
+}
+
+.thesis-btn-blue:hover:not(:disabled) {
+  background: #2563eb !important;
+}
+
+.thesis-btn-green {
+  background: #10b981 !important;
+  color: white !important;
+}
+
+.thesis-btn-green:hover:not(:disabled) {
+  background: #059669 !important;
+}
+
+.thesis-btn-red {
+  background: #ef4444 !important;
+  color: white !important;
+}
+
+.thesis-btn-red:hover:not(:disabled) {
+  background: #dc2626 !important;
+}
+
+.thesis-btn-block {
+  width: 100%;
+  margin-top: 1rem;
+  display: block;
+}
+
+/* Clean input styling - scoped */
+.thesis-input {
+  padding: 0.75rem 1rem !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 6px !important;
+  background: white !important;
+  color: #374151 !important;
+  font-size: 0.9rem !important;
+  transition: all 0.2s ease;
+  margin-right: 0.75rem;
+  margin-bottom: 0.5rem;
+  width: 200px;
+  font-family: inherit;
+}
+
+.thesis-input:focus {
+  outline: none !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+.thesis-input::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Professional message styling - scoped */
+.thesis-error {
+  background: #fef2f2 !important;
+  border: 1px solid #fecaca !important;
+  border-left: 4px solid #ef4444 !important;
+  color: #991b1b !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: 8px !important;
+  margin-bottom: 1.5rem !important;
+  font-weight: 500 !important;
+}
+
+.thesis-success {
+  background: #f0fdf4 !important;
+  border: 1px solid #bbf7d0 !important;
+  border-left: 4px solid #10b981 !important;
+  color: #065f46 !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: 8px !important;
+  margin-bottom: 1.5rem !important;
+  font-weight: 500 !important;
+}
+
+/* Professional status badges - scoped */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 0.5rem;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #f9d71c;
+}
+
+.status-approved {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #34d399;
+}
+
+.status-updated {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #60a5fa;
+}
+
+.status-rejected {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #f87171;
+}
+
+/* Admin container - scoped */
+.thesis-admin-container {
+  background: linear-gradient(135deg, #fafafa, #f8fafc);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* No data messages - scoped */
+.thesis-no-data {
+  text-align: center !important;
+  color: #64748b !important;
+  font-style: italic !important;
+  padding: 2rem !important;
+  background: #f8fafc !important;
+  border-radius: 8px !important;
+  border: 2px dashed #cbd5e1 !important;
+  margin: 1rem 0 !important;
+}
+
+/* Loading message - scoped */
+.thesis-loading {
+  text-align: center !important;
+  color: #64748b !important;
+  padding: 1.5rem !important;
+  font-size: 1.125rem !important;
+}
+
+/* Input container for inline inputs */
+.thesis-input-container {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Utility classes - scoped */
+.thesis-mr-6 {
+  margin-right: 1.5rem;
+}
+
+/* Professional divider */
+.thesis-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+  margin: 2rem 0;
+}
+
+/* Animation for loading states */
+@keyframes thesis-pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Focus styles for accessibility - scoped */
+.thesis-management-container .thesis-btn:focus-visible,
+.thesis-management-container .thesis-input:focus-visible {
+  outline: 2px solid #3b82f6 !important;
+  outline-offset: 2px !important;
+}
+
+/* Hover effects for status badges */
+.thesis-card:hover .status-badge {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* Responsive design - scoped */
+@media (max-width: 768px) {
+  .thesis-management-container {
+    margin: 20px 10px !important;
+    padding: 1.5rem !important;
+  }
+  
+  .thesis-admin-card,
+  .thesis-admin-small-card {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+  
+  .thesis-input {
+    width: 100% !important;
+    margin-right: 0 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .thesis-btn {
+    width: 100% !important;
+    margin-top: 0.5rem !important;
+  }
+  
+  .thesis-management-container h2 {
+    font-size: 1.75rem !important;
+  }
+  
+  .thesis-management-container h3 {
+    font-size: 1.125rem !important;
+  }
+  
+  .thesis-input-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
