@@ -1,3 +1,11 @@
+/* Heading style for Update Profile */
+.update-profile-title {
+	color: #273992;
+	font-weight: 700;
+	font-size: 2rem;
+	text-align: center;
+	margin-bottom: 2rem;
+}
 /* Update Profile Page Styles */
 .update-profile-container {
 	max-width: 400px;

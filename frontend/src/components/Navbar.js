@@ -199,8 +199,8 @@ function Navbar() {
           label: 'Thesis And Group Management',
           dropdown: [
             { to: '/thesis_correction', label: 'Thesis Correction Request' },
-            { to: '/#', label: 'Update/Delete Thesis Group<TBA>' },
-            { to: '/#', label: 'Create New Thesis Domain' },
+            // { to: '/#', label: 'Update/Delete Thesis Group<TBA>' },
+            // { to: '/#', label: 'Create New Thesis Domain' },
             { to: '/thesis_defer', label: 'Thesis Defer Request' }
           ],
         },
@@ -208,14 +208,14 @@ function Navbar() {
          {
           label: 'User Management',
           dropdown: [
-            { to: '/#', label: 'Show User Info<TBA>' },
-            { to: '/#', label: 'Update Information<TBA>' },
-            { to: '/#', label: 'Reset Password' },
-            { to: '/#', label: 'Send Email to User' },
-            { to: '/#', label: 'Send Central Email'},
+            // { to: '/#', label: 'Show User Info<TBA>' },
+            // { to: '/#', label: 'Update Information<TBA>' },
+            // { to: '/#', label: 'Reset Password' },
+            { to: "/central_mail", label: 'Send Central Mail' },
           ],
         },
 
+        
         { to: "/update_profile", label: 'Update Own Profile Info' },
 
         // { to: '/resources', label: 'Resources' },
@@ -244,7 +244,7 @@ function Navbar() {
           </a>
           <div className="navbar-links">
             <Link to="/" className="navbar-link login">Home</Link>
-            <a href="#" className="navbar-link">Thesis Supervisors</a>
+            {/* <a href="#" className="navbar-link">Thesis Supervisors</a> */}
             <a href="https://www.bracu.ac.bd/academic-dates" className="navbar-link" target="_blank" rel="noopener noreferrer">Academic Calendar</a>
             <a href="https://www.bracu.ac.bd/contact" className="navbar-link" target="_blank" rel="noopener noreferrer">Contact</a>
             <Link to="/synopsis" className="navbar-link login">Synopsis</Link>
