@@ -65,7 +65,6 @@ function AdminApprovalList() {
     );
   }
 
-  // Sort approvals by specific types if selected
   let sortedApprovals = approvals;
   if (sortType === 'domain_enlistment') {
     sortedApprovals = approvals.filter(a => a.type === 'domain_enlistment');
