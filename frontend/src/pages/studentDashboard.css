@@ -1,40 +1,16 @@
-/* Background Setup */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
+
+.dashboard-container {
+  min-height: 100vh;
   background-image: url('./BG.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
-  opacity: 0.15;
-}
-
-/* Main Container */
-.dashboard-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
   position: relative;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Subtle Background Pattern */
-.dashboard-background-pattern {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at 25px 25px, rgba(71, 85, 105, 0.02) 2px, transparent 0),
-    radial-gradient(circle at 75px 75px, rgba(71, 85, 105, 0.02) 2px, transparent 0);
-  background-size: 100px 100px;
-  opacity: 0.4;
-}
 
-/* Dashboard Content */
 .dashboard-content {
   position: relative;
   z-index: 10;
@@ -43,7 +19,7 @@ body::before {
   padding: 6rem 2rem 2rem 2rem;
 }
 
-/* Loading State */
+
 .dashboard-loading {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
@@ -78,7 +54,7 @@ body::before {
 }
 
 .dashboard-icon {
-  display: none; /* Remove decorative icon for professional look */
+  display: none;
 }
 
 .dashboard-title {
