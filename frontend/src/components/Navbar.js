@@ -159,7 +159,7 @@ function Navbar() {
               label: 'Profile',
               dropdown: [
                 { to: "/update_profile", label: 'Update Own Profile Info' },
-                { to: '/view_book_meeting', label: 'View Meetings' },
+                { to: '//view_approve_meeting', label: 'View/Approve Meetings' },
                 // { to: '/profile', label: 'User Research and interest' },
               ],
             },
