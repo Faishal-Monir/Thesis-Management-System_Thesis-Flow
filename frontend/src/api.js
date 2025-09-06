@@ -208,8 +208,13 @@ export const updateMeetingStatus = (faculty_id, student_id, statusData) =>
 // Delete expired meetings (events before today)
 export const deleteExpiredMeetings = () => api.delete('/meeting/expired');
 
+// api for central mail
+export const sendCentralMail = (subject, msg) =>
+  api.post('/email/toall', { subject, msg });
 
-
+// API for domain enlistment
+export const enlistDomain = (domain_subject) =>
+  api.post('/domain/enlist', { domain_subject });
 
 
 

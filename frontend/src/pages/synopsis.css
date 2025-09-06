@@ -1,3 +1,75 @@
+
+.synopsis-searchbar-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  margin-top: -2rem;
+}
+.synopsis-searchbar-box {
+  display: flex;
+  align-items: center;
+  /* background: #f7f3ee; */
+  /* border: 2px solid #444c5c; */
+  border-radius: 5px;
+  max-width: 400px;
+
+  width: 100%;
+  padding: 0.2rem 0.2rem 0.2rem 0.7rem;
+  box-sizing: border-box;
+  position: relative;
+}
+.synopsis-search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #444c5c;
+  margin-right: 0.3rem;
+}
+.synopsis-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.08rem;
+  padding: 0.4rem 0.5rem;
+  color: #444c5c;
+}
+.synopsis-search-btn {
+  bottom: 4px;
+  padding: 0.4rem 1.1rem;
+  border-radius: 7px;
+  background: #444c5c;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  margin-left: 0.3rem;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  box-shadow: none;
+}
+
+.synopsis-avatar-img {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  border-radius: 50%;
+}
+.synopsis-avatar-img-el {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
 body, html {
   height: 100%;
   min-height: 100%;

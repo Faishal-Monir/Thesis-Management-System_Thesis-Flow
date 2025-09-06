@@ -93,7 +93,7 @@ const UpdateProfile = ({ sessionData, setSessionData }) => {
 
     return (
         <div className="update-profile-container">
-            <h2>Update Profile</h2>
+            <h2 className="update-profile-title">Update Profile</h2>
             <form className="update-profile-form" onSubmit={handleSubmit}>
                 <label>Name:</label>
                 <input type="text" name="Name" value={form.Name} onChange={handleChange} required />

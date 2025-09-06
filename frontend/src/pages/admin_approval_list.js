@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './admin_approval_list.css';
-import { getApprovalList } from '../api';
+import { getApprovalList, enlistDomain } from '../api';
+
 
 function AdminApprovalList() {
   const [approvals, setApprovals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [copiedId, setCopiedId] = useState(null);
+  const [sortType, setSortType] = useState('');
 
-  useEffect(() => {
+  // Function to fetch approval list
+  const fetchApprovals = () => {
     const session = JSON.parse(localStorage.getItem('session') || '{}');
     const isAdmin = session?.usr_type === 'Admin';
 
@@ -27,6 +30,12 @@ function AdminApprovalList() {
         setError('Failed to fetch approval list.');
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchApprovals();
+    const interval = setInterval(fetchApprovals, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const handleCopy = async (value, key) => {
@@ -56,12 +65,32 @@ function AdminApprovalList() {
     );
   }
 
+  let sortedApprovals = approvals;
+  if (sortType === 'domain_enlistment') {
+    sortedApprovals = approvals.filter(a => a.type === 'domain_enlistment');
+  } else if (sortType === 'login') {
+    sortedApprovals = approvals.filter(a => a.type === 'login');
+  }
+
   return (
     <div className="admin-approval-page">
-      <h2 className="admin-approval-title">Admin Approval List</h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <h2 className="admin-approval-title">Admin Approval List</h2>
+        <div className="approval-sort-menu">
+          <select
+            className="approval-sort-select"
+            value={sortType}
+            onChange={e => setSortType(e.target.value)}
+          >
+            <option value="">Show All Types</option>
+            <option value="domain_enlistment">Show Only Domain Enlistment</option>
+            <option value="login">Show Only Login</option>
+          </select>
+        </div>
+      </div>
 
       <div className="approval-card-list">
-        {approvals.map((app) => {
+        {sortedApprovals.map((app) => {
           const isActive = Number(app.status) === 1;
           const cardKey = app._id || app.sup_id;
           const isCopied = copiedId === cardKey;
@@ -105,6 +134,27 @@ function AdminApprovalList() {
                     </div>
                   </div>
                 )}
+            
+                {app.type === 'domain_enlistment' && (
+                  <div style={{ marginTop: '1rem', textAlign: 'right' }}>
+                    <button
+                      className="enlist-btn"
+                      type="button"
+                      onClick={async () => {
+                        try {
+                          await enlistDomain(app.msg || '');
+                          alert('Domain enlisted successfully!');
+                          fetchApprovals();
+                        } catch (err) {
+                          alert('Failed to enlist domain.');
+                          fetchApprovals();
+                        }
+                      }}
+                    >
+                      Enlist
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div className="approval-card-footer">
@@ -117,7 +167,7 @@ function AdminApprovalList() {
           );
         })}
 
-        {approvals.length === 0 && (
+        {sortedApprovals.length === 0 && (
           <div className="approval-empty">No approvals found.</div>
         )}
       </div>
