@@ -212,6 +212,10 @@ export const deleteExpiredMeetings = () => api.delete('/meeting/expired');
 export const sendCentralMail = (subject, msg) =>
   api.post('/email/toall', { subject, msg });
 
+// API for domain enlistment
+export const enlistDomain = (domain_subject) =>
+  api.post('/domain/enlist', { domain_subject });
+
 
 
 

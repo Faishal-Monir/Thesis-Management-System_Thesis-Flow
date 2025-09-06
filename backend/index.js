@@ -130,5 +130,9 @@ app.use('/', Faculty_meeting);
 
 
 
+// New domain creation route
+const newDomainRouter = require('./routes/new_domain_enlistment');
+app.use('/domain', newDomainRouter);
+
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
