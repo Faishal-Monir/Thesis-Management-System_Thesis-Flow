@@ -28,7 +28,18 @@ const sendThesisRegistrationEmail = async (recipients, emailData) => {
   }
 
   const { groupId, supervisorId, topic, abstract, thesisId } = emailData;
-  
+
+  // Fetch supervisor name from Userdata
+  let supervisorName = supervisorId;
+  try {
+    const supervisor = await Userdata.findOne({ student_id: supervisorId });
+    if (supervisor && supervisor.Name) {
+      supervisorName = supervisor.Name;
+    }
+  } catch (e) {
+    // fallback: use supervisorId only
+  }
+
   const subject = `Thesis Registration Successful - Group ID ${groupId}`;
   const message = `
     Dear Team,
@@ -39,6 +50,7 @@ const sendThesisRegistrationEmail = async (recipients, emailData) => {
     • Group ID: ${groupId}
     • Thesis ID: ${thesisId}
     • Supervisor ID: ${supervisorId}
+      Supervisor Name: ${supervisorName}
     • Topic: ${topic}
     • Abstract: ${abstract}
 
@@ -52,11 +64,11 @@ const sendThesisRegistrationEmail = async (recipients, emailData) => {
     // Determine if it's a student or faculty email for personalized greeting
     const isStudent = email.endsWith('@g.bracu.ac.bd');
     const isFaculty = email.endsWith('@bracu.ac.bd');
-    
+
     let greeting = 'Dear Team Member';
     if (isStudent) greeting = 'Dear Student';
     if (isFaculty) greeting = 'Dear Faculty';
-    
+
     return emailTransporter.sendMail({
       from: process.env.EMAIL_USER || 'cse471project@gmail.com',
       to: email,
@@ -74,6 +86,7 @@ const sendThesisRegistrationEmail = async (recipients, emailData) => {
               <li style="padding: 5px 0;"><strong>Group ID:</strong> ${groupId}</li>
               <li style="padding: 5px 0;"><strong>Thesis ID:</strong> ${thesisId}</li>
               <li style="padding: 5px 0;"><strong>Supervisor ID:</strong> ${supervisorId}</li>
+              <li style="padding: 5px 0;"><strong>Supervisor Name:</strong> ${supervisorName}</li>
               <li style="padding: 5px 0;"><strong>Topic:</strong> ${topic}</li>
               <li style="padding: 5px 0;"><strong>Abstract:</strong> ${abstract}</li>
             </ul>

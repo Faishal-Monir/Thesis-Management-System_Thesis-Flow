@@ -47,7 +47,7 @@ const ViewApproveMeetingFaculty = () => {
 							setLoading(false);
 						})
 						.catch(() => {
-							setError('Failed to fetch meetings');
+							// setError('Failed to fetch meetings');
 							setLoading(false);
 						});
 				});

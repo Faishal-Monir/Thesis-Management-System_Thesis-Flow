@@ -38,7 +38,7 @@ function LoginApprove() {
           subject: 'Your account is approved',
           msg: `Thank you for registering in our Thesis Management System your account is now approved.\nYou can login by simply going to the following Link: \n\n${process.env.REACT_APP_FRONTEND_BASE_URL}/login`
         });
-        setSuccess('Approval successful! Email sent.');
+        setSuccess('');
       } else {
         setSuccess('Approval successful!');
       }
@@ -76,6 +76,8 @@ function LoginApprove() {
               <option value="Faculty">Faculty</option>
               <option value="Ra">Ra</option>
               <option value="Ta">Ta</option>
+              <option value="Admin">Admin-[!!Beaware!!]</option>
+
             </select>
           </div>
           <div className="login-approve-field">
