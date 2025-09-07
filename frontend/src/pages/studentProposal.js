@@ -111,6 +111,7 @@ const StudentProposal = () => {
       console.error("Error fetching proposals:", err);
     }
   };
+  
 
   const fetchUserNames = async (proposalsData) => {
     // Collect all updated_by faculty IDs
@@ -169,7 +170,7 @@ const StudentProposal = () => {
       return;
     }
 
-    try {
+    try {                                    
       await createProposal({
         student_id: loggedStudentId,
         domain,
@@ -210,6 +211,24 @@ const StudentProposal = () => {
       setEditIndex(null);
       setEditDomain("");
       setEditIdea("");
+      
+      if (userType === "Faculty") {
+        fetchProposalsForFaculty(loggedStudentId);
+      } else {
+        fetchProposals();
+      }
+    } catch (err) {
+      showToastMessage(err.response?.data?.error || err.message);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this proposal? This action cannot be undone.");
+    if (!isConfirmed) return;
+
+    try {
+      await deleteProposal(id);
+      showToastMessage("Proposal deleted successfully.");
       
       if (userType === "Faculty") {
         fetchProposalsForFaculty(loggedStudentId);
@@ -440,15 +459,22 @@ const StudentProposal = () => {
                           </p>
                         </div>
                       )}
-                      {p.status === 'Pending' && (
-                        <button className="btn update-btn" onClick={() => {
-                          setEditIndex(index);
-                          setEditDomain(p.domain);
-                          setEditIdea(p.idea);
-                        }}>
-                          Update
-                        </button>
-                      )}
+                      <div className="button-group">
+                        {p.status === 'Pending'  && (
+                          <button className="btn update-btn" onClick={() => {
+                            setEditIndex(index);
+                            setEditDomain(p.domain);
+                            setEditIdea(p.idea);
+                          }}>
+                            Update
+                          </button>
+                        )}
+                        {(!p.updated_by?.faculty_id || p.status === 'Rejected') && (
+                          <button className="btn delete-btn" onClick={() => handleDelete(p._id)}>
+                            Delete
+                          </button>
+                        )}
+                      </div>
                     </>
                   )}
                 </div>

@@ -364,7 +364,7 @@ body {
   max-width: 450px;
   padding: 0.875rem 1rem;
   font-size: 1rem;
-  border: 2px solid var(--border-color);
+  border: 3px solid var(--border-color);
   border-radius: var(--border-radius);
   margin-bottom: 1rem;
   transition: var(--transition);
@@ -696,4 +696,44 @@ select.edit-input {
 
 .ml-4 {
   margin-left: 1rem;
+}
+
+/* Delete Button Styles */
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  margin-left: 8px;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+.delete-btn:active {
+  background-color: #bd2130;
+  transform: translateY(1px);
+}
+
+.delete-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+}
+
+/* Button group to ensure proper spacing */
+.button-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.button-group .btn {
+  margin: 0; /* Reset any existing margins */
 }

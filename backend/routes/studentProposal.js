@@ -3,7 +3,7 @@ const router = express.Router();
 const { StudentProposal } = require('../models/schemas');
 
 
-// POST /students/propose – Student submits proposal
+// POST httpslocalhost5000/students/propose – Student submits proposal
 router.post('/propose', async (req, res) => {
   const { student_id, domain, idea } = req.body;
 
@@ -51,7 +51,7 @@ router.get('/propose', async (req, res) => {
   }
 });
 
-// GET /students/propose/:id – Get single proposal by ID
+// GET httpslocalhost5000/students/propose/:id – Get single proposal by ID
 router.get('/propose/:id', async (req, res) => {
   try {
     const proposal = await StudentProposal.findById(req.params.id);
