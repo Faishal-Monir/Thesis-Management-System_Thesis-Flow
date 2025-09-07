@@ -1,0 +1,228 @@
+/* Unique Submit Feedback Page Custom CSS */
+.submit-feedback-page-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: #f8fafc; */
+}
+
+.submit-feedback-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 440px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit-feedback-title {
+  color: #273992;
+  font-size: 2.1rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.submit-feedback-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.submit-feedback-label {
+  color: #273992;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  align-self: flex-start;
+}
+
+.submit-feedback-textarea {
+  width: 100%;
+  min-height: 120px;
+  max-height: 300px;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px solid #273992;
+  font-size: 1.08rem;
+  background: #f8fafc;
+  color: #000000;
+  box-shadow: 0 2px 8px rgba(39,57,146,0.07);
+  margin-bottom: 1.5rem;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.submit-feedback-textarea:focus {
+  border-color: #1e2a6f;
+  box-shadow: 0 0 0 2px rgba(39,57,146,0.10);
+}
+
+.submit-feedback-btn {
+  width: 100%;
+  background: #273992;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.15rem;
+  border-radius: 10px;
+  border: none;
+  padding: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+.submit-feedback-btn:hover {
+  background: #1e2a6f;
+}
+.submit-feedback-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.submit-feedback-error {
+  color: #ef4444;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.submit-feedback-success {
+  color: #166534;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.update-domain-search-wrapper {
+  position: relative;
+}
+.update-domain-suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 0 0 8px 8px;
+  max-height: 160px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.update-domain-suggestion-item {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.update-domain-suggestion-item:hover {
+  background: #f3f4f6;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+:root {
+  --navbar-h: 72px;
+}
+
+.update-domain-page {
+  min-height: calc(100vh - var(--navbar-h));
+  display: grid;
+  place-items: center;
+  padding: 0 1rem;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.update-domain-container {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+}
+
+.update-domain-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: #273992;
+  text-align: center;
+}
+
+.update-domain-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.update-domain-label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.update-domain-input {
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  background: #f3f4f6;
+}
+
+.update-domain-btn {
+  background: #273992;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-radius: 8px;
+  border: none;
+  padding: 0.7rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: background 0.15s ease;
+}
+
+.update-domain-btn:hover:not(:disabled) {
+  background: #1f2e78;
+}
+.update-domain-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.update-domain-error,
+.update-domain-success {
+  font-weight: 500;
+  text-align: center;
+  padding: 0.5rem 0.25rem;
+  border-radius: 8px;
+}
+
+.update-domain-error {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.update-domain-success {
+  color: #166534;
+  background: #dcfce7;
+}
+
+@media (max-width: 640px) {
+  .update-domain-container {
+    padding: 1.25rem;
+  }
+}

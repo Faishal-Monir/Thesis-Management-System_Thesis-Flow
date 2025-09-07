@@ -30,6 +30,25 @@ export default function ViewFeedback() {
     fetchFeedback();
   }, [groupId, stage]);
 
+  useEffect(() => {
+    // Log all stylesheets loaded in the document
+    console.log("Loaded stylesheets:");
+    Array.from(document.styleSheets).forEach((sheet, i) => {
+      console.log(i, sheet.href || "[inline]", sheet);
+    });
+
+    // Log computed styles for the feedback card
+    setTimeout(() => {
+      const card = document.querySelector(".feedback-card");
+      if (card) {
+        const styles = window.getComputedStyle(card);
+        console.log("Computed styles for .feedback-card:", styles);
+      } else {
+        console.warn(".feedback-card not found in DOM");
+      }
+    }, 1000);
+  }, []);
+
   const handleGoBack = () => {
   localStorage.removeItem("Group_id");
   localStorage.removeItem("stage");
@@ -37,24 +56,23 @@ export default function ViewFeedback() {
   };
 
   return (
-    <div className="update-domain-page">
-      <div className="update-domain-container">
-        <h2 className="update-domain-title">Thesis Feedback</h2>
+    <div className="feedback-page-bg">
+      <div className="feedback-card">
+        <h2 className="feedback-title">Thesis Feedback</h2>
         {loading ? (
-          <div className="update-domain-error">Loading feedback...</div>
+          <div className="feedback-error">Loading feedback...</div>
         ) : error ? (
-          <div className="update-domain-error">{error}</div>
+          <div className="feedback-error">{error}</div>
         ) : (
           <>
             <textarea
-              className="update-domain-input"
+              className="feedback-textarea"
               value={feedback}
               readOnly
-              rows={5}
-              style={{ marginBottom: "1rem" }}
+              rows={7}
             />
             <button
-              className="update-domain-btn"
+              className="feedback-btn"
               onClick={handleGoBack}
             >
               Go Back

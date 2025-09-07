@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./submit_thesis_feedback.css";
-import "./update_domain.css";
 import { updateThesisFeedbackAPI } from "../api";
 
 export default function SubmitThesisFeedback() {
@@ -16,10 +15,10 @@ export default function SubmitThesisFeedback() {
 
   if (!session || session.usr_type !== "Faculty") {
     return (
-      <div className="update-domain-page">
-        <div className="update-domain-container">
-          <h2 className="update-domain-title">Submit Thesis Feedback</h2>
-          <div className="update-domain-error">Access denied. Only faculty can submit feedback.</div>
+      <div className="submit-feedback-page-bg">
+        <div className="submit-feedback-card">
+          <h2 className="submit-feedback-title">Submit Thesis Feedback</h2>
+          <div className="submit-feedback-error">Access denied. Only faculty can submit feedback.</div>
         </div>
       </div>
     );
@@ -63,14 +62,14 @@ export default function SubmitThesisFeedback() {
   };
 
   return (
-    <div className="update-domain-page">
-      <div className="update-domain-container">
-        <h2 className="update-domain-title">Submit Thesis Feedback</h2>
-        <form className="update-domain-form" onSubmit={handleSubmit}>
-          <label className="update-domain-label" htmlFor="feedback">Feedback for {stage}:</label>
+    <div className="submit-feedback-page-bg">
+      <div className="submit-feedback-card">
+        <h2 className="submit-feedback-title">Submit Thesis Feedback</h2>
+        <form className="submit-feedback-form" onSubmit={handleSubmit}>
+          <label className="submit-feedback-label" htmlFor="feedback">Feedback for {stage}:</label>
           <textarea
             id="feedback"
-            className="update-domain-input"
+            className="submit-feedback-textarea"
             rows={5}
             value={feedback}
             onChange={e => setFeedback(e.target.value)}
@@ -79,13 +78,13 @@ export default function SubmitThesisFeedback() {
           />
           <button
             type="submit"
-            className="update-domain-btn"
+            className="submit-feedback-btn"
             disabled={loading || !feedback.trim()}
           >
             {loading ? "Submitting..." : "Submit Feedback"}
           </button>
-          {error && <div className="update-domain-error">{error}</div>}
-          {success && <div className="update-domain-success">{success}</div>}
+          {error && <div className="submit-feedback-error">{error}</div>}
+          {success && <div className="submit-feedback-success">{success}</div>}
         </form>
       </div>
     </div>
