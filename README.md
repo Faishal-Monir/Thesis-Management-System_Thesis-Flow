@@ -1,4 +1,8 @@
-﻿# CSE 471 - Thesis Management System
+﻿<h1 align="center"> CSE 471 - Thesis Management System </h1>
+
+![System Overlay](./Screenshot1.png)
+![System Overlay](./Screenshot2.png)
+ 
 
 ![Course](https://img.shields.io/badge/Course-CSE%20471-blue)
 ![Stack](https://img.shields.io/badge/Stack-MERN-0aa6a6)
